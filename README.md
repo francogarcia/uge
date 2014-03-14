@@ -4,19 +4,19 @@ A game engine for UA-Games.
 ## Summary
 
 UGE is a game engine designed to ease the development of UA-Games. UA-Games follow the principles of the Design for All, aiming to enable as many users as possible, regardless of their (dis)abilities, to play.
-A good introduction to UA-Games is available at: < http://www.gamasutra.com/view/feature/1764/unified_design_of_universally_.php>.
+A good introduction to UA-Games is available at: <http://www.gamasutra.com/view/feature/1764/unified_design_of_universally_.php>.
 
 UGE uses many of the Game Coding Complete 4 game engine features (described in McShaffry and Graham’s book Game Coding Complete 4) combined with several open-source libraries to create a cohesive framework to develop UA-Games.
 The engine’s architecture and overall approach is described in the Documentation.
 
-UGE is a work in progress and, therefore, might is experimental and might be unstable.
+UGE is a work in progress and, therefore, is experimental and might be unstable.
 
 ## Getting Started
 
 To start using UGE:
 
 1. Download the source code from the repository;
-2. Download the release files 'UGE-Dependencies.zip' and 'UGE-GameData.zip';
+2. Download the release files 'UGE-Dependencies.zip' and 'UGE-GameData.zip' from <https://github.com/francogarcia/uge/releases/tag/v0.1-alpha>;
 3. Extract the files from (2) into the root of the source code directory. Merge them to existing files if necessary;
 4. Open the project's solution file under 'source/UGE_VS2012.sln' with Visual C++ or Visual Studio 2012 or newer. The precompiled libraries from (2) only work with version 2012, though;
 5. Compile the project.
