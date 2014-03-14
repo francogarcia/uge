@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graphics resource="data/config/player_profiles/average_user/graphics.xml">
+  <Window width="1024" height="768" pixel_depth="32" vsync="false" fullscreen="false" />
+  <Renderer name="OpenGL Rendering Subsystem"/>
+  <!-- Other options:
+       Direct3D9 Rendering Subsystem
+       Direct3D10 Rendering Subsystem
+       Direct3D11 Rendering Subsystem
+       OpenGL Rendering Subsystem
+       OpenGL ES 1.x Rendering Subsystem
+  -->
+  <Text>
+    <Font resource="font_name" size="10" />
+    <Subtitles enabled="false" />
+  </Text>
+</Graphics>

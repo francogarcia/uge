@@ -1,0 +1,16 @@
+Useful Breakpoints for Lua Scripts
+
+------------------------------------------------------------------------------------------
+
+ScriptTask.cpp
+LuaPlus::LuaObject ScriptTask::CreateFromScript(LuaPlus::LuaObject self, LuaPlus::LuaObject constructionData, LuaPlus::LuaObject originalSubClass)
+
+------------------------------------------------------------------------------------------
+
+ScriptExports.cpp
+bool InternalScriptExports::LoadAndExecuteScriptResource(const char* pScriptResource)
+
+void InternalScriptExports::AttachScriptTask(LuaPlus::LuaObject scriptTask)
+
+------------------------------------------------------------------------------------------
+

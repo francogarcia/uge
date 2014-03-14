@@ -1,0 +1,146 @@
+/**
+ * @file Task.cpp
+ *  This file's implementation is based on the text and source code of
+ * the book Game Coding Complete, 4th edition, by Mike McShaffry (Mr. Mike)
+ * David Graham (Rez).
+ *  The original source code of the book is licensed under the GNU Lesser General
+ * Public License, version 3.0 <http://www.gnu.org/licenses/lgpl-3.0.txt>.
+ */
+
+#include "GameEngineStd.h"
+
+#include "Task.h"
+
+namespace uge
+{
+
+    Task::Task() : m_State(Task::TaskState::Uninitialized),
+        m_pChild(nullptr)
+    {
+
+    }
+
+    Task::~Task()
+    {
+        if (m_pChild)
+        {
+            m_pChild->vOnAbort();
+        }
+    }
+
+    void Task::Succeed()
+    {
+        assert(IsAlive() && "Task wasn't running or paused!");
+
+        m_State = Task::TaskState::Succeeded;
+    }
+
+    void Task::Fail()
+    {
+        assert(IsAlive() && "Task wasn't running or paused!");
+
+        m_State = Task::TaskState::Failed;
+    }
+
+    void Task::Pause()
+    {
+        if (m_State == Task::TaskState::Running)
+        {
+            m_State = Task::TaskState::Paused;
+        }
+    }
+
+    void Task::UnPause()
+    {
+        if (m_State == Task::TaskState::Paused)
+        {
+            m_State = Task::TaskState::Running;
+        }
+    }
+
+    const Task::TaskState Task::GetState() const
+    {
+        return m_State;
+    }
+
+    void Task::SetState(Task::TaskState newState)
+    {
+        m_State = newState;
+    }
+
+    bool Task::IsAlive() const
+    {
+        return (m_State == Task::TaskState::Running ||
+                m_State == Task::TaskState::Paused);
+    }
+
+    bool Task::IsDead() const
+    {
+        return (m_State == Task::TaskState::Succeeded ||
+                m_State == Task::TaskState::Failed ||
+                m_State == Task::TaskState::Aborted);
+    }
+
+    bool Task::IsRemoved() const
+    {
+        return (m_State == Task::TaskState::Removed);
+    }
+
+    bool Task::IsPaused() const
+    {
+        return (m_State == Task::TaskState::Paused);
+    }
+
+    void Task::AttachChild(TaskSharedPointer pChild)
+    {
+        assert(pChild != nullptr && "Invalid child!");
+
+        if (m_pChild)
+        {
+            m_pChild->AttachChild(pChild);
+        }
+        else
+        {
+            m_pChild = pChild;
+        }
+    }
+
+    TaskSharedPointer Task::RemoveChild()
+    {
+        if (m_pChild != nullptr)
+        {
+            TaskSharedPointer pChild = m_pChild;
+            m_pChild.reset();
+
+            return pChild;
+        }
+
+        return TaskSharedPointer();
+    }
+
+    TaskSharedPointer Task::PeekChild()
+    {
+        return m_pChild;
+    }
+
+    void Task::vOnInit()
+    {
+        m_State = Task::TaskState::Running;
+    }
+
+    void Task::vOnSuccess()
+    {
+
+    }
+
+    void Task::vOnFail()
+    {
+
+    }
+
+    void Task::vOnAbort()
+    {
+
+    }
+
+}

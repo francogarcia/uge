@@ -1,0 +1,30 @@
+Prefixes:
+
+Variables:
+
+global: g_
+static: s_
+
+constants: kCONSTANT_NAME
+
+attribute: m_
+
+pointer: p
+reference: r
+float: f
+double: ff
+string: s
+
+vector: v?
+matrix: m?
+iterator: it?
+
+array / vector: a
+map: d (dictionary)
+
+Functions, Methods, Functors:
+names: FunctionName()
+virtual method: v
+
+AStyle:
+--style=allman --indent=spaces=4 --min-conditional-indent=0 --max-instatement-indent=120 --align-pointer=type --align-reference=type --indent-switches --indent-namespaces --indent-labels --indent-preprocessor --indent-col1-comments --pad-oper --pad-header --unpad-paren --add-brackets --close-templates --max-code-length=200 --mode=c

@@ -1,0 +1,1083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameEngineStd.cpp" />
+    <ClCompile Include="Utilities\Util.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Debug\Logger.cpp">
+      <Filter>Utilities\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Matrix.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\PrimeSearch.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\RandomNumberGenerator.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Rect.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\File\File.cpp">
+      <Filter>Utilities\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\File\XMLFile.cpp">
+      <Filter>Utilities\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\File\ZipFile.cpp">
+      <Filter>Utilities\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\String\StringUtil.cpp">
+      <Filter>Utilities\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\System\Clock.cpp">
+      <Filter>Utilities\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\System\SystemInformation.cpp">
+      <Filter>Utilities\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\System\Time.cpp">
+      <Filter>Utilities\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Entity\Actor.cpp">
+      <Filter>Core\EntityComponent\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Entity\ActorFactory.cpp">
+      <Filter>Core\EntityComponent\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Events\DefaultEvents.cpp">
+      <Filter>Core\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Events\Event.cpp">
+      <Filter>Core\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Events\EventManager.cpp">
+      <Filter>Core\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Events\IEventManager.cpp">
+      <Filter>Core\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Collision\BoxCollisionShape.cpp">
+      <Filter>Core\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Collision\SphereCollisionShape.cpp">
+      <Filter>Core\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\PhysicsEvents.cpp">
+      <Filter>Core\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Resource\FileSystem.cpp">
+      <Filter>Core\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Resource\Resource.cpp">
+      <Filter>Core\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Resource\ResourceCache.cpp">
+      <Filter>Core\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Resource\XMLResource.cpp">
+      <Filter>Core\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Resource\ZipFileResource.cpp">
+      <Filter>Core\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\IScriptManager.cpp">
+      <Filter>Core\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\LuaStateManager.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptEvent.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptEventListener.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptExports.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptResource.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptTask.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Task\TaskManager.cpp">
+      <Filter>Core\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Task\Task.cpp">
+      <Filter>Core\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Task\DefaultTasks\TimeDelayTask.cpp">
+      <Filter>Core\Task\DefaultTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\GameState\BaseGameState.cpp">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\BaseGameLogic.cpp">
+      <Filter>Engine\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\IGameLogic.cpp">
+      <Filter>Engine\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameView\GameView.cpp">
+      <Filter>Engine\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameView\IGameView.cpp">
+      <Filter>Engine\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\SoundEffects\SoundEffectTasks.cpp">
+      <Filter>IO\Output\Audio\SoundEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Audio.cpp">
+      <Filter>IO\Output\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\AudioResource.cpp">
+      <Filter>IO\Output\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\AudioTask.cpp">
+      <Filter>IO\Output\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\UserInterface\Window.cpp">
+      <Filter>IO\Output\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameApplication\BaseGameApplication.cpp">
+      <Filter>Engine\GameApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameApplication\GameApplication.cpp">
+      <Filter>Engine\GameApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\AudioBuffer.cpp">
+      <Filter>IO\Output\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\YSEAudio.cpp">
+      <Filter>IO\Output\Audio\Implementation\YSE</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\YSEAudioBuffer.cpp">
+      <Filter>IO\Output\Audio\Implementation\YSE</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudio.cpp">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioBuffer.cpp">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\AudioTypes.cpp">
+      <Filter>IO\Output\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\YSEAudioResource.cpp">
+      <Filter>IO\Output\Audio\Implementation\YSE</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioResource.cpp">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Graphics\GraphicalResource.cpp">
+      <Filter>IO\Output\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Graphics\Graphics.cpp">
+      <Filter>IO\Output\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Vector.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Quaternion.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Frustum.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Plane.cpp">
+      <Filter>Utilities\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\OgreGraphics.cpp">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Conversion\OgreMathConversion.cpp">
+      <Filter>Utilities\Math\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\CameraNode.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\IScene.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\ISceneNode.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Scene.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\SceneNode.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\SceneNodeProperties.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\ISceneRenderer.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\IOutput.cpp">
+      <Filter>IO\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreSceneRenderer.cpp">
+      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\ActorComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\IAuditoryComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\IGraphicalComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\IPhysicsComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\IRenderableComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\MoveableComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\OgreGraphicalComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\OpenALSoftAudioComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneRenderer.cpp">
+      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\YSE\YSESceneRenderer.cpp">
+      <Filter>Core\Scene\Implementation\YSE</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\ISceneNodeRenderer.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreSceneNodeRenderer.cpp">
+      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreCamera.cpp">
+      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneNodeRenderer.cpp">
+      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.cpp">
+      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameSystem\InputSystem.cpp">
+      <Filter>Engine\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameSystem\ResourceSystem.cpp">
+      <Filter>Engine\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameSystem\OutputSystem.cpp">
+      <Filter>Engine\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\YSE\YSECamera.cpp">
+      <Filter>Core\Scene\Implementation\YSE</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\Implementation\YSE\YSESceneNodeRenderer.cpp">
+      <Filter>Core\Scene\Implementation\YSE</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Conversion\YSEMathConversion.cpp">
+      <Filter>Utilities\Math\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\IPhysics.cpp">
+      <Filter>Core\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\BulletPhysics.cpp">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Implementation\NullPhysics\NullPhysics.cpp">
+      <Filter>Core\Physics\Implementation\NullPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\PhysicsMaterial.cpp">
+      <Filter>Core\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Conversion\BulletMathConversion.cpp">
+      <Filter>Utilities\Math\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\ActorMotionState.cpp">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\TransformableComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsBoxComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsSphereComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\BulletDebugDrawer.cpp">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\DynamicLineDrawer.cpp">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Command\GameCommandEvents.cpp">
+      <Filter>Core\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\GameState\IGameState.cpp">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\GameState\GameStateStack.cpp">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\GameState\GameStateFactory.cpp">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameController\GameController.cpp">
+      <Filter>Engine\GameController</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputMapping\GameCommand.cpp">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputMapping\InputContext.cpp">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputMapping\InputMapper.cpp">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputMapping\RangeConverter.cpp">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Joystick.cpp">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Keyboard.cpp">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Mouse.cpp">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\IInputDevice.cpp">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISJoystick.cpp">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISKeyboard.cpp">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISMouse.cpp">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISDevice.cpp">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\String\StringHash.cpp">
+      <Filter>Utilities\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\CollidableComponent.cpp">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameView\SceneRendererManager.cpp">
+      <Filter>Engine\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameLogic\SceneManager\SceneManager.cpp">
+      <Filter>Engine\GameLogic\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\SceneEvents.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene\ICameraRenderer.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\AuralPreferences.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\GraphicalPreferences.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\InputPreferences.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\PlayerPreferences.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\PlayerProfiles.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\GameplayPreferences.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.cpp">
+      <Filter>Engine\GameView\ViewFeedback</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameView\ViewFeedback\IViewFeedback.cpp">
+      <Filter>Engine\GameView\ViewFeedback</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameEngineStd.h" />
+    <ClInclude Include="Utilities\PatternTemplates.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Util.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\TemplateUtil.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Macros.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Debug\Logger.h">
+      <Filter>Utilities\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\MathUtil.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\MathStd.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Matrix.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Point.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\PrimeSearch.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\RandomNumberGenerator.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Rect.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Vector.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\File\File.h">
+      <Filter>Utilities\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\File\XMLFile.h">
+      <Filter>Utilities\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\File\ZipFile.h">
+      <Filter>Utilities\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\String\StringUtil.h">
+      <Filter>Utilities\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\System\Clock.h">
+      <Filter>Utilities\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\System\SystemInformation.h">
+      <Filter>Utilities\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\System\Time.h">
+      <Filter>Utilities\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Entity\Actor.h">
+      <Filter>Core\EntityComponent\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Entity\ActorTypes.h">
+      <Filter>Core\EntityComponent\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Entity\ActorFactory.h">
+      <Filter>Core\EntityComponent\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Events\DefaultEvents.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Events\Event.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Events\EventManager.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Events\IEventManager.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Collision\BoxCollisionShape.h">
+      <Filter>Core\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Collision\SphereCollisionShape.h">
+      <Filter>Core\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\PhysicsEvents.h">
+      <Filter>Core\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Resource\FileSystem.h">
+      <Filter>Core\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Resource\Resource.h">
+      <Filter>Core\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Resource\ResourceCache.h">
+      <Filter>Core\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Resource\XMLResource.h">
+      <Filter>Core\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Resource\ZipFileResource.h">
+      <Filter>Core\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\IScriptManager.h">
+      <Filter>Core\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\LuaStateManager.h">
+      <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptEvent.h">
+      <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptEventListener.h">
+      <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptExports.h">
+      <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptResource.h">
+      <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptTask.h">
+      <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Task\TaskManager.h">
+      <Filter>Core\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Task\Task.h">
+      <Filter>Core\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Task\DefaultTasks\TimeDelayTask.h">
+      <Filter>Core\Task\DefaultTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\GameState\BaseGameState.h">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\BaseGameLogic.h">
+      <Filter>Engine\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\IGameLogic.h">
+      <Filter>Engine\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameView\GameView.h">
+      <Filter>Engine\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameView\IGameView.h">
+      <Filter>Engine\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\SoundEffects\SoundEffectTasks.h">
+      <Filter>IO\Output\Audio\SoundEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Audio.h">
+      <Filter>IO\Output\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\AudioResource.h">
+      <Filter>IO\Output\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\AudioTask.h">
+      <Filter>IO\Output\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\UserInterface\Window.h">
+      <Filter>IO\Output\UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="UGE.h" />
+    <ClInclude Include="Engine\GameApplication\BaseGameApplication.h">
+      <Filter>Engine\GameApplication</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameApplication\GameApplication.h">
+      <Filter>Engine\GameApplication</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioTypes.h">
+      <Filter>IO\Output\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\AudioBuffer.h">
+      <Filter>IO\Output\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\YSEAudio.h">
+      <Filter>IO\Output\Audio\Implementation\YSE</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\YSEAudioBuffer.h">
+      <Filter>IO\Output\Audio\Implementation\YSE</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudio.h">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioBuffer.h">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\YSEAudioResource.h">
+      <Filter>IO\Output\Audio\Implementation\YSE</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioResource.h">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\GraphicalResource.h">
+      <Filter>IO\Output\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\Graphics.h">
+      <Filter>IO\Output\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Quaternion.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Frustum.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Plane.h">
+      <Filter>Utilities\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\OgreGraphics.h">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Conversion\OgreMathConversion.h">
+      <Filter>Utilities\Math\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\CameraNode.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\IScene.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\ISceneNode.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Scene.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\SceneNode.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\SceneNodeProperties.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\ISceneRenderer.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\IOutput.h">
+      <Filter>IO\Output</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreSceneRenderer.h">
+      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\ActorComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\IAuditoryComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\IGraphicalComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\IPhysicsComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\IRenderableComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\MoveableComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\ScriptComponentInterface.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\OgreGraphicalComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\OpenALSoftAudioComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneRenderer.h">
+      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\YSE\YSESceneRenderer.h">
+      <Filter>Core\Scene\Implementation\YSE</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\ISceneNodeRenderer.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreSceneNodeRenderer.h">
+      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreCamera.h">
+      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneNodeRenderer.h">
+      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.h">
+      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameSystem\InputSystem.h">
+      <Filter>Engine\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameSystem\ResourceSystem.h">
+      <Filter>Engine\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameSystem\OutputSystem.h">
+      <Filter>Engine\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\YSE\YSECamera.h">
+      <Filter>Core\Scene\Implementation\YSE</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\Implementation\YSE\YSESceneNodeRenderer.h">
+      <Filter>Core\Scene\Implementation\YSE</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Conversion\YSEMathConversion.h">
+      <Filter>Utilities\Math\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\IPhysics.h">
+      <Filter>Core\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\BulletPhysics.h">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Implementation\NullPhysics\NullPhysics.h">
+      <Filter>Core\Physics\Implementation\NullPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\PhysicsMaterial.h">
+      <Filter>Core\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Conversion\BulletMathConversion.h">
+      <Filter>Utilities\Math\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\ActorMotionState.h">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\TransformableComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsBoxComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsSphereComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\BulletDebugDrawer.h">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\DynamicLineDrawer.h">
+      <Filter>Core\Physics\Implementation\BulletPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Debug\MathPrint.h">
+      <Filter>Utilities\Math\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Command\GameCommandTypes.h">
+      <Filter>Core\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Command\GameCommandEvents.h">
+      <Filter>Core\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\GameState\IGameState.h">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\GameState\GameStateStack.h">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\GameState\GameStateFactory.h">
+      <Filter>Engine\GameLogic\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Types.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameController\GameController.h">
+      <Filter>Engine\GameController</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\GameCommand.h">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\InputContext.h">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\InputMapper.h">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\InputTypes.h">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\RangeConverter.h">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\RawInputConstantsParser.h">
+      <Filter>IO\Input\InputMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\RawInputConstants.h">
+      <Filter>IO\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Joystick.h">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Keyboard.h">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Mouse.h">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\IInputDevice.h">
+      <Filter>IO\Input\InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISJoystick.h">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISKeyboard.h">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISMouse.h">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISDevice.h">
+      <Filter>IO\Input\InputDevice\Implementation\OIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\String\StringHash.h">
+      <Filter>Utilities\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\CollidableComponent.h">
+      <Filter>Core\EntityComponent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameView\SceneRendererManager.h">
+      <Filter>Engine\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameLogic\SceneManager\SceneManager.h">
+      <Filter>Engine\GameLogic\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\SceneEvents.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene\ICameraRenderer.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\AuralPreferences.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\GraphicalPreferences.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\InputPreferences.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\PlayerPreferences.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\PlayerProfiles.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\GameplayPreferences.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.h">
+      <Filter>Engine\GameView\ViewFeedback</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameView\ViewFeedback\IViewFeedback.h">
+      <Filter>Engine\GameView\ViewFeedback</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{f534953d-3e84-4f2d-b588-3810be92abcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Debug">
+      <UniqueIdentifier>{21bf9a16-a9b3-4330-8a28-5c2d9a7149f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Debug\Exception">
+      <UniqueIdentifier>{c923af6e-d511-4328-8b3f-6529b5ae6ee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Math">
+      <UniqueIdentifier>{1fe8b3f6-fafe-4359-821b-f73643847d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Memory">
+      <UniqueIdentifier>{8445f4d5-223d-4b92-a369-20be3a23eaca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Network">
+      <UniqueIdentifier>{6f9f6c5f-7ce7-4461-b0b3-90ac938d1b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\System">
+      <UniqueIdentifier>{10e79065-382f-49e9-8d06-d67ecf558c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\File">
+      <UniqueIdentifier>{7e1ad484-a953-4046-96e2-94f84251e5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\String">
+      <UniqueIdentifier>{87833d7f-17b7-4728-bdeb-fd77e4cf17f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{7ecf40e3-e266-41c4-8ac7-6e06837f88e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\AI">
+      <UniqueIdentifier>{50768e21-4389-415e-b8b0-c7c5a9c485f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\EntityComponent">
+      <UniqueIdentifier>{57d4337a-eef4-4f42-ac9d-db002c886075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\EntityComponent\Entity">
+      <UniqueIdentifier>{786d221f-c5f4-444d-a7f2-378311d40d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\EntityComponent\Component">
+      <UniqueIdentifier>{a91ed40f-ad8d-482e-9903-bf21c5230d34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Events">
+      <UniqueIdentifier>{6fbc62dc-deb0-4feb-846f-0df738494f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Physics">
+      <UniqueIdentifier>{840d56d6-88d6-40d7-b5a6-aedd87951ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Physics\Collision">
+      <UniqueIdentifier>{3d667032-c630-4f93-9189-fd98ce25cd9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Resource">
+      <UniqueIdentifier>{e5ea079a-d758-4adc-aa40-4673f41bbad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Script">
+      <UniqueIdentifier>{043f36e8-b064-4aad-be91-c27b19c87763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Script\Lua">
+      <UniqueIdentifier>{cd00cbd5-a952-41e8-a210-b68b28bb4581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Script\Python">
+      <UniqueIdentifier>{42196039-b9ce-42fd-9a50-26be8f1db3a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Task">
+      <UniqueIdentifier>{baa7bf2d-39d0-49d0-a555-22f4ba44fd57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Task\DefaultTasks">
+      <UniqueIdentifier>{afa289f5-a481-4940-ace0-07a344811d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{8f8c885b-ec2c-4f32-9740-95eadb290801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameLogic">
+      <UniqueIdentifier>{076d20e5-70bd-4ffb-a45a-d3577fb81826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameLogic\GameState">
+      <UniqueIdentifier>{7f1a204d-ec24-41f7-bcd7-e1d1a6773e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameView">
+      <UniqueIdentifier>{9e764075-d379-4882-8e3b-b3f6be598ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{2d8bf3a7-727e-4563-896d-18b57b829fe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Input">
+      <UniqueIdentifier>{89d36122-b337-405b-be35-b622d461cdf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output">
+      <UniqueIdentifier>{2162e7f8-f2e8-4cc0-947d-122d08ade437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio">
+      <UniqueIdentifier>{0eb9a0a3-2495-495c-9d3a-79b403b78883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\SoundEffects">
+      <UniqueIdentifier>{6e7be3cf-ad2a-4b3e-8748-f9bb8c2461a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Graphics">
+      <UniqueIdentifier>{fa633eb2-7310-49e6-b1fe-5da2b9376c6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\UserInterface">
+      <UniqueIdentifier>{5063f1a7-7504-43bb-8d87-8d853cfbcfad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Concurrency">
+      <UniqueIdentifier>{c8a49d52-9d63-49f6-8c97-d4193ce66840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameApplication">
+      <UniqueIdentifier>{d2969334-2a63-46bd-8e45-7e8275445ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\Implementation">
+      <UniqueIdentifier>{fc36125f-bfab-468f-9ec8-5f996511482e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\Implementation\OpenALSoft">
+      <UniqueIdentifier>{e5a98854-74db-45b9-a9f8-e4c62ccb28eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\Implementation\YSE">
+      <UniqueIdentifier>{1ad2eef8-c1b7-43bb-acc1-c9e9f69fb17e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\Implementation\DirectSound">
+      <UniqueIdentifier>{8db1a509-22ed-43f4-bf82-ed0346554af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene">
+      <UniqueIdentifier>{12e19735-7b67-4f76-a98a-8d3490fb30fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene\Implementation">
+      <UniqueIdentifier>{a3fb95b5-bf52-4cec-a5e9-d567900a7bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Graphics\Implementation">
+      <UniqueIdentifier>{cbd64d30-b3e4-449d-8af4-de99b7986ccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene\Implementation\Ogre3D">
+      <UniqueIdentifier>{89cd7e64-8ed0-449c-9d13-120e9d09050e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Graphics\Implementation\Ogre3D">
+      <UniqueIdentifier>{fb5d582f-5836-46d5-8b28-87be692580d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Math\Conversion">
+      <UniqueIdentifier>{06c26c3e-acca-4544-a490-836bf8389ab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\EntityComponent\Component\Implementation">
+      <UniqueIdentifier>{ed72705a-af57-444b-894d-dbafad2f6f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene\Implementation\OpenALSoft">
+      <UniqueIdentifier>{586ada20-6052-42d3-8612-bdb633918719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene\Implementation\YSE">
+      <UniqueIdentifier>{31285e74-871e-4f17-8b32-aa1dc221dd4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameSystem">
+      <UniqueIdentifier>{cf07b217-c1c7-4a89-a0ef-2b664c036f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Physics\Implementation">
+      <UniqueIdentifier>{d29a7368-2f09-4ce4-8bb2-1354b092b705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Physics\Implementation\BulletPhysics">
+      <UniqueIdentifier>{17dbfb3c-6508-4b6d-b2bf-6b4ab3683e42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Physics\Implementation\NullPhysics">
+      <UniqueIdentifier>{21815a48-19de-46a4-815a-97fb389d816e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Math\Debug">
+      <UniqueIdentifier>{f9540632-2ede-4817-92ba-fa6276422a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameController">
+      <UniqueIdentifier>{336479d3-d2a2-477b-9599-efee9d6b07a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Command">
+      <UniqueIdentifier>{1744bd2a-0474-4d4a-8002-db2fd11a8698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Input\InputMapping">
+      <UniqueIdentifier>{1a6c8ed5-ed9f-4a99-9f86-c38570bb6354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Input\InputDevice">
+      <UniqueIdentifier>{81d10c19-6f7a-4d2d-8b98-b52bc59fc68f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Input\InputDevice\Implementation">
+      <UniqueIdentifier>{25d34e0d-516f-411a-875f-58f7e0b8e0a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Input\InputDevice\Implementation\OIS">
+      <UniqueIdentifier>{2638ab39-f817-48aa-b4ba-00ac2de15b8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameLogic\SceneManager">
+      <UniqueIdentifier>{6c8ca638-a1b4-4c9d-98ef-d825a9c19c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile">
+      <UniqueIdentifier>{efab619c-0a59-41c9-b6ae-3815f3a0f24a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameView\ViewFeedback">
+      <UniqueIdentifier>{df796698-a77a-4c15-b604-6c6742e0526e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

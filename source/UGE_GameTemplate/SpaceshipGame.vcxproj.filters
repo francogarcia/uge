@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{5192cea5-6c34-4e2b-9d26-d85710386885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{cb980da9-22b0-4c88-a404-7694bdc4557d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{a1acdeaa-5aad-4a85-ba24-abbf7e69a5d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{ef0b6190-c0e1-46a6-a914-3f0b25a943ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{0e36fd7c-1f4f-4095-a9d6-66eeacf62b32}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SpaceshipGameStd.h" />
+    <ClInclude Include="Application\Application.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\InputTypes.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\GameEvents.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameLogic.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStateFactory.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="View\HumanView.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\GameController.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SpaceshipGameStd.cpp" />
+    <ClCompile Include="Controller\InputTypes.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameLogic.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStateFactory.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="View\HumanView.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Application.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\GameEvents.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\GameController.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

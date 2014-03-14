@@ -1,0 +1,4 @@
+Bibliotecas (dependências):
+Código-fonte em source/engine/3rd Party/_source
+Binário em source/engine/3rd Party/_lib
+Binário efetivamente usado em lib/$(PlatformName)$(Configuration)/libFoo$(PlatformName)$(Configuration).lib

@@ -1,0 +1,70 @@
+#pragma once
+
+#include <Utilities/Math/MathStd.h>
+
+namespace uge
+{
+    inline Ogre::Vector3 ToOgreMath(const Vector3& vector)
+    {
+        return Ogre::Vector3(vector.x, vector.y, vector.z);
+    }
+
+    inline Ogre::Vector4 ToOgreMath(const Vector4& vector)
+    {
+        return Ogre::Vector4(vector.x, vector.y, vector.z, vector.w);
+    }
+
+    inline Ogre::Matrix3 ToOgreMath(const Matrix3& matrix)
+    {
+        // XXX: could be done with a single for -> [column][line] = [line][column]
+        return Ogre::Matrix3(matrix[0][0], matrix[1][0], matrix[2][0],
+                             matrix[0][1], matrix[1][1], matrix[2][1],
+                             matrix[0][2], matrix[1][2], matrix[2][2]);
+    }
+
+    inline Ogre::Matrix4 ToOgreMath(const Matrix4& matrix)
+    {
+        // XXX: could be done with a single for -> [column][line] = [line][column]
+        return Ogre::Matrix4(matrix[0][0], matrix[1][0], matrix[2][0], matrix[3][0],
+                             matrix[0][1], matrix[1][1], matrix[2][1], matrix[3][1],
+                             matrix[0][2], matrix[1][2], matrix[2][2], matrix[3][2],
+                             matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3]);
+    }
+
+    inline Ogre::Quaternion ToOgreMath(const Quaternion& quaternion)
+    {
+        return Ogre::Quaternion(quaternion.w, quaternion.x, quaternion.y, quaternion.z);
+    }
+
+    inline Vector3 ToMath(const Ogre::Vector3& vector)
+    {
+        return Vector3(vector.x, vector.y, vector.z);
+    }
+
+    inline Vector4 ToMath(const Ogre::Vector4& vector)
+    {
+        return Vector4(vector.x, vector.y, vector.z, vector.w);
+    }
+
+    inline Quaternion ToMath(const Ogre::Quaternion& quaternion)
+    {
+        return Quaternion(quaternion.w, quaternion.x, quaternion.y, quaternion.z);
+    }
+
+    inline Matrix3 ToMath(const Ogre::Matrix3& matrix)
+    {
+        // XXX: could be done with a single for -> [column][line] = [line][column]
+        return Matrix3(matrix[0][0], matrix[1][0], matrix[2][0],
+                       matrix[0][1], matrix[1][1], matrix[2][1],
+                       matrix[0][2], matrix[1][2], matrix[2][2]);
+    }
+
+    inline Matrix4 ToMath(const Ogre::Matrix4& matrix)
+    {
+        // XXX: could be done with a single for -> [column][line] = [line][column]
+        return Matrix4(matrix[0][0], matrix[1][0], matrix[2][0], matrix[3][0],
+                       matrix[0][1], matrix[1][1], matrix[2][1], matrix[3][1],
+                       matrix[0][2], matrix[1][2], matrix[2][2], matrix[3][2],
+                       matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3]);
+    }
+}

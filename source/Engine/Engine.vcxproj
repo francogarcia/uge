@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{53987871-1D61-4E8D-8C12-D2A86872D7F2}</ProjectGuid>
+    <RootNamespace>Engine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)..\lib\$(PlatformName)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)..\temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+    <IncludePath>$(ProjectDir);$(ProjectDir)\3rd Party\boost\;$(ProjectDir)\3rd Party\miniz\;$(ProjectDir)\3rd Party\physfs\;$(ProjectDir)\3rd Party\FastDelegate\;$(ProjectDir)\3rd Party\bullet\;$(ProjectDir)\3rd Party\ogre\include\;$(ProjectDir)\3rd Party\ogre\include\OGRE\;$(ProjectDir)\3rd Party\ogre\include\OGRE\Overlay\;$(ProjectDir)\3rd Party\ogre\include\OIS\;$(ProjectDir)\3rd Party\ogreoggsound\include\;$(ProjectDir)\3rd Party\openal-soft\include\AL\;$(ProjectDir)\3rd Party\openal-soft\include\;$(ProjectDir)\3rd Party\TinyOAL\tinyoal-read-only\include\;$(ProjectDir)\3rd Party\glm\;$(ProjectDir)\3rd Party\hyperic-sigar\sigar-bin\include\;$(ProjectDir)\3rd Party\tinyxml\;$(ProjectDir)\3rd Party\LuaPlus\Src\;$(ProjectDir)\3rd Party\yse\include\;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)/../../lib/$(PlatformName)$(Configuration);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\lib\$(PlatformName)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(SolutionDir)..\temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+    <IncludePath>$(ProjectDir);$(ProjectDir)\3rd Party\boost\;$(ProjectDir)\3rd Party\miniz\;$(ProjectDir)\3rd Party\physfs\;$(ProjectDir)\3rd Party\FastDelegate\;$(ProjectDir)\3rd Party\bullet\;$(ProjectDir)\3rd Party\ogre\include\;$(ProjectDir)\3rd Party\ogre\include\OGRE\;$(ProjectDir)\3rd Party\ogre\include\OGRE\Overlay\;$(ProjectDir)\3rd Party\ogre\include\OIS\;$(ProjectDir)\3rd Party\ogreoggsound\include\;$(ProjectDir)\3rd Party\openal-soft\include\AL\;$(ProjectDir)\3rd Party\openal-soft\include\;$(ProjectDir)\3rd Party\TinyOAL\tinyoal-read-only\include\;$(ProjectDir)\3rd Party\glm\;$(ProjectDir)\3rd Party\hyperic-sigar\sigar-bin\include\;$(ProjectDir)\3rd Party\tinyxml\;$(ProjectDir)\3rd Party\LuaPlus\Src\;$(ProjectDir)\3rd Party\yse\include\;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)/../../lib/$(PlatformName)$(Configuration);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>GameEngineStd.h</PrecompiledHeaderFile>
+      <AdditionalOptions>-Zm300 %(AdditionalOptions)</AdditionalOptions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>sigar$(PlatformName)$(Configuration).lib;tinyxml2$(PlatformName)$(Configuration).lib;physfs-static$(PlatformName)$(Configuration).lib;LuaPlus-5.1$(PlatformName)$(Configuration).lib;BulletCollision$(PlatformName)$(Configuration).lib;BulletDynamics$(PlatformName)$(Configuration).lib;BulletSoftBody$(PlatformName)$(Configuration).lib;ConvexDecomposition$(PlatformName)$(Configuration).lib;HACD$(PlatformName)$(Configuration).lib;LinearMath$(PlatformName)$(Configuration).lib;OgreMain$(PlatformName)$(Configuration).lib;OIS$(PlatformName)$(Configuration).lib;OgreOverlay$(PlatformName)$(Configuration).lib;OgreOggSound$(PlatformName)$(Configuration).lib;libOpenAL32.dll.a;yse$(PlatformName)$(Configuration).lib;TinyOAL$(PlatformName)$(Configuration).lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>GameEngineStd.h</PrecompiledHeaderFile>
+      <AdditionalOptions>-Zm300 %(AdditionalOptions)</AdditionalOptions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>sigar$(PlatformName)$(Configuration).lib;tinyxml2$(PlatformName)$(Configuration).lib;physfs-static$(PlatformName)$(Configuration).lib;LuaPlus-5.1$(PlatformName)$(Configuration).lib;BulletCollision$(PlatformName)$(Configuration).lib;BulletDynamics$(PlatformName)$(Configuration).lib;BulletSoftBody$(PlatformName)$(Configuration).lib;ConvexDecomposition$(PlatformName)$(Configuration).lib;HACD$(PlatformName)$(Configuration).lib;LinearMath$(PlatformName)$(Configuration).lib;OgreMain$(PlatformName)$(Configuration).lib;OIS$(PlatformName)$(Configuration).lib;OgreOverlay$(PlatformName)$(Configuration).lib;OgreOggSound$(PlatformName)$(Configuration).lib;libOpenAL32.dll.a;yse$(PlatformName)$(Configuration).lib;TinyOAL$(PlatformName)$(Configuration).lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\Command\GameCommandEvents.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\ActorComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\CollidableComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\IAuditoryComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\IGraphicalComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsBoxComponent.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\OgreGraphicalComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\OpenALSoftAudioComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsSphereComponent.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\IPhysicsComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\IRenderableComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\MoveableComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\TransformableComponent.cpp" />
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\ActorMotionState.cpp" />
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\BulletDebugDrawer.cpp" />
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\BulletPhysics.cpp" />
+    <ClCompile Include="Core\Physics\Implementation\BulletPhysics\DynamicLineDrawer.cpp" />
+    <ClCompile Include="Core\Physics\Implementation\NullPhysics\NullPhysics.cpp" />
+    <ClCompile Include="Core\Physics\IPhysics.cpp" />
+    <ClCompile Include="Core\Physics\PhysicsMaterial.cpp" />
+    <ClCompile Include="Core\PlayerProfile\AuralPreferences.cpp" />
+    <ClCompile Include="Core\PlayerProfile\GameplayPreferences.cpp" />
+    <ClCompile Include="Core\PlayerProfile\GraphicalPreferences.cpp" />
+    <ClCompile Include="Core\PlayerProfile\InputPreferences.cpp" />
+    <ClCompile Include="Core\PlayerProfile\PlayerPreferences.cpp" />
+    <ClCompile Include="Core\PlayerProfile\PlayerProfiles.cpp" />
+    <ClCompile Include="Core\Scene\CameraNode.cpp" />
+    <ClCompile Include="Core\Scene\ICameraRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreCamera.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreSceneRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreSceneNodeRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneNodeRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\YSE\YSECamera.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\YSE\YSESceneNodeRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Implementation\YSE\YSESceneRenderer.cpp" />
+    <ClCompile Include="Core\Scene\IScene.cpp" />
+    <ClCompile Include="Core\Scene\ISceneNode.cpp" />
+    <ClCompile Include="Core\Scene\ISceneNodeRenderer.cpp" />
+    <ClCompile Include="Core\Scene\ISceneRenderer.cpp" />
+    <ClCompile Include="Core\Scene\Scene.cpp" />
+    <ClCompile Include="Core\Scene\SceneEvents.cpp" />
+    <ClCompile Include="Core\Scene\SceneNode.cpp" />
+    <ClCompile Include="Core\Scene\SceneNodeProperties.cpp" />
+    <ClCompile Include="Engine\GameController\GameController.cpp" />
+    <ClCompile Include="Engine\GameLogic\GameState\GameStateFactory.cpp" />
+    <ClCompile Include="Engine\GameLogic\GameState\GameStateStack.cpp" />
+    <ClCompile Include="Engine\GameLogic\GameState\IGameState.cpp" />
+    <ClCompile Include="Engine\GameLogic\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Engine\GameSystem\InputSystem.cpp" />
+    <ClCompile Include="Engine\GameSystem\OutputSystem.cpp" />
+    <ClCompile Include="Engine\GameSystem\ResourceSystem.cpp" />
+    <ClCompile Include="Engine\GameView\SceneRendererManager.cpp" />
+    <ClCompile Include="Engine\GameView\ViewFeedback\IViewFeedback.cpp" />
+    <ClCompile Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\IInputDevice.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISDevice.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISJoystick.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISKeyboard.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Implementation\OIS\OISMouse.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Joystick.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Keyboard.cpp" />
+    <ClCompile Include="IO\Input\InputDevice\Mouse.cpp" />
+    <ClCompile Include="IO\Input\InputMapping\GameCommand.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="IO\Input\InputMapping\InputContext.cpp" />
+    <ClCompile Include="IO\Input\InputMapping\InputMapper.cpp" />
+    <ClCompile Include="IO\Input\InputMapping\RangeConverter.cpp" />
+    <ClCompile Include="IO\Output\Audio\Audio.cpp" />
+    <ClCompile Include="IO\Output\Audio\AudioBuffer.cpp" />
+    <ClCompile Include="IO\Output\Audio\AudioResource.cpp" />
+    <ClCompile Include="IO\Output\Audio\AudioTask.cpp" />
+    <ClCompile Include="IO\Output\Audio\AudioTypes.cpp" />
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudio.cpp" />
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioBuffer.cpp" />
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioResource.cpp" />
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\YSEAudio.cpp" />
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\YSEAudioBuffer.cpp" />
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\YSEAudioResource.cpp" />
+    <ClCompile Include="IO\Output\Audio\SoundEffects\SoundEffectTasks.cpp" />
+    <ClCompile Include="Core\Events\Event.cpp" />
+    <ClCompile Include="Engine\GameLogic\BaseGameLogic.cpp" />
+    <ClCompile Include="Engine\GameLogic\GameState\BaseGameState.cpp" />
+    <ClCompile Include="Engine\GameLogic\IGameLogic.cpp" />
+    <ClCompile Include="Engine\GameView\GameView.cpp" />
+    <ClCompile Include="Engine\GameView\IGameView.cpp" />
+    <ClCompile Include="Engine\GameApplication\BaseGameApplication.cpp" />
+    <ClCompile Include="Engine\GameApplication\GameApplication.cpp" />
+    <ClCompile Include="Core\Resource\FileSystem.cpp" />
+    <ClCompile Include="Core\Resource\Resource.cpp" />
+    <ClCompile Include="Core\Resource\ResourceCache.cpp" />
+    <ClCompile Include="IO\Output\Graphics\GraphicalResource.cpp" />
+    <ClCompile Include="IO\Output\Graphics\Graphics.cpp" />
+    <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\OgreGraphics.cpp" />
+    <ClCompile Include="IO\Output\IOutput.cpp" />
+    <ClCompile Include="Utilities\Debug\Logger.cpp" />
+    <ClCompile Include="Core\EntityComponent\Entity\Actor.cpp" />
+    <ClCompile Include="Core\EntityComponent\Entity\ActorFactory.cpp" />
+    <ClCompile Include="Core\Events\DefaultEvents.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Events\IEventManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Events\EventManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GameEngineStd.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Conversion\BulletMathConversion.cpp" />
+    <ClCompile Include="Utilities\Math\Conversion\OgreMathConversion.cpp" />
+    <ClCompile Include="Utilities\Math\Conversion\YSEMathConversion.cpp" />
+    <ClCompile Include="Utilities\Math\Frustum.cpp" />
+    <ClCompile Include="Utilities\Math\Matrix.cpp" />
+    <ClCompile Include="Utilities\Math\Plane.cpp" />
+    <ClCompile Include="Utilities\Math\PrimeSearch.cpp" />
+    <ClCompile Include="Utilities\Math\Quaternion.cpp" />
+    <ClCompile Include="Utilities\Math\RandomNumberGenerator.cpp" />
+    <ClCompile Include="Utilities\Math\Rect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Physics\Collision\BoxCollisionShape.cpp" />
+    <ClCompile Include="Core\Physics\Collision\SphereCollisionShape.cpp" />
+    <ClCompile Include="Core\Physics\PhysicsEvents.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Resource\XMLResource.cpp" />
+    <ClCompile Include="Core\Resource\ZipFileResource.cpp" />
+    <ClCompile Include="Core\Script\IScriptManager.cpp" />
+    <ClCompile Include="Core\Script\Lua\LuaStateManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptEvent.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptEventListener.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptExports.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptTask.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Script\Lua\ScriptResource.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utilities\Math\Vector.cpp" />
+    <ClCompile Include="Utilities\String\StringHash.cpp" />
+    <ClCompile Include="Utilities\System\Clock.cpp" />
+    <ClCompile Include="Utilities\System\SystemInformation.cpp" />
+    <ClCompile Include="Utilities\System\Time.cpp" />
+    <ClCompile Include="Core\Task\DefaultTasks\TimeDelayTask.cpp" />
+    <ClCompile Include="Core\Task\Task.cpp" />
+    <ClCompile Include="Core\Task\TaskManager.cpp" />
+    <ClCompile Include="IO\Output\UserInterface\Window.cpp" />
+    <ClCompile Include="Utilities\File\File.cpp" />
+    <ClCompile Include="Utilities\String\StringUtil.cpp" />
+    <ClCompile Include="Utilities\Util.cpp" />
+    <ClCompile Include="Utilities\File\XMLFile.cpp" />
+    <ClCompile Include="Utilities\File\ZipFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Command\GameCommandEvents.h" />
+    <ClInclude Include="Core\Command\GameCommandTypes.h" />
+    <ClInclude Include="AudioTypes.h" />
+    <ClInclude Include="Core\EntityComponent\Component\ActorComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\CollidableComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\IAuditoryComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\IGraphicalComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsBoxComponent.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\OgreGraphicalComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\OpenALSoftAudioComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsSphereComponent.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\IPhysicsComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\IRenderableComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\MoveableComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\TransformableComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\ScriptComponentInterface.h" />
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\ActorMotionState.h" />
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\BulletDebugDrawer.h" />
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\BulletPhysics.h" />
+    <ClInclude Include="Core\Physics\Implementation\BulletPhysics\DynamicLineDrawer.h" />
+    <ClInclude Include="Core\Physics\Implementation\NullPhysics\NullPhysics.h" />
+    <ClInclude Include="Core\Physics\IPhysics.h" />
+    <ClInclude Include="Core\Physics\PhysicsMaterial.h" />
+    <ClInclude Include="Core\PlayerProfile\AuralPreferences.h" />
+    <ClInclude Include="Core\PlayerProfile\GameplayPreferences.h" />
+    <ClInclude Include="Core\PlayerProfile\GraphicalPreferences.h" />
+    <ClInclude Include="Core\PlayerProfile\InputPreferences.h" />
+    <ClInclude Include="Core\PlayerProfile\PlayerPreferences.h" />
+    <ClInclude Include="Core\PlayerProfile\PlayerProfiles.h" />
+    <ClInclude Include="Core\Scene\CameraNode.h" />
+    <ClInclude Include="Core\Scene\ICameraRenderer.h" />
+    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreCamera.h" />
+    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreSceneRenderer.h" />
+    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreSceneNodeRenderer.h" />
+    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.h" />
+    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneRenderer.h" />
+    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneNodeRenderer.h" />
+    <ClInclude Include="Core\Scene\Implementation\YSE\YSECamera.h" />
+    <ClInclude Include="Core\Scene\Implementation\YSE\YSESceneNodeRenderer.h" />
+    <ClInclude Include="Core\Scene\Implementation\YSE\YSESceneRenderer.h" />
+    <ClInclude Include="Core\Scene\IScene.h" />
+    <ClInclude Include="Core\Scene\ISceneNode.h" />
+    <ClInclude Include="Core\Scene\ISceneNodeRenderer.h" />
+    <ClInclude Include="Core\Scene\ISceneRenderer.h" />
+    <ClInclude Include="Core\Scene\Scene.h" />
+    <ClInclude Include="Core\Scene\SceneEvents.h" />
+    <ClInclude Include="Core\Scene\SceneNode.h" />
+    <ClInclude Include="Core\Scene\SceneNodeProperties.h" />
+    <ClInclude Include="Engine\GameController\GameController.h" />
+    <ClInclude Include="Engine\GameLogic\GameState\GameStateFactory.h" />
+    <ClInclude Include="Engine\GameLogic\GameState\GameStateStack.h" />
+    <ClInclude Include="Engine\GameLogic\GameState\IGameState.h" />
+    <ClInclude Include="Engine\GameLogic\SceneManager\SceneManager.h" />
+    <ClInclude Include="Engine\GameSystem\InputSystem.h" />
+    <ClInclude Include="Engine\GameSystem\OutputSystem.h" />
+    <ClInclude Include="Engine\GameSystem\ResourceSystem.h" />
+    <ClInclude Include="Engine\GameView\SceneRendererManager.h" />
+    <ClInclude Include="Engine\GameView\ViewFeedback\IViewFeedback.h" />
+    <ClInclude Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.h" />
+    <ClInclude Include="IO\Input\InputDevice\IInputDevice.h" />
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISDevice.h" />
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISJoystick.h" />
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISKeyboard.h" />
+    <ClInclude Include="IO\Input\InputDevice\Implementation\OIS\OISMouse.h" />
+    <ClInclude Include="IO\Input\InputDevice\Joystick.h" />
+    <ClInclude Include="IO\Input\InputDevice\Keyboard.h" />
+    <ClInclude Include="IO\Input\InputDevice\Mouse.h" />
+    <ClInclude Include="IO\Input\InputMapping\GameCommand.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="IO\Input\InputMapping\InputContext.h" />
+    <ClInclude Include="IO\Input\InputMapping\InputMapper.h" />
+    <ClInclude Include="IO\Input\InputMapping\InputTypes.h" />
+    <ClInclude Include="IO\Input\InputMapping\RangeConverter.h" />
+    <ClInclude Include="IO\Input\InputMapping\RawInputConstantsParser.h" />
+    <ClInclude Include="IO\Input\RawInputConstants.h" />
+    <ClInclude Include="IO\Output\Audio\Audio.h" />
+    <ClInclude Include="IO\Output\Audio\AudioBuffer.h" />
+    <ClInclude Include="IO\Output\Audio\AudioResource.h" />
+    <ClInclude Include="IO\Output\Audio\AudioTask.h" />
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudio.h" />
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioBuffer.h" />
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\OpenALSoftAudioResource.h" />
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\YSEAudio.h" />
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\YSEAudioBuffer.h" />
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\YSEAudioResource.h" />
+    <ClInclude Include="IO\Output\Audio\SoundEffects\SoundEffectTasks.h" />
+    <ClInclude Include="Core\Events\Event.h" />
+    <ClInclude Include="Engine\GameLogic\BaseGameLogic.h" />
+    <ClInclude Include="Engine\GameLogic\GameState\BaseGameState.h" />
+    <ClInclude Include="Engine\GameLogic\IGameLogic.h" />
+    <ClInclude Include="Engine\GameView\GameView.h" />
+    <ClInclude Include="Engine\GameView\IGameView.h" />
+    <ClInclude Include="Engine\GameApplication\BaseGameApplication.h" />
+    <ClInclude Include="Engine\GameApplication\GameApplication.h" />
+    <ClInclude Include="Core\Resource\FileSystem.h" />
+    <ClInclude Include="Core\Resource\Resource.h" />
+    <ClInclude Include="Core\Resource\ResourceCache.h" />
+    <ClInclude Include="IO\Output\Graphics\GraphicalResource.h" />
+    <ClInclude Include="IO\Output\Graphics\Graphics.h" />
+    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\OgreGraphics.h" />
+    <ClInclude Include="IO\Output\IOutput.h" />
+    <ClInclude Include="UGE.h" />
+    <ClInclude Include="Utilities\Debug\Logger.h" />
+    <ClInclude Include="Core\EntityComponent\Entity\Actor.h" />
+    <ClInclude Include="Core\EntityComponent\Entity\ActorFactory.h" />
+    <ClInclude Include="Core\EntityComponent\Entity\ActorTypes.h" />
+    <ClInclude Include="Core\Events\EventManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Events\DefaultEvents.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Events\IEventManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="GameEngineStd.h" />
+    <ClInclude Include="Utilities\Math\Conversion\BulletMathConversion.h" />
+    <ClInclude Include="Utilities\Math\Conversion\OgreMathConversion.h" />
+    <ClInclude Include="Utilities\Math\Conversion\YSEMathConversion.h" />
+    <ClInclude Include="Utilities\Math\Debug\MathPrint.h" />
+    <ClInclude Include="Utilities\Math\Frustum.h" />
+    <ClInclude Include="Utilities\Math\MathStd.h" />
+    <ClInclude Include="Utilities\Math\MathUtil.h" />
+    <ClInclude Include="Utilities\Math\Matrix.h" />
+    <ClInclude Include="Utilities\Math\Plane.h" />
+    <ClInclude Include="Utilities\Math\Point.h" />
+    <ClInclude Include="Utilities\Math\PrimeSearch.h" />
+    <ClInclude Include="Utilities\Math\Quaternion.h" />
+    <ClInclude Include="Utilities\Math\RandomNumberGenerator.h" />
+    <ClInclude Include="Utilities\Math\Rect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Utilities\Math\Vector.h" />
+    <ClInclude Include="Core\Physics\Collision\BoxCollisionShape.h" />
+    <ClInclude Include="Core\Physics\Collision\SphereCollisionShape.h" />
+    <ClInclude Include="Core\Physics\PhysicsEvents.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Resource\XMLResource.h" />
+    <ClInclude Include="Core\Resource\ZipFileResource.h" />
+    <ClInclude Include="Core\Script\IScriptManager.h" />
+    <ClInclude Include="Core\Script\Lua\LuaStateManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptEvent.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptEventListener.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptExports.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptTask.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\ScriptResource.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Utilities\String\StringHash.h" />
+    <ClInclude Include="Utilities\System\Clock.h" />
+    <ClInclude Include="Utilities\System\SystemInformation.h" />
+    <ClInclude Include="Utilities\System\Time.h" />
+    <ClInclude Include="Core\Task\DefaultTasks\TimeDelayTask.h" />
+    <ClInclude Include="Core\Task\Task.h" />
+    <ClInclude Include="Core\Task\TaskManager.h" />
+    <ClInclude Include="IO\Output\UserInterface\Window.h" />
+    <ClInclude Include="Utilities\File\File.h" />
+    <ClInclude Include="Utilities\Macros.h" />
+    <ClInclude Include="Utilities\PatternTemplates.h" />
+    <ClInclude Include="Utilities\String\StringUtil.h" />
+    <ClInclude Include="Utilities\TemplateUtil.h" />
+    <ClInclude Include="Utilities\Types.h" />
+    <ClInclude Include="Utilities\Util.h" />
+    <ClInclude Include="Utilities\File\XMLFile.h" />
+    <ClInclude Include="Utilities\File\ZipFile.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

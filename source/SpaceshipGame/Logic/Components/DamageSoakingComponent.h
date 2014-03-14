@@ -1,0 +1,78 @@
+#include <Core/EntityComponent/Component/ActorComponent.h>
+
+namespace sg
+{
+    namespace Component
+    {
+
+        class DamageSoakingComponent;
+        typedef std::shared_ptr<DamageSoakingComponent> DamageSoakingComponentSharedPointer;
+
+        /**
+         * @class DamageSoakingComponent
+         *  Component used to reduce the damage taken by the actor.
+         */
+        class DamageSoakingComponent : public uge::Component::ActorComponent
+        {
+        public:
+            /// The name of the component.
+            static const char* g_ComponentName;
+
+            /**
+             *  Constructor.
+             */
+            DamageSoakingComponent();
+
+            /**
+             *  Destructor.
+             */
+            ~DamageSoakingComponent();
+
+            /**
+             *  Instantiates the game object and loads the default data.
+             * @param pInitXMLData : pointer to a XML element containing the object's initial position.
+             * @return : true if the if initialization was successful; false otherwise.
+             */
+            bool vInit(uge::XMLElement* pInitXMLData) override;
+
+            /**
+             *  Initializes the game object after it was instantiated.
+             */
+            void vPostInit() override;
+
+            /**
+             *  Updates the object.
+             */
+            void vUpdate(const unsigned long dt) override;
+
+            /**
+             *  Callback to be used when the object changes its data or state.
+             */
+            void vOnChange() override;
+
+            /**
+             *  Gets the name of the component.
+             * @return : the name of the component;
+             */
+            const std::string vGetName() const override;
+
+            int GetCurrentProtection() const;
+            void SetCurrentProtection(const int value);
+
+            void IncrementProtection(const int value);
+            void DecrementProtection(const int value);
+
+            int GetMaximumProtection() const;
+            void SetMaximumProtection(const int value);
+
+        private:
+            /// The current protection provided by the component.
+            int m_CurrentProtection;
+
+            /// The maximum protection provided by the component.
+            int m_MaxProtection;
+        };
+
+    }
+
+}

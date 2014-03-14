@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rootElement>
+  <foo string="value">
+      <bar>
+        <foobar>Some text value</foobar>
+      </bar>
+  </foo>
+  <quux string="abc" wstring="Hello!" int="-1" uint="100" float="1.23" double="-1.23" boolean="true"/>
+</rootElement>
