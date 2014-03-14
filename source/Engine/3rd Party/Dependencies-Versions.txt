@@ -1,0 +1,52 @@
+Dependencies
+
+All dependencies are listed in alphabetical order.
+
+Format:
+Dependency name
+Version
+
+Boost
+1.54
+
+Bullet
+2.81
+
+FastDelegate
+
+FreeType
+2.4.10
+
+GLM
+0.9.3.4
+
+Hyperic-Sigar
+1.6.4
+
+LuaPlus
+5.1
+
+MiniZ
+1.14
+
+Ogre
+1.9-beta
+
+OpenAL-Soft
+1.15.1
+
+OpenGL
+4.3
+
+PhysFS
+2.0.3
+
+TinyXML
+2.6
+
+TinyOAL
+1.0
+
+YSE (YSE-soundengine)
+0.7 (bin)
+a08d39695a10 (source)
