@@ -48,7 +48,7 @@ namespace uge
     bool OgreSceneRenderer::vOnUpdate(const unsigned long timeElapsed)
     {
         // Set transform.
-        for (auto & ogreSceneNodeIterator : m_OgreSceneNodes)
+        for (auto& ogreSceneNodeIterator : m_OgreSceneNodes)
         {
             OgreSceneNodeRenderer& ogreSceneNode = ogreSceneNodeIterator.second;
             ogreSceneNode.vPreRender();
@@ -64,7 +64,7 @@ namespace uge
     bool OgreSceneRenderer::vOnRender()
     {
         // For debugging purposes only.
-        for (auto & ogreSceneNodeIterator : m_OgreSceneNodes)
+        for (auto& ogreSceneNodeIterator : m_OgreSceneNodes)
         {
             OgreSceneNodeRenderer& ogreSceneNode = ogreSceneNodeIterator.second;
             ogreSceneNode.vRender();
@@ -89,7 +89,7 @@ namespace uge
 
         // Remove the child scene nodes, if necessary.
         const SceneNodeList& nodeChildren = pSceneNode->vGetChildren();
-        for (auto & childSceneNode : nodeChildren)
+        for (auto& childSceneNode : nodeChildren)
         {
             ActorID childActorID = childSceneNode->vGetNodeProperties()->GetActorID();
             vOnRemoveChild(childActorID, childSceneNode);
@@ -119,6 +119,34 @@ namespace uge
     IGraphicsSharedPointer OgreSceneRenderer::vGetGraphicalRenderer()
     {
         return m_pGraphicalRenderer;
+    }
+
+    void OgreSceneRenderer::Load()
+    {
+        LoadResources();
+        CreateLights();
+    }
+
+    void OgreSceneRenderer::CreateLights()
+    {
+        // Create the lights.
+        m_pOgreSceneManager->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
+        Ogre::Light* pLight = m_pOgreSceneManager->createLight("Light");
+        pLight->setPosition(20.0f, 80.0f, 50.f);
+    }
+
+    void OgreSceneRenderer::LoadResources()
+    {
+        // Audio and graphics resources.
+        Ogre::ResourceGroupManager& resourceGroupManager = Ogre::ResourceGroupManager::getSingleton();
+        resourceGroupManager.addResourceLocation("data/graphics/effects/", "FileSystem");
+        resourceGroupManager.addResourceLocation("data/graphics/materials/", "FileSystem");
+        resourceGroupManager.addResourceLocation("data/graphics/meshes/", "FileSystem");
+        resourceGroupManager.addResourceLocation("data/graphics/particles/", "FileSystem");
+        resourceGroupManager.addResourceLocation("data/graphics/terrains/", "FileSystem");
+        resourceGroupManager.addResourceLocation("data/graphics/textures/", "FileSystem");
+        resourceGroupManager.addResourceLocation("data/debug/", "FileSystem");
+        resourceGroupManager.initialiseAllResourceGroups();
     }
 
     void OgreSceneRenderer::AddSceneNodeToScene(SceneNodeSharedPointer pSceneNode, Ogre::SceneNode* pParentNode)
@@ -154,7 +182,7 @@ namespace uge
 
         // Add the node's children (if any) to the scene.
         const SceneNodeList& nodeChildren = pSceneNode->vGetChildren();
-        for (auto & childSceneNode : nodeChildren)
+        for (auto& childSceneNode : nodeChildren)
         {
             AddSceneNodeToScene(std::dynamic_pointer_cast<SceneNode>(childSceneNode), ogreSceneNode.m_pOgreSceneNode);
         }

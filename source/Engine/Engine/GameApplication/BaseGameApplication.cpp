@@ -214,7 +214,7 @@ namespace uge
         const std::string resourceFileName = "data/data.zip";
         int resourceCacheSizeMB = 100; // 100MB
 #if _DEBUG
-        IResourceFile* pResourceFile = LIB_NEW ZipFileDevelopmentResource(resourceFileName, "data/", ZipFileDevelopmentResource::Mode::Editor);
+        IResourceFile* pResourceFile = LIB_NEW ZipFileDevelopmentResource(resourceFileName, "./", ZipFileDevelopmentResource::Mode::Editor);
 #else
         IResourceFile* pResourceFile = LIB_NEW ZipFileResource(resourceFileName);
 #endif

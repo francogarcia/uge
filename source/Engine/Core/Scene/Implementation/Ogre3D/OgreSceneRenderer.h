@@ -47,36 +47,10 @@ namespace uge
         }
 
     public:
-        // Going to be refactored.
-        void Load()
-        {
-            LoadResources();
-            CreateLights();
-        }
-
-        void CreateLights()
-        {
-            // Create the lights.
-            m_pOgreSceneManager->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
-            Ogre::Light* pLight = m_pOgreSceneManager->createLight("Light");
-            pLight->setPosition(20.0f, 80.0f, 50.f);
-        }
-
-        void LoadResources()
-        {
-            // Audio and graphics resources.
-            Ogre::ResourceGroupManager& resourceGroupManager = Ogre::ResourceGroupManager::getSingleton();
-            resourceGroupManager.addResourceLocation("ogre/media/packs/Sinbad.zip", "Zip");
-            //resourceGroupManager.addResourceLocation("data/audio/music/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/graphics/effects/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/graphics/materials/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/graphics/meshes/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/graphics/particles/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/graphics/terrains/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/graphics/textures/", "FileSystem");
-            resourceGroupManager.addResourceLocation("data/debug/", "FileSystem");
-            resourceGroupManager.initialiseAllResourceGroups();
-        }
+        // TODO: Going to be refactored.
+        void Load();
+        void CreateLights();
+        void LoadResources();
 
     private:
         void AddSceneNodeToScene(SceneNodeSharedPointer pSceneNode, Ogre::SceneNode* pOgreParentNode);
