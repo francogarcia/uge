@@ -19,7 +19,8 @@ To start using UGE:
 2. Download the release files 'UGE-Dependencies.zip' and 'UGE-GameData.zip' from <https://github.com/francogarcia/uge/releases/tag/v0.1-alpha>;
 3. Extract the files from (2) into the root of the source code directory. Merge them to existing files if necessary;
 4. Open the project's solution file under 'source/UGE_VS2012.sln' with Visual C++ or Visual Studio 2012 or newer. The precompiled libraries from (2) only work with version 2012, though;
-5. Compile the project.
+5. Compile the project;
+6. Before running a sample, please set the working directory (refer to the release or the documentation).
 
 Afterwards, check the Documentation for general information and a step-by-step tutorial for setting up a new project and using many of UGE's features.
 If it is your first time using UGE, it should be interesting to read about the engine approach to develop UA-Games, its layers and features.
@@ -40,7 +41,7 @@ This version of UGE is licensed under the LGPL license version 3 (<https://www.g
 Although most of UGE dependencies and the codebase itself are cross-platform, a few are currently Windows-only.
 Therefore, UGE only supports Windows platforms at this moment.
 
-# Required Toolchain
+## Required Toolchain
 
 At this moment, Visual Studio or Visual C++ 2012 or newer are required to compile the project. This repository only provides pre-compiled dependencies for version 2012, though.
 Earlier versions are not supported, as UGE’s require some C++11 features.

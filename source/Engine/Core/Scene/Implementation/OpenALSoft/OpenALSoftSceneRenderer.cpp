@@ -83,7 +83,13 @@ namespace uge
     bool OpenALSoftSceneRenderer::vOnRemoveChild(ActorID actorID, ISceneNodeSharedPointer pSceneNode)
     {
         auto& nodeIterator = m_SceneNodes.find(actorID);
-        assert(nodeIterator != m_SceneNodes.end() && "Actor not found!");
+        if (nodeIterator == m_SceneNodes.end())
+        {
+            // Actor does not have the component.
+             //assert(nodeIterator != m_SceneNodes.end() && "Actor not found!");
+
+            return true;
+        }
 
         // Remove the child scene nodes, if necessary.
         const SceneNodeList& nodeChildren = pSceneNode->vGetChildren();

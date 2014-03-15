@@ -63,11 +63,12 @@ namespace uge
         Component::TransformableComponentSharedPointer pActorPositionComponent =
             pActor->GetComponent<Component::TransformableComponent>(Component::TransformableComponent::g_ComponentName).lock();
         Matrix4 actorInitialTransform;
-        // FIXME: create transform considering rotation and scale as well.
-        actorInitialTransform.MakeTranslationMatrix(pActorPositionComponent->GetPosition());
-        //actorInitialTransform.MakeTransform(pActorPositionComponent->GetPosition(),
-        //                                    pActorSizeComponent->GetScale(),
-        //                                    pActorRotationComponent->GetRotation());
+
+        //actorInitialTransform.MakeTranslationMatrix(pActorPositionComponent->GetPosition());
+        //actorInitialTransform = pActorPositionComponent->GetTransform();
+        actorInitialTransform.MakeTransform(pActorPositionComponent->GetPosition(),
+                                            pActorPositionComponent->GetScale(),
+                                            pActorPositionComponent->GetRotation());
 
         ActorID actorID = pActor->GetActorID();
         ISceneNodeSharedPointer pSceneNode(LIB_NEW SceneNode(actorID,
@@ -88,13 +89,13 @@ namespace uge
         ISceneNodeSharedPointer pSceneNode = m_pScene->vFindActor(actorID);
         assert(pSceneNode != nullptr && "The scene not was not found!");
 
+        std::shared_ptr<EvtData_Scene_Node_Removed> pEvent(LIB_NEW EvtData_Scene_Node_Removed(actorID));
+        uge::IEventManager::Get()->vTriggerEvent(pEvent);
+
         if (!m_pScene->vRemoveChild(actorID))
         {
             return false;
         }
-
-        std::shared_ptr<EvtData_Scene_Node_Removed> pEvent(LIB_NEW EvtData_Scene_Node_Removed(actorID));
-        uge::IEventManager::Get()->vQueueEvent(pEvent);
 
         return true;
     }

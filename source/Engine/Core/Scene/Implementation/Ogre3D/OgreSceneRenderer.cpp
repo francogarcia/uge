@@ -85,7 +85,13 @@ namespace uge
     bool OgreSceneRenderer::vOnRemoveChild(ActorID actorID, ISceneNodeSharedPointer pSceneNode)
     {
         auto& nodeIterator = m_OgreSceneNodes.find(actorID);
-        assert(nodeIterator != m_OgreSceneNodes.end() && "Actor not found!");
+        if (nodeIterator == m_OgreSceneNodes.end())
+        {
+            // Actor does not have the component.
+             //assert(nodeIterator != m_SceneNodes.end() && "Actor not found!");
+
+            return true;
+        }
 
         // Remove the child scene nodes, if necessary.
         const SceneNodeList& nodeChildren = pSceneNode->vGetChildren();
