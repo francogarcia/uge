@@ -292,6 +292,7 @@ namespace sg
 
             RemoveDestroyedActors();
             MoveEnemies();
+            MakeEnemiesAttack();
 
             return bSuccess;
         }
@@ -439,8 +440,42 @@ namespace sg
 
                 MoveActor::Direction direction = (std::rand() % 2) ?
                                                  MoveActor::Direction::Left : MoveActor::Direction::Right;
-                std::shared_ptr<sg::MoveActor> pEvent(
-                    LIB_NEW sg::MoveActor(actorID, direction));
+                std::shared_ptr<sg::MoveActor> pEvent(LIB_NEW sg::MoveActor(actorID, direction));
+                uge::IEventManager::Get()->vQueueEvent(pEvent);
+            }
+        }
+
+        void Running::MakeEnemiesAttack()
+        {
+            // Make enemies attack with probability kProbabilityToAttack.
+            sg::GameLogic* pGameLogic = dynamic_cast<sg::GameLogic*>(m_pGameLogic);
+            for (const auto& actorIt : pGameLogic->m_Actors)
+            {
+                uge::ActorID actorID = actorIt.first;
+                uge::ActorSharedPointer pActor = actorIt.second;
+                if (pActor->GetActorType() != g_kActorTypeAlien)
+                {
+                    continue;
+                }
+
+                const unsigned int kProbabilityToAttack = 5u;
+                if (std::rand() % 1000 > kProbabilityToAttack)
+                {
+                    continue;
+                }
+
+                const unsigned int kProbabilityToUseBomb = 5u;
+                FireProjectile::Type type;
+                if (std::rand() % 1000 > kProbabilityToUseBomb)
+                {
+                    type = FireProjectile::Type::Bomb;
+                }
+                else
+                {
+                    type = FireProjectile::Type::Bullet;
+                }
+
+                std::shared_ptr<sg::FireProjectile> pEvent(LIB_NEW sg::FireProjectile(actorID, type));
                 uge::IEventManager::Get()->vQueueEvent(pEvent);
             }
         }

@@ -127,6 +127,7 @@ namespace sg
             void LoadProfile(const std::string& xmlResourceFilename);
 
             void MoveEnemies();
+            void MakeEnemiesAttack();
             void RemoveDestroyedActors();
 
             void HandleProjectileCollision(uge::ActorSharedPointer pTarget, uge::ActorSharedPointer pProjectile);
