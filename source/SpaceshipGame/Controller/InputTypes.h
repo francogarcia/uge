@@ -4,7 +4,8 @@
 
 enum class uge::InputMapping::Action : unsigned int
 {
-    Fire,
+    FireBullet,
+    FireBomb,
 };
 
 enum class uge::InputMapping::State : unsigned int

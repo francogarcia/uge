@@ -128,6 +128,8 @@ namespace sg
 
             void RemoveDestroyedActors();
 
+            void HandleProjectileCollision(uge::ActorSharedPointer pTarget, uge::ActorSharedPointer pProjectile);
+
             void RegisterEvents();
             void UnregisterEvents();
 
@@ -138,6 +140,8 @@ namespace sg
 
             void MoveActor(uge::IEventDataSharedPointer pEventData);
             void StopActor(uge::IEventDataSharedPointer pEventData);
+
+            void FireProjectile(uge::IEventDataSharedPointer pEventData);
 
         private:
             uge::ActorSharedPointer m_pSpaceship;

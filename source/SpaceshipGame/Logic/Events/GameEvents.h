@@ -160,4 +160,66 @@ namespace sg
         uge::ActorID m_ActorID;
     };
 
+
+    class FireProjectile : public uge::BaseEventData
+    {
+    public:
+
+        enum class Type : char
+        {
+            Bullet,
+            Bomb
+        };
+
+        static const uge::EventType sk_EventType;
+
+        explicit FireProjectile(uge::ActorID actorID, FireProjectile::Type type)
+            : m_ActorID(actorID), m_Type(type)
+        {
+
+        }
+
+        virtual const uge::EventType& vGetEventType() const override
+        {
+            return sk_EventType;
+        }
+
+        virtual uge::IEventDataSharedPointer vCopy() const override
+        {
+            return uge::IEventDataSharedPointer(LIB_NEW FireProjectile(m_ActorID, m_Type));
+        }
+
+        virtual void vSerialize(std::ostrstream& out) const override
+        {
+            out << m_ActorID << static_cast<char>(m_Type);
+        }
+
+        virtual void vDeserialize(std::istrstream& in) override
+        {
+            char directionValue;
+
+            in >> m_ActorID >> directionValue;
+            
+            m_Type = static_cast<FireProjectile::Type>(directionValue);
+        }
+
+        virtual const char* vGetName() const override
+        {
+            return "FireProjectile";
+        }
+
+        uge::ActorID GetActorID() const
+        {
+            return m_ActorID;
+        }
+
+        FireProjectile::Type GetType() const
+        {
+            return m_Type;
+        }
+
+    private:
+        uge::ActorID m_ActorID;
+        FireProjectile::Type m_Type;
+    };
 }

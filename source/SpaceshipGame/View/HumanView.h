@@ -84,8 +84,10 @@ namespace sg
 
         virtual uge::ICameraNodeSharedPointer vCreateCamera() override
         {
+            const uge::GraphicalPreferences::WindowSettings& windowSettings = m_PlayerProfile.GetGraphicalPreferences().GetWindowSettings();
+
             uge::Frustum viewFrustum;
-            float fAspectRatio = 1024.0f / 768.0f;
+            float fAspectRatio = windowSettings.width / windowSettings.height;
             viewFrustum.Init(45.0f, fAspectRatio, 5.0f, 10000.0f); // fov, aspect ratio, near plane, far plane
 
             const uge::Vector3 position(0.0f, 500.0f, 0.0f);

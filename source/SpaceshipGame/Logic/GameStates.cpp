@@ -8,6 +8,8 @@
 
 #include <Core/Physics/PhysicsEvents.h>
 
+#include "Components/DamageInflictingComponent.h"
+#include "Components/DamageSoakingComponent.h"
 #include "Components/HealthComponent.h"
 
 #include "Events/GameEvents.h"
@@ -260,10 +262,10 @@ namespace sg
             for (const auto& actorIt : pGameLogic->m_Actors)
             {
                 uge::ActorSharedPointer pActor = actorIt.second;
-                
+
                 pGameLogic->vCreateAndAddSceneNode(pActor);
             }
-           
+
             std::shared_ptr<uge::EvtData_Set_Controlled_Actor> pEvent(LIB_NEW uge::EvtData_Set_Controlled_Actor(m_pSpaceship->GetActorID()));
             uge::IEventManager::Get()->vQueueEvent(pEvent);
 
@@ -326,18 +328,6 @@ namespace sg
             }
             aliens.CloseFile();
 
-            pActor = CreateAndRegisterActor("data/game/actors/bullet.xml");
-            if (pActor == uge::ActorSharedPointer())
-            {
-                return false;
-            }
-
-            pActor = CreateAndRegisterActor("data/game/actors/bomb.xml");
-            if (pActor == uge::ActorSharedPointer())
-            {
-                return false;
-            }
-
             return true;
         }
 
@@ -352,6 +342,7 @@ namespace sg
                 return uge::ActorSharedPointer();
             }
 
+            // XXX: refactor here to RegisterActor()
             // Add the actor to the physics simulation.
             AddActorToPhysics(pActor);
 
@@ -464,6 +455,9 @@ namespace sg
 
             functionDelegate = fastdelegate::MakeDelegate(this, &Running::StopActor);
             uge::IEventManager::Get()->vAddListener(functionDelegate, sg::StopActor::sk_EventType);
+
+            functionDelegate = fastdelegate::MakeDelegate(this, &Running::FireProjectile);
+            uge::IEventManager::Get()->vAddListener(functionDelegate, sg::FireProjectile::sk_EventType);
         }
 
         void Running::UnregisterEvents()
@@ -483,13 +477,68 @@ namespace sg
 
             functionDelegate = fastdelegate::MakeDelegate(this, &Running::StopActor);
             uge::IEventManager::Get()->vRemoveListener(functionDelegate, sg::StopActor::sk_EventType);
+
+            functionDelegate = fastdelegate::MakeDelegate(this, &Running::FireProjectile);
+            uge::IEventManager::Get()->vRemoveListener(functionDelegate, sg::FireProjectile::sk_EventType);
         }
+
+        static const std::string g_kActorTypeAlien = "Alien";
+        static const std::string g_kActorTypeBomb = "Bomb";
+        static const std::string g_kActorTypeBullet = "Bullet";
+        static const std::string g_kActorTypeSpaceship = "Spaceship";
 
         void Running::CollisionStarted(uge::IEventDataSharedPointer pEventData)
         {
             std::shared_ptr<uge::EvtData_PhysCollision> pData = std::static_pointer_cast<uge::EvtData_PhysCollision>(pEventData);
 
             printf("Actors %u and %u collided!\n", pData->GetActorA(), pData->GetActorB());
+            
+            uge::ActorID actorA = pData->GetActorA();
+            uge::ActorID actorB = pData->GetActorB();
+            
+            uge::ActorSharedPointer pActorA = m_pGameLogic->vGetActor(actorA).lock();
+            uge::ActorSharedPointer pActorB = m_pGameLogic->vGetActor(actorB).lock();
+
+            const std::string actorTypeA = pActorA->GetActorType();
+            const std::string actorTypeB = pActorB->GetActorType();
+            if (actorTypeA == g_kActorTypeBomb || actorTypeA == g_kActorTypeBullet)
+            {
+                if (actorTypeB == g_kActorTypeAlien)
+                {
+                    HandleProjectileCollision(pActorB, pActorA);
+                }
+                else if (actorTypeB == g_kActorTypeSpaceship)
+                {
+                    HandleProjectileCollision(pActorB, pActorA);
+                }
+            }
+            else if (actorTypeB == g_kActorTypeBomb || actorTypeB == g_kActorTypeBullet)
+            {
+                if (actorTypeA == g_kActorTypeAlien)
+                {
+                    HandleProjectileCollision(pActorA, pActorB);
+                }
+                else if (actorTypeA == g_kActorTypeSpaceship)
+                {
+                    HandleProjectileCollision(pActorA, pActorB);
+                }
+            }            
+        }
+
+        void Running::HandleProjectileCollision(uge::ActorSharedPointer pTarget, uge::ActorSharedPointer pProjectile)
+        {
+            // All targets should have a HealthComponent.
+            sg::Component::HealthComponentSharedPointer pTargetHeathComponent =
+                pTarget->GetComponent<sg::Component::HealthComponent>(sg::Component::HealthComponent::g_ComponentName).lock();
+
+            // All projectiles should have a DamageInflictingComponent.
+            sg::Component::DamageInflictingComponentSharedPointer pDamageComponent = 
+                pProjectile->GetComponent<sg::Component::DamageInflictingComponent>(sg::Component::DamageInflictingComponent::g_ComponentName).lock();
+
+            // A DamageSoaking is optional, so we have to check before converting to a shared pointer (lock()).
+            sg::Component::DamageSoakingComponentWeakPointer pWeakSoakingComponent =
+                pTarget->GetComponent<sg::Component::DamageSoakingComponent>(sg::Component::DamageSoakingComponent::g_ComponentName);
+
         }
 
         void Running::CollisionEnded(uge::IEventDataSharedPointer pEventData)
@@ -541,6 +590,64 @@ namespace sg
 
             uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
             pPhysics->vStopActor(pData->GetActorID());
+        }
+
+        void Running::FireProjectile(uge::IEventDataSharedPointer pEventData)
+        {
+            std::shared_ptr<sg::FireProjectile> pData = std::static_pointer_cast<sg::FireProjectile>(pEventData);
+
+            // Create the desired projectile.
+            std::string actorResourceFile("");
+            if (pData->GetType() == FireProjectile::Type::Bullet)
+            {
+                actorResourceFile = "data/game/actors/bullet.xml";
+            }
+            else
+            {
+                actorResourceFile = "data/game/actors/bomb.xml";
+            }
+
+            uge::ActorSharedPointer pActorProjectile = CreateActor(actorResourceFile);
+            assert(pActorProjectile != uge::ActorSharedPointer());
+
+            // Set position.
+            uge::ActorSharedPointer pActorOwner = m_pGameLogic->vGetActor(pData->GetActorID()).lock();
+            uge::Component::TransformableComponentSharedPointer pOwnerTransformableComponent =
+                pActorOwner->GetComponent<uge::Component::TransformableComponent>(uge::Component::TransformableComponent::g_ComponentName).lock();
+            const uge::Vector3& ownerPosition = pOwnerTransformableComponent->GetPosition();
+            const uge::Vector3& ownerRotation = pOwnerTransformableComponent->GetRotationVector();
+            const uge::Vector3& ownerScale = pOwnerTransformableComponent->GetScale();
+
+            uge::Vector3 projectilePosition = ownerPosition;
+            projectilePosition.z -= (2.0f * ownerScale.z); // Account for half size (center).
+
+            uge::Vector3 projectileRotation = ownerRotation;
+            projectileRotation.z += (100.0f * ownerScale.z); // Force a straigth shot.
+            uge::Vector3 direction = projectileRotation; 
+            direction.z *= -1.0f; // Reverse the vector's sense.
+
+            uge::Component::TransformableComponentSharedPointer pProjectileTransformableComponent =
+                pActorProjectile->GetComponent<uge::Component::TransformableComponent>(uge::Component::TransformableComponent::g_ComponentName).lock();
+            pProjectileTransformableComponent->SetRotation(projectileRotation);
+            pProjectileTransformableComponent->SetPosition(projectilePosition);
+
+            // Add the actor to the physics simulation.
+            AddActorToPhysics(pActorProjectile);
+            m_ActorNameToID[pActorProjectile->GetActorType()] = pActorProjectile->GetActorID();
+
+            // Set velocity and apply the initial impulse.
+            uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
+            pPhysics->vApplyForce(pActorProjectile->GetActorID(), direction.GetNormalized(), 1.0f);
+
+            uge::Component::BulletPhysicsComponentSharedPointer pActorPhysicsComponent =
+                pActorProjectile->GetComponent<uge::Component::BulletPhysicsComponent>(uge::Component::BulletPhysicsComponent::g_ComponentName).lock();
+
+            float fMaxVelocityMagnitude = pActorPhysicsComponent->vGetMaxVelocity();
+            uge::Vector3 velocity = pActorPhysicsComponent->vGetVelocity();
+            float fCurrentVelocityMagnitude = velocity.Length();
+
+            velocity *= (fMaxVelocityMagnitude / fCurrentVelocityMagnitude);
+            pActorPhysicsComponent->vSetVelocity(velocity);
         }
 
         const char* Paused::g_Name = "Paused";

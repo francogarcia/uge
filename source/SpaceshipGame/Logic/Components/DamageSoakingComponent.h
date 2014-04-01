@@ -7,6 +7,7 @@ namespace sg
 
         class DamageSoakingComponent;
         typedef std::shared_ptr<DamageSoakingComponent> DamageSoakingComponentSharedPointer;
+        typedef std::weak_ptr<DamageSoakingComponent> DamageSoakingComponentWeakPointer;
 
         /**
          * @class DamageSoakingComponent

@@ -101,9 +101,18 @@ namespace sg
             m_LastPlayerMoveRight = bState;
         }
 
-        if (inputs.IsActionEnabled(uge::InputMapping::Action::Fire))
+        if (inputs.IsActionEnabled(uge::InputMapping::Action::FireBullet))
         {
-            // Send fire event.
+            std::shared_ptr<sg::FireProjectile> pEvent(
+                LIB_NEW sg::FireProjectile(m_ActorID, FireProjectile::Type::Bullet));
+            uge::IEventManager::Get()->vQueueEvent(pEvent);
+        }
+
+        if (inputs.IsActionEnabled(uge::InputMapping::Action::FireBomb))
+        {
+            std::shared_ptr<sg::FireProjectile> pEvent(
+                LIB_NEW sg::FireProjectile(m_ActorID, FireProjectile::Type::Bomb));
+            uge::IEventManager::Get()->vQueueEvent(pEvent);
         }
     }
 
