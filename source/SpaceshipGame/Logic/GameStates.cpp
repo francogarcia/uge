@@ -224,6 +224,11 @@ namespace sg
             return g_Name;
         }
 
+        static const std::string g_kActorTypeAlien = "Alien";
+        static const std::string g_kActorTypeBomb = "Bomb";
+        static const std::string g_kActorTypeBullet = "Bullet";
+        static const std::string g_kActorTypeSpaceship = "Spaceship";
+
         Running::Running()
         {
 
@@ -286,6 +291,7 @@ namespace sg
             bool bSuccess = uge::GameState::Running::vOnUpdate(timeElapsed);
 
             RemoveDestroyedActors();
+            MoveEnemies();
 
             return bSuccess;
         }
@@ -404,6 +410,41 @@ namespace sg
             entityListFile.CloseFile();
         }
 
+        void Running::MoveEnemies()
+        {
+            // Move the enemies in a random sense with probability kProbabilityToMove.
+            sg::GameLogic* pGameLogic = dynamic_cast<sg::GameLogic*>(m_pGameLogic);
+            for (const auto& actorIt : pGameLogic->m_Actors)
+            {
+                uge::ActorID actorID = actorIt.first;
+                uge::ActorSharedPointer pActor = actorIt.second;
+                if (pActor->GetActorType() != g_kActorTypeAlien)
+                {
+                    continue;
+                }
+
+                const unsigned int kProbabilityToMove = 5u;
+                const unsigned int kProbabilityToStop = 70u;
+                if (std::rand() % 100 > kProbabilityToMove)
+                {
+                    continue;
+                }
+                else if (std::rand() % 100 > kProbabilityToStop)
+                {
+                    uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
+                    pPhysics->vStopActor(actorID);
+
+                    continue;
+                }
+
+                MoveActor::Direction direction = (std::rand() % 2) ?
+                                                 MoveActor::Direction::Left : MoveActor::Direction::Right;
+                std::shared_ptr<sg::MoveActor> pEvent(
+                    LIB_NEW sg::MoveActor(actorID, direction));
+                uge::IEventManager::Get()->vQueueEvent(pEvent);
+            }
+        }
+
         void Running::RemoveDestroyedActors()
         {
             std::vector<uge::ActorID> destroyedActorIDs;
@@ -481,11 +522,6 @@ namespace sg
             functionDelegate = fastdelegate::MakeDelegate(this, &Running::FireProjectile);
             uge::IEventManager::Get()->vRemoveListener(functionDelegate, sg::FireProjectile::sk_EventType);
         }
-
-        static const std::string g_kActorTypeAlien = "Alien";
-        static const std::string g_kActorTypeBomb = "Bomb";
-        static const std::string g_kActorTypeBullet = "Bullet";
-        static const std::string g_kActorTypeSpaceship = "Spaceship";
 
         void Running::CollisionStarted(uge::IEventDataSharedPointer pEventData)
         {
@@ -650,7 +686,7 @@ namespace sg
             projectilePosition.z -= (2.0f * ownerScale.z); // Account for half size (center).
 
             uge::Vector3 projectileRotation = ownerRotation;
-            projectileRotation.z += (100.0f * ownerScale.z); // Force a straigth shot.
+            projectileRotation.z += (100.0f * ownerScale.z); // Force a straight shot.
             uge::Vector3 direction = projectileRotation;
             direction.z *= -1.0f; // Reverse the vector's sense.
 
