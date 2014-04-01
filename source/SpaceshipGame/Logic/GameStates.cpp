@@ -430,10 +430,10 @@ namespace sg
             for (uge::ActorID actorID : destroyedActorIDs)
             {
                 pPhysics->vRemoveActor(actorID);
+                pGameLogic->vRemoveSceneNode(actorID);
                 pGameLogic->vDestroyActor(actorID);
 
                 std::shared_ptr<sg::AlienDestroyed> pEvent(LIB_NEW sg::AlienDestroyed(actorID));
-                // Event will be triggered during the vUpdate() call.
                 uge::IEventManager::Get()->vQueueEvent(pEvent);
             }
         }
@@ -492,10 +492,10 @@ namespace sg
             std::shared_ptr<uge::EvtData_PhysCollision> pData = std::static_pointer_cast<uge::EvtData_PhysCollision>(pEventData);
 
             printf("Actors %u and %u collided!\n", pData->GetActorA(), pData->GetActorB());
-            
+
             uge::ActorID actorA = pData->GetActorA();
             uge::ActorID actorB = pData->GetActorB();
-            
+
             uge::ActorSharedPointer pActorA = m_pGameLogic->vGetActor(actorA).lock();
             uge::ActorSharedPointer pActorB = m_pGameLogic->vGetActor(actorB).lock();
 
@@ -522,23 +522,51 @@ namespace sg
                 {
                     HandleProjectileCollision(pActorA, pActorB);
                 }
-            }            
+            }
         }
 
         void Running::HandleProjectileCollision(uge::ActorSharedPointer pTarget, uge::ActorSharedPointer pProjectile)
         {
-            // All targets should have a HealthComponent.
-            sg::Component::HealthComponentSharedPointer pTargetHeathComponent =
-                pTarget->GetComponent<sg::Component::HealthComponent>(sg::Component::HealthComponent::g_ComponentName).lock();
-
             // All projectiles should have a DamageInflictingComponent.
-            sg::Component::DamageInflictingComponentSharedPointer pDamageComponent = 
+            sg::Component::DamageInflictingComponentSharedPointer pDamageComponent =
                 pProjectile->GetComponent<sg::Component::DamageInflictingComponent>(sg::Component::DamageInflictingComponent::g_ComponentName).lock();
+            int totalDamage = pDamageComponent->GetDamageOutput();
 
             // A DamageSoaking is optional, so we have to check before converting to a shared pointer (lock()).
             sg::Component::DamageSoakingComponentWeakPointer pWeakSoakingComponent =
                 pTarget->GetComponent<sg::Component::DamageSoakingComponent>(sg::Component::DamageSoakingComponent::g_ComponentName);
+            if (!pWeakSoakingComponent.expired())
+            {
+                sg::Component::DamageSoakingComponentSharedPointer pSoakingComponent = pWeakSoakingComponent.lock();
+                int shieldProtection = pSoakingComponent->GetCurrentProtection();
+                if (shieldProtection > 0)
+                {
+                    pSoakingComponent->DecrementProtection(totalDamage);
+                    totalDamage -= shieldProtection;
 
+                    printf("The shield reduced the damage by: %d!\n", pDamageComponent->GetDamageOutput() - shieldProtection);
+                }
+            }
+
+            // All targets should have a HealthComponent.
+            sg::Component::HealthComponentSharedPointer pTargetHeathComponent =
+                pTarget->GetComponent<sg::Component::HealthComponent>(sg::Component::HealthComponent::g_ComponentName).lock();
+            if (totalDamage > 0)
+            {
+                pTargetHeathComponent->DecrementHealthPoints(totalDamage);
+
+                printf("The actor took %d points of damage!\n", totalDamage);
+            }
+
+            // Stop the actor that was hit.
+            uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
+            pPhysics->vStopActor(pTarget->GetActorID());
+
+            // Remove the projectile from the game.
+            const uge::ActorID projectileID = pProjectile->GetActorID();
+            pPhysics->vRemoveActor(projectileID);
+            m_pGameLogic->vRemoveSceneNode(projectileID);
+            m_pGameLogic->vDestroyActor(projectileID);
         }
 
         void Running::CollisionEnded(uge::IEventDataSharedPointer pEventData)
@@ -623,7 +651,7 @@ namespace sg
 
             uge::Vector3 projectileRotation = ownerRotation;
             projectileRotation.z += (100.0f * ownerScale.z); // Force a straigth shot.
-            uge::Vector3 direction = projectileRotation; 
+            uge::Vector3 direction = projectileRotation;
             direction.z *= -1.0f; // Reverse the vector's sense.
 
             uge::Component::TransformableComponentSharedPointer pProjectileTransformableComponent =
@@ -634,6 +662,9 @@ namespace sg
             // Add the actor to the physics simulation.
             AddActorToPhysics(pActorProjectile);
             m_ActorNameToID[pActorProjectile->GetActorType()] = pActorProjectile->GetActorID();
+
+            // Add the actor to the scene.
+            m_pGameLogic->vCreateAndAddSceneNode(pActorProjectile);
 
             // Set velocity and apply the initial impulse.
             uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();

@@ -85,6 +85,26 @@ namespace uge
         return number;
     }
 
+    unsigned int StringToUInt(const std::string& text)
+    {
+        std::istringstream str(text);
+        unsigned int number;
+
+        str >> std::dec >> number;
+
+        return number;
+    }
+
+    unsigned int WStringToUInt(const std::wstring& wtext)
+    {
+        std::wistringstream wstr(wtext);
+        unsigned int number;
+
+        wstr >> std::dec >> number;
+
+        return number;
+    }
+
     float StringToFloat(const std::string& text)
     {
         std::istringstream str(text);
@@ -116,6 +136,26 @@ namespace uge
     }
 
     std::wstring IntToWString(const int& number)
+    {
+        //std::wstringstream wstr;
+        //wstr << number;
+
+        //return wstr.str();
+
+        return std::to_wstring(number);
+    }
+
+    std::string UIntToString(const unsigned int& number)
+    {
+        //std::stringstream str;
+        //str << number;
+
+        //return str.str();
+
+        return std::to_string(number);
+    }
+
+    std::wstring UIntToWString(const unsigned int& number)
     {
         //std::wstringstream wstr;
         //wstr << number;

@@ -5,6 +5,7 @@
 #include <Core/EntityComponent/Entity/Actor.h>
 #include <Core/Resource/ResourceCache.h>
 #include <Utilities/Math/Conversion/OgreMathConversion.h>
+#include <Utilities/String/StringUtil.h>
 
 namespace uge
 {
@@ -216,7 +217,8 @@ namespace uge
         Ogre::SceneNode* pSceneNode;
         if (pNode->m_pEntity == nullptr)
         {
-            pNode->m_pEntity = m_pOgreSceneManager->createEntity(pOgreRenderComponent->vGetSceneNodeName(),
+            std::string sceneNodeName = UIntToString(pActor->GetActorID()) + std::string(" ") + pSceneNodeProperties->GetName();
+            pNode->m_pEntity = m_pOgreSceneManager->createEntity(sceneNodeName,
                                                                  pOgreRenderComponent->GetMeshFileName());
             const std::string& materialName = pOgreRenderComponent->GetMaterialFileName();
             if (materialName != "")
@@ -224,7 +226,7 @@ namespace uge
                 pNode->m_pEntity->setMaterialName(materialName);
             }
 
-            pSceneNode = pParentNode->createChildSceneNode(pSceneNodeProperties->GetName());
+            pSceneNode = pParentNode->createChildSceneNode(sceneNodeName);
             pSceneNode->attachObject(pNode->m_pEntity);
         }
         else

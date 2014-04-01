@@ -76,6 +76,20 @@ namespace uge
     int WStringToInt(const std::wstring& wtext);
 
     /**
+     *  Converts a string to an unsigned integer.
+     * @param text : the input value as a string.
+     * @return : the string converted to unsigned int.
+     */
+    unsigned int StringToUInt(const std::string& text);
+
+    /**
+     *  Converts a wstring to an unsigned integer.
+     * @param wtext : the input value as a wstring.
+     * @return : the wstring converted to unsigned int.
+     */
+    unsigned int WStringToUInt(const std::wstring& wtext);
+
+    /**
      *  Converts a string to float.
      * @param text : the input value as a string.
      * @return : the float representation of the string.
@@ -102,6 +116,20 @@ namespace uge
      * @return : a wstring representing the number.
      */
     std::wstring IntToWString(const int& number);
+
+    /**
+     *  Converts an unsigned integer to a string.
+     * @param number : an unsigned integer number.
+     * @return : a string representing the number.
+     */
+    std::string UIntToString(const unsigned int& number);
+
+    /**
+     *  Converts an unsigned integer to a wstring.
+     * @param number : an unsigned integer number.
+     * @return : a wstring representing the number.
+     */
+    std::wstring UIntToWString(const unsigned int& number);
 
     /**
      *  Converts a float number to a string.
