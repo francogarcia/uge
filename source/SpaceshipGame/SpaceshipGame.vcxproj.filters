@@ -112,6 +112,12 @@
     <ClInclude Include="Views\EventFeedback\FeedbackFactory.h">
       <Filter>Views\EventFeedback</Filter>
     </ClInclude>
+    <ClInclude Include="Views\MotorImpairment\Controller\MotorImpairmentGameController.h">
+      <Filter>Views\MotorImpairment\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\MotorImpairment\View\MotorImpairmentHumanView.h">
+      <Filter>Views\MotorImpairment\View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -157,6 +163,12 @@
     </ClCompile>
     <ClCompile Include="Views\EventFeedback\FeedbackFactory.cpp">
       <Filter>Views\EventFeedback</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\MotorImpairment\Controller\MotorImpairmentGameController.cpp">
+      <Filter>Views\MotorImpairment\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\MotorImpairment\View\MotorImpairmentHumanView.cpp">
+      <Filter>Views\MotorImpairment\View</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

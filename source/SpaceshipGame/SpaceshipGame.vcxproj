@@ -107,6 +107,8 @@
     <ClInclude Include="Views\AverageUser\View\HumanView.h" />
     <ClInclude Include="Views\EventFeedback\AuralFeedback.h" />
     <ClInclude Include="Views\EventFeedback\FeedbackFactory.h" />
+    <ClInclude Include="Views\MotorImpairment\Controller\MotorImpairmentGameController.h" />
+    <ClInclude Include="Views\MotorImpairment\View\MotorImpairmentHumanView.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
@@ -128,6 +130,8 @@
     <ClCompile Include="Views\AverageUser\View\HumanView.cpp" />
     <ClCompile Include="Views\EventFeedback\AuralFeedback.cpp" />
     <ClCompile Include="Views\EventFeedback\FeedbackFactory.cpp" />
+    <ClCompile Include="Views\MotorImpairment\Controller\MotorImpairmentGameController.cpp" />
+    <ClCompile Include="Views\MotorImpairment\View\MotorImpairmentHumanView.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

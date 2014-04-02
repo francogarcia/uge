@@ -115,7 +115,7 @@ namespace sg
             uge::HumanGameView::vSetControlledActor(actorID, bSetCameraTarget);
         }
 
-    private:
+    protected:
         void RegisterEventDelegates()
         {
             uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &sg::HumanView::ControlledActorDelegate);
@@ -154,7 +154,7 @@ namespace sg
             }
         }
 
-    private:
+    protected:
         uge::IGraphicsSharedPointer m_pGraphics;
         uge::IAudioSharedPointer m_pAudio;
         uge::ResourceCache& m_ResourceCache;
