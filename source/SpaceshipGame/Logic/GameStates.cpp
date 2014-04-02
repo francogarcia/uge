@@ -262,15 +262,21 @@ namespace sg
             // Overrides the presentation data using the chosen profile.
             LoadProfile(xmlResourceFilename);
 
-            // Add actors to the scene.
+            // Specialize all the actors currently in the game according to the
+            // profile's definition.
             sg::GameLogic* pGameLogic = dynamic_cast<sg::GameLogic*>(m_pGameLogic);
             for (const auto& actorIt : pGameLogic->m_Actors)
             {
+                uge::ActorID actorID = actorIt.first;
                 uge::ActorSharedPointer pActor = actorIt.second;
 
+                TailorActorToProfile(pActor);
+
+                // Add the actor the game scene.
                 pGameLogic->vCreateAndAddSceneNode(pActor);
             }
 
+            // Lets the game view attach the player's controlled actor.
             std::shared_ptr<uge::EvtData_Set_Controlled_Actor> pEvent(LIB_NEW uge::EvtData_Set_Controlled_Actor(m_pSpaceship->GetActorID()));
             uge::IEventManager::Get()->vQueueEvent(pEvent);
 
@@ -353,8 +359,6 @@ namespace sg
             // Add the actor to the physics simulation.
             AddActorToPhysics(pActor);
 
-            m_ActorNameToID[pActor->GetActorType()] = pActor->GetActorID();
-
             return pActor;
         }
 
@@ -381,6 +385,7 @@ namespace sg
             uge::XMLFile entityListFile;
             entityListFile.OpenFile(xmlResourceFilename, uge::File::FileMode::FileReadOnly);
 
+            // Register each of the actor's specialization resource.
             uge::XMLElement entityListRoot = entityListFile.GetRootElement();
             for (uge::XMLElement entityElement = entityListRoot.GetFirstChildElement();
                  entityElement.IsGood();
@@ -392,23 +397,29 @@ namespace sg
                 std::string entityResourceFileName;
                 entityElement.GetAttribute("resource", &entityResourceFileName);
 
-                uge::XMLFile entityResource;
-                entityResource.OpenFile(entityResourceFileName, uge::File::FileMode::FileReadOnly);
-
-                uge::ActorID actorID = m_ActorNameToID[entityName];
-                m_pGameLogic->vModifyActor(actorID, &entityResource.GetRootElement());
-                uge::ActorSharedPointer pActor = m_pGameLogic->vGetActor(actorID).lock();
-                pActor->PostInit();
-
-                // Re-add the actor to the physics simulation (its transform or shape
-                // might have changed).
-                RemoveActorFromPhysics(actorID);
-                AddActorToPhysics(pActor);
-
-                entityResource.CloseFile();
+                m_ActorSpecializationResource[entityName] = entityResourceFileName;
             }
 
             entityListFile.CloseFile();
+        }
+
+        void Running::TailorActorToProfile(uge::ActorSharedPointer pActor)
+        {
+            uge::ActorID actorID = pActor->GetActorID();
+
+            std::string entityResourceFileName = m_ActorSpecializationResource[pActor->GetActorType()];
+            uge::XMLFile entityResource;
+            entityResource.OpenFile(entityResourceFileName, uge::File::FileMode::FileReadOnly);
+
+            m_pGameLogic->vModifyActor(actorID, &entityResource.GetRootElement());
+            pActor->PostInit();
+
+            // Re-add the actor to the physics simulation (its transform or shape
+            // might have changed).
+            RemoveActorFromPhysics(actorID);
+            AddActorToPhysics(pActor);
+
+            entityResource.CloseFile();
         }
 
         void Running::MoveEnemies()
@@ -732,7 +743,9 @@ namespace sg
 
             // Add the actor to the physics simulation.
             AddActorToPhysics(pActorProjectile);
-            m_ActorNameToID[pActorProjectile->GetActorType()] = pActorProjectile->GetActorID();
+
+            // Tailor the actor to the profile's definition.
+            TailorActorToProfile(pActorProjectile);
 
             // Add the actor to the scene.
             m_pGameLogic->vCreateAndAddSceneNode(pActorProjectile);

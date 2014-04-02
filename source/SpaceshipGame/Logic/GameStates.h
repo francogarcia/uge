@@ -125,6 +125,7 @@ namespace sg
             void RemoveActorFromPhysics(uge::ActorID actorID);
 
             void LoadProfile(const std::string& xmlResourceFilename);
+            void TailorActorToProfile(uge::ActorSharedPointer pActor);
 
             void MoveEnemies();
             void MakeEnemiesAttack();
@@ -148,8 +149,8 @@ namespace sg
         private:
             uge::ActorSharedPointer m_pSpaceship;
 
-            // This should be a multi-map if using an actor's resource as archetype.
-            std::map<std::string, uge::ActorID> m_ActorNameToID;
+            // Maps an actor's archetype to the resource that specializes it.
+            std::map<std::string, std::string> m_ActorSpecializationResource;
         };
 
         class Paused : public uge::GameState::BaseGameState
