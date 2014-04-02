@@ -22,8 +22,6 @@ namespace sg
 
         class Initializing : public uge::GameState::Initializing
         {
-            friend class uge::BaseGameLogic;
-
         public:
             Initializing();
             virtual ~Initializing();
@@ -38,8 +36,6 @@ namespace sg
 
         class SplashScreen : public uge::GameState::BaseGameState
         {
-            friend class uge::BaseGameLogic;
-
         public:
             /// The name of the state.
             static const char* g_Name;
@@ -59,8 +55,6 @@ namespace sg
 
         class MainMenu : public uge::GameState::BaseGameState
         {
-            friend class uge::BaseGameLogic;
-
         public:
             /// The name of the state.
             static const char* g_Name;
@@ -80,8 +74,6 @@ namespace sg
 
         class NewGame : public uge::GameState::BaseGameState
         {
-            friend class uge::BaseGameLogic;
-
         public:
             /// The name of the state.
             static const char* g_Name;
@@ -101,8 +93,6 @@ namespace sg
 
         class Running : public uge::GameState::Running
         {
-            friend class uge::BaseGameLogic;
-
         public:
             Running();
             virtual ~Running();
@@ -155,8 +145,6 @@ namespace sg
 
         class Paused : public uge::GameState::BaseGameState
         {
-            friend class uge::BaseGameLogic;
-
         public:
             /// The name of the state.
             static const char* g_Name;
@@ -176,8 +164,6 @@ namespace sg
 
         class GameOver : public uge::GameState::BaseGameState
         {
-            friend class uge::BaseGameLogic;
-
         public:
             /// The name of the state.
             static const char* g_Name;
@@ -197,8 +183,6 @@ namespace sg
 
         class Exiting : public uge::GameState::BaseGameState
         {
-            friend class uge::BaseGameLogic;
-
         public:
             /// The name of the state.
             static const char* g_Name;

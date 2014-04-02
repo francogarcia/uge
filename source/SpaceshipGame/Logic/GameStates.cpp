@@ -435,24 +435,20 @@ namespace sg
                     continue;
                 }
 
-                const unsigned int kProbabilityToMove = 5u;
-                const unsigned int kProbabilityToStop = 70u;
-                if (std::rand() % 100 > kProbabilityToMove)
+                const unsigned int kProbabilityToMove = 30u;
+                const unsigned int kProbabilityToStop = 20u;
+                if (std::rand() % 100 <= kProbabilityToMove)
                 {
-                    continue;
+                    MoveActor::Direction direction = (std::rand() % 2) ?
+                                                     MoveActor::Direction::Left : MoveActor::Direction::Right;
+                    std::shared_ptr<sg::MoveActor> pEvent(LIB_NEW sg::MoveActor(actorID, direction));
+                    uge::IEventManager::Get()->vQueueEvent(pEvent);
                 }
-                else if (std::rand() % 100 > kProbabilityToStop)
+                else if (std::rand() % 100 <= kProbabilityToStop)
                 {
                     uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
                     pPhysics->vStopActor(actorID);
-
-                    continue;
                 }
-
-                MoveActor::Direction direction = (std::rand() % 2) ?
-                                                 MoveActor::Direction::Left : MoveActor::Direction::Right;
-                std::shared_ptr<sg::MoveActor> pEvent(LIB_NEW sg::MoveActor(actorID, direction));
-                uge::IEventManager::Get()->vQueueEvent(pEvent);
             }
         }
 
@@ -469,25 +465,23 @@ namespace sg
                     continue;
                 }
 
-                const unsigned int kProbabilityToAttack = 5u;
-                if (std::rand() % 1000 > kProbabilityToAttack)
+                const unsigned int kProbabilityToAttack = 3u;
+                if (std::rand() % 1000 <= kProbabilityToAttack)
                 {
-                    continue;
-                }
+                    const unsigned int kProbabilityToUseBomb = 5u;
+                    FireProjectile::Type type;
+                    if (std::rand() % 1000 <= kProbabilityToUseBomb)
+                    {
+                        type = FireProjectile::Type::Bomb;
+                    }
+                    else
+                    {
+                        type = FireProjectile::Type::Bullet;
+                    }
 
-                const unsigned int kProbabilityToUseBomb = 5u;
-                FireProjectile::Type type;
-                if (std::rand() % 1000 > kProbabilityToUseBomb)
-                {
-                    type = FireProjectile::Type::Bomb;
+                    std::shared_ptr<sg::FireProjectile> pEvent(LIB_NEW sg::FireProjectile(actorID, type));
+                    uge::IEventManager::Get()->vQueueEvent(pEvent);
                 }
-                else
-                {
-                    type = FireProjectile::Type::Bullet;
-                }
-
-                std::shared_ptr<sg::FireProjectile> pEvent(LIB_NEW sg::FireProjectile(actorID, type));
-                uge::IEventManager::Get()->vQueueEvent(pEvent);
             }
         }
 
