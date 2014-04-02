@@ -7,7 +7,7 @@
 
 #include "../Logic/GameLogic.h"
 
-#include "../View/HumanView.h"
+#include "../Views/AverageUser/View/HumanView.h"
 
 namespace sg
 {

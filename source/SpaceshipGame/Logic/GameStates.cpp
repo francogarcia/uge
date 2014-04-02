@@ -594,6 +594,19 @@ namespace sg
                 {
                     HandleProjectileCollision(pActorB, pActorA);
                 }
+                else if (actorTypeB == g_kActorTypeBomb || actorTypeB == g_kActorTypeBullet)
+                {
+                    // Dispose of the projectiles - they collided with each other.
+                    uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
+
+                    pPhysics->vRemoveActor(actorA);
+                    m_pGameLogic->vRemoveSceneNode(actorA);
+                    m_pGameLogic->vDestroyActor(actorA);
+
+                    pPhysics->vRemoveActor(actorB);
+                    m_pGameLogic->vRemoveSceneNode(actorB);
+                    m_pGameLogic->vDestroyActor(actorB);
+                }
             }
             else if (actorTypeB == g_kActorTypeBomb || actorTypeB == g_kActorTypeBullet)
             {
@@ -732,13 +745,22 @@ namespace sg
             const uge::Vector3& ownerRotation = pOwnerTransformableComponent->GetRotationVector();
             const uge::Vector3& ownerScale = pOwnerTransformableComponent->GetScale();
 
-            uge::Vector3 projectilePosition = ownerPosition;
-            projectilePosition.z -= (2.0f * ownerScale.z); // Account for half size (center).
+            float fSize = 2.0f; // Account for half size (center).
+            float fDirection = -1.0f; // Reverse the vector's sense.
+            if (ownerPosition.z < 0.0f)
+            {
+                fSize *= -1;
+                fDirection *= -1;
+            }
 
+            uge::Vector3 projectilePosition = ownerPosition;
+            projectilePosition.z -= (fSize * ownerScale.z);
+
+            const float kfForceStraight = 100.0f; // Force a straight shot.
             uge::Vector3 projectileRotation = ownerRotation;
-            projectileRotation.z += (100.0f * ownerScale.z); // Force a straight shot.
+            projectileRotation.z += (kfForceStraight * ownerScale.z);
             uge::Vector3 direction = projectileRotation;
-            direction.z *= -1.0f; // Reverse the vector's sense.
+            direction.z *= fDirection;
 
             uge::Component::TransformableComponentSharedPointer pProjectileTransformableComponent =
                 pActorProjectile->GetComponent<uge::Component::TransformableComponent>(uge::Component::TransformableComponent::g_ComponentName).lock();

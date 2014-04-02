@@ -93,7 +93,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application\Application.h" />
-    <ClInclude Include="Controller\GameController.h" />
     <ClInclude Include="Controller\InputTypes.h" />
     <ClInclude Include="Logic\Events\GameEvents.h" />
     <ClInclude Include="Logic\Components\ActorFactory.h" />
@@ -104,13 +103,13 @@
     <ClInclude Include="Logic\GameStateFactory.h" />
     <ClInclude Include="Logic\GameStates.h" />
     <ClInclude Include="SpaceshipGameStd.h" />
-    <ClInclude Include="View\EventFeedback\AuralFeedback.h" />
-    <ClInclude Include="View\EventFeedback\FeedbackFactory.h" />
-    <ClInclude Include="View\HumanView.h" />
+    <ClInclude Include="Views\AverageUser\Controller\GameController.h" />
+    <ClInclude Include="Views\AverageUser\View\HumanView.h" />
+    <ClInclude Include="Views\EventFeedback\AuralFeedback.h" />
+    <ClInclude Include="Views\EventFeedback\FeedbackFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
-    <ClCompile Include="Controller\GameController.cpp" />
     <ClCompile Include="Controller\InputTypes.cpp" />
     <ClCompile Include="Logic\Events\GameEvents.cpp" />
     <ClCompile Include="Logic\Components\ActorFactory.cpp" />
@@ -125,9 +124,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="View\EventFeedback\AuralFeedback.cpp" />
-    <ClCompile Include="View\EventFeedback\FeedbackFactory.cpp" />
-    <ClCompile Include="View\HumanView.cpp" />
+    <ClCompile Include="Views\AverageUser\Controller\GameController.cpp" />
+    <ClCompile Include="Views\AverageUser\View\HumanView.cpp" />
+    <ClCompile Include="Views\EventFeedback\AuralFeedback.cpp" />
+    <ClCompile Include="Views\EventFeedback\FeedbackFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

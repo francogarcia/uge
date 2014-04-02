@@ -4,14 +4,8 @@
     <Filter Include="Application">
       <UniqueIdentifier>{5192cea5-6c34-4e2b-9d26-d85710386885}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controller">
-      <UniqueIdentifier>{cb980da9-22b0-4c88-a404-7694bdc4557d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Logic">
       <UniqueIdentifier>{ef0b6190-c0e1-46a6-a914-3f0b25a943ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View">
-      <UniqueIdentifier>{0e36fd7c-1f4f-4095-a9d6-66eeacf62b32}</UniqueIdentifier>
     </Filter>
     <Filter Include="Logic\Components">
       <UniqueIdentifier>{41cd691f-858a-497c-b7f9-acb3144f60cb}</UniqueIdentifier>
@@ -19,17 +13,65 @@
     <Filter Include="Logic\Events">
       <UniqueIdentifier>{a1acdeaa-5aad-4a85-ba24-abbf7e69a5d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="View\Events">
-      <UniqueIdentifier>{ef30e3ad-2367-4f6c-ad6e-43c05075b5aa}</UniqueIdentifier>
+    <Filter Include="Views">
+      <UniqueIdentifier>{3433096f-2d40-4b9a-b7aa-2a13791b6a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\AverageUser">
+      <UniqueIdentifier>{e9fa3809-2a0c-4366-8d2f-4e16c030f97c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\MotorImpairment">
+      <UniqueIdentifier>{4e7f4468-9220-492c-a718-da65d5851a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\LowVision">
+      <UniqueIdentifier>{f13c13dd-5007-430e-b88a-5f12ac516f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\CognitiveImpairment">
+      <UniqueIdentifier>{3857bd87-e62a-4dfe-a98d-4e5258ee9769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Blind">
+      <UniqueIdentifier>{9a90dd6f-5662-4d20-a409-477ddd49cbd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\AverageUser\Controller">
+      <UniqueIdentifier>{baf98716-3ab3-4b64-8b24-1b4a839b0f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\AverageUser\View">
+      <UniqueIdentifier>{9bb517c5-5544-41b8-b184-9783d7268925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\MotorImpairment\Controller">
+      <UniqueIdentifier>{53630807-4dd6-407a-96cf-acc730c2e0ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\LowVision\Controller">
+      <UniqueIdentifier>{83b6842e-51c6-4436-b4dc-cef74697f682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\CognitiveImpairment\Controller">
+      <UniqueIdentifier>{13b4b45c-3197-430e-b7d6-ed1761c1517b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Blind\Controller">
+      <UniqueIdentifier>{8752985d-ef85-46c8-95f0-dc9590cbefd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\MotorImpairment\View">
+      <UniqueIdentifier>{310bb6c2-45b6-4686-9d84-8543ef7143db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\LowVision\View">
+      <UniqueIdentifier>{6e1fde3a-115c-4239-8110-8db800710141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\CognitiveImpairment\View">
+      <UniqueIdentifier>{d946191a-117a-41fc-a003-01a4edc427e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Blind\View">
+      <UniqueIdentifier>{e15b6758-421d-4a0d-8848-7788246ce523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{8da67782-75cd-4bce-a43f-c4197748966b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\EventFeedback">
+      <UniqueIdentifier>{59a50414-d898-4caf-a4b3-a42ec2d3a127}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceshipGameStd.h" />
     <ClInclude Include="Application\Application.h">
       <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller\InputTypes.h">
-      <Filter>Controller</Filter>
     </ClInclude>
     <ClInclude Include="Logic\GameLogic.h">
       <Filter>Logic</Filter>
@@ -39,12 +81,6 @@
     </ClInclude>
     <ClInclude Include="Logic\GameStates.h">
       <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="View\HumanView.h">
-      <Filter>View</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller\GameController.h">
-      <Filter>Controller</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Components\ActorFactory.h">
       <Filter>Logic\Components</Filter>
@@ -61,19 +97,25 @@
     <ClInclude Include="Logic\Events\GameEvents.h">
       <Filter>Logic\Events</Filter>
     </ClInclude>
-    <ClInclude Include="View\EventFeedback\AuralFeedback.h">
-      <Filter>View\Events</Filter>
+    <ClInclude Include="Views\AverageUser\Controller\GameController.h">
+      <Filter>Views\AverageUser\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="View\EventFeedback\FeedbackFactory.h">
-      <Filter>View\Events</Filter>
+    <ClInclude Include="Controller\InputTypes.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\AverageUser\View\HumanView.h">
+      <Filter>Views\AverageUser\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\EventFeedback\AuralFeedback.h">
+      <Filter>Views\EventFeedback</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\EventFeedback\FeedbackFactory.h">
+      <Filter>Views\EventFeedback</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SpaceshipGameStd.cpp" />
-    <ClCompile Include="Controller\InputTypes.cpp">
-      <Filter>Controller</Filter>
-    </ClCompile>
     <ClCompile Include="Logic\GameLogic.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
@@ -83,14 +125,8 @@
     <ClCompile Include="Logic\GameStates.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="View\HumanView.cpp">
-      <Filter>View</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Application.cpp">
       <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller\GameController.cpp">
-      <Filter>Controller</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Components\ActorFactory.cpp">
       <Filter>Logic\Components</Filter>
@@ -107,11 +143,20 @@
     <ClCompile Include="Logic\Events\GameEvents.cpp">
       <Filter>Logic\Events</Filter>
     </ClCompile>
-    <ClCompile Include="View\EventFeedback\AuralFeedback.cpp">
-      <Filter>View\Events</Filter>
+    <ClCompile Include="Views\AverageUser\Controller\GameController.cpp">
+      <Filter>Views\AverageUser\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="View\EventFeedback\FeedbackFactory.cpp">
-      <Filter>View\Events</Filter>
+    <ClCompile Include="Controller\InputTypes.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\AverageUser\View\HumanView.cpp">
+      <Filter>Views\AverageUser\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\EventFeedback\AuralFeedback.cpp">
+      <Filter>Views\EventFeedback</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\EventFeedback\FeedbackFactory.cpp">
+      <Filter>Views\EventFeedback</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
