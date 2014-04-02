@@ -572,6 +572,13 @@ namespace sg
             uge::ActorID actorA = pData->GetActorA();
             uge::ActorID actorB = pData->GetActorB();
 
+            if (m_pGameLogic->vGetActor(actorA).expired() ||
+                m_pGameLogic->vGetActor(actorB).expired())
+            {
+                // Projectile hit more than an enemy. Destroy only the first.
+                return;
+            }
+
             uge::ActorSharedPointer pActorA = m_pGameLogic->vGetActor(actorA).lock();
             uge::ActorSharedPointer pActorB = m_pGameLogic->vGetActor(actorB).lock();
 
@@ -714,6 +721,9 @@ namespace sg
             uge::ActorSharedPointer pActorProjectile = CreateActor(actorResourceFile);
             assert(pActorProjectile != uge::ActorSharedPointer());
 
+            // Tailor the actor to the profile's definition.
+            TailorActorToProfile(pActorProjectile);
+
             // Set position.
             uge::ActorSharedPointer pActorOwner = m_pGameLogic->vGetActor(pData->GetActorID()).lock();
             uge::Component::TransformableComponentSharedPointer pOwnerTransformableComponent =
@@ -736,10 +746,8 @@ namespace sg
             pProjectileTransformableComponent->SetPosition(projectilePosition);
 
             // Add the actor to the physics simulation.
+            RemoveActorFromPhysics(pActorProjectile->GetActorID());
             AddActorToPhysics(pActorProjectile);
-
-            // Tailor the actor to the profile's definition.
-            TailorActorToProfile(pActorProjectile);
 
             // Add the actor to the scene.
             m_pGameLogic->vCreateAndAddSceneNode(pActorProjectile);

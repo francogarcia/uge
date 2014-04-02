@@ -32,20 +32,14 @@ namespace sg
                 return false;
             }
 
-            // Move to views.
-            // TODO / FIXME : TEMPORARY CODE - load this according to the profile settings.
+
+            uge::IGameViewSharedPointer pGameView = CreateGameView();
+            if (pGameView == nullptr)
             {
-                uge::IGameViewSharedPointer pGameView = CreateGameView();
-                vAddGameView(pGameView);
-
-#ifdef UGE_DEBUG_PHYSICS
-                std::shared_ptr<sg::HumanView> pCastGameView = std::dynamic_pointer_cast<sg::HumanView>(pGameView);
-                m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
-#endif
-
-                m_Output.PostInit();
+                return false;
             }
-            // END TEMPORARY CODE
+
+            m_Output.PostInit();
 
             const uge::GameplayPreferences::GameplaySettings& gameplaySettings = m_CurrentPlayerProfile.GetGameplayPreferences().GetGameplaySettings();
             m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationFileName);
@@ -66,13 +60,30 @@ namespace sg
             return L"Spaceship!";
         }
 
-        virtual bool vInitOutputSystems()
+        virtual bool vInitPlayerProfiles() override
         {
-            // TODO: refactor this -> vInitPlayerProfile or something.
-            m_PlayerProfiles.SetCurrentProfile("Average User: Default");
-            //m_PlayerProfiles.SetCurrentProfile("Visually Impaired: Blind");
+            if (!uge::BaseGameApplication::vInitPlayerProfiles())
+            {
+                return false;
+            }
+
+            uge::XMLFile currentProfileResource;
+            currentProfileResource.OpenFile("data/config/player_profiles/active_profile.xml", uge::File::FileMode::FileReadOnly);
+
+            uge::XMLElement xmlRoot = currentProfileResource.GetRootElement();
+            uge::XMLElement profileElement = xmlRoot.GetFirstChildElement("PlayerProfile");
+
+            std::string profileResource = "";
+            profileElement.GetAttribute("name", &profileResource);
+
+            m_PlayerProfiles.SetCurrentProfile(profileResource);
             m_CurrentPlayerProfile = m_PlayerProfiles.GetCurrentProfile();
 
+            return true;
+        }
+
+        virtual bool vInitOutputSystems() override
+        {
             // Graphics
             uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetGraphicalPreferences()));
 
@@ -100,12 +111,28 @@ namespace sg
 
         uge::IGameViewSharedPointer CreateGameView()
         {
-            uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
-                                                                        m_Output.GetAudio(),
-                                                                        m_Resources.GetResourceCache(),
-                                                                        m_PlayerProfiles.GetCurrentProfile()));
+            // FIXME: this should be a factory.
+            std::string profileName = m_CurrentPlayerProfile.GetProfileName();
+            if (profileName == "Average User: Default")
+            {
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
+                                                                            m_Output.GetAudio(),
+                                                                            m_Resources.GetResourceCache(),
+                                                                            m_PlayerProfiles.GetCurrentProfile()));
 
-            return pGameView;
+                vAddGameView(pGameView);
+
+#ifdef UGE_DEBUG_PHYSICS
+                std::shared_ptr<sg::HumanView> pCastGameView = std::dynamic_pointer_cast<sg::HumanView>(pGameView);
+                m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
+#endif
+
+                return pGameView;
+            }
+
+            assert(0 && std::string("Invalid profile name: + " + profileName + "!").c_str());
+
+            return nullptr;
         }
 
     private:
