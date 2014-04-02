@@ -162,6 +162,22 @@ namespace sg
 
                 return pGameView;
             }
+            else if (profileName == "Cognitive Impairment")
+            {
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
+                                                                            m_Output.GetAudio(),
+                                                                            m_Resources.GetResourceCache(),
+                                                                            m_PlayerProfiles.GetCurrentProfile()));
+
+                vAddGameView(pGameView);
+
+#ifdef UGE_DEBUG_PHYSICS
+                std::shared_ptr<sg::HumanView> pCastGameView = std::dynamic_pointer_cast<sg::HumanView>(pGameView);
+                m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
+#endif
+
+                return pGameView;
+            }
 
             assert(0 && std::string("Invalid profile name: + " + profileName + "!").c_str());
 

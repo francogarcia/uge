@@ -9,6 +9,7 @@
 #include <Core/Physics/Implementation/NullPhysics/NullPhysics.h>
 
 #include <Utilities/Debug/Logger.h>
+#include <Utilities/String/StringUtil.h>
 
 #include "GameState/BaseGameState.h"
 
@@ -237,7 +238,7 @@ namespace uge
         }
         else
         {
-            LOG_ERROR("Actor was not found!");
+            LOG_WARNING("Actor " + UIntToString(actorID) + " was not found!");
 
             return ActorWeakPointer();
         }
