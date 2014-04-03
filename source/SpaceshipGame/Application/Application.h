@@ -8,6 +8,7 @@
 #include "../Logic/GameLogic.h"
 
 #include "../Views/AverageUser/View/HumanView.h"
+#include "../Views/Blind/View/AudioHumanView.h"
 #include "../Views/MotorImpairment/View/MotorImpairmentHumanView.h"
 
 namespace sg
@@ -140,7 +141,7 @@ namespace sg
                 vAddGameView(pGameView);
 
 #ifdef UGE_DEBUG_PHYSICS
-                std::shared_ptr<sg::HumanView> pCastGameView = std::dynamic_pointer_cast<sg::HumanView>(pGameView);
+                std::shared_ptr<sg::MotorImpairmentHumanView> pCastGameView = std::dynamic_pointer_cast<sg::MotorImpairmentHumanView>(pGameView);
                 m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
 #endif
 
@@ -173,6 +174,22 @@ namespace sg
 
 #ifdef UGE_DEBUG_PHYSICS
                 std::shared_ptr<sg::HumanView> pCastGameView = std::dynamic_pointer_cast<sg::HumanView>(pGameView);
+                m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
+#endif
+
+                return pGameView;
+            }
+            else if (profileName == "Visual Impairment: Blind")
+            {
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(m_Output.GetGraphics(),
+                                                                                 m_Output.GetAudio(),
+                                                                                 m_Resources.GetResourceCache(),
+                                                                                 m_PlayerProfiles.GetCurrentProfile()));
+
+                vAddGameView(pGameView);
+
+#ifdef UGE_DEBUG_PHYSICS
+                std::shared_ptr<sg::AudioHumanView> pCastGameView = std::dynamic_pointer_cast<sg::AudioHumanView>(pGameView);
                 m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
 #endif
 

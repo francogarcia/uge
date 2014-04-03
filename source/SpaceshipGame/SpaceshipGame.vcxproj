@@ -105,6 +105,7 @@
     <ClInclude Include="SpaceshipGameStd.h" />
     <ClInclude Include="Views\AverageUser\Controller\GameController.h" />
     <ClInclude Include="Views\AverageUser\View\HumanView.h" />
+    <ClInclude Include="Views\Blind\View\AudioHumanView.h" />
     <ClInclude Include="Views\EventFeedback\AuralFeedback.h" />
     <ClInclude Include="Views\EventFeedback\FeedbackFactory.h" />
     <ClInclude Include="Views\MotorImpairment\Controller\MotorImpairmentGameController.h" />
@@ -128,6 +129,7 @@
     </ClCompile>
     <ClCompile Include="Views\AverageUser\Controller\GameController.cpp" />
     <ClCompile Include="Views\AverageUser\View\HumanView.cpp" />
+    <ClCompile Include="Views\Blind\View\AudioHumanView.cpp" />
     <ClCompile Include="Views\EventFeedback\AuralFeedback.cpp" />
     <ClCompile Include="Views\EventFeedback\FeedbackFactory.cpp" />
     <ClCompile Include="Views\MotorImpairment\Controller\MotorImpairmentGameController.cpp" />

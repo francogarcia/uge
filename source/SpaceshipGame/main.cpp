@@ -1,7 +1,7 @@
 #include "SpaceshipGameStd.h"
 
 #define UGE_ENABLE_PHYSICS  1
-#define UGE_DEBUG_PHYSICS   1
+//#define UGE_DEBUG_PHYSICS   1
 
 #define SG_USE_DEVELOPMENT_RESOURCE_FILE 1
 

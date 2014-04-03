@@ -25,12 +25,16 @@ namespace sg
         struct Options
         {
             Options()
-                : bEnableOnMoveActor(false),
+                : bEnableOnAlienDestroyed(false),
+                  bEnableOnFireProjectile(false),
+                  bEnableOnMoveActor(false),
                   bEnableOnStopActor(false)
             {
 
             }
 
+            bool bEnableOnAlienDestroyed;
+            bool bEnableOnFireProjectile;
             bool bEnableOnMoveActor;
             bool bEnableOnStopActor;
         };
@@ -66,7 +70,15 @@ namespace sg
 
                 bool bEventEnabled;
                 xmlElement.GetBoolAttribute("enabled", &bEventEnabled);
-                if (eventName == "OnMoveActor")
+                if (eventName == "OnAlienDestroyed")
+                {
+                    afOptions.bEnableOnAlienDestroyed = bEventEnabled;
+                }
+                else if (eventName == "OnFireProjectile")
+                {
+                    afOptions.bEnableOnFireProjectile = bEventEnabled;
+                }
+                else if (eventName == "OnMoveActor")
                 {
                     afOptions.bEnableOnMoveActor = bEventEnabled;
                 }
@@ -80,7 +92,7 @@ namespace sg
 
             RegisterDelegates(afOptions);
 
-            InitResourceCache("data/", 10);
+            InitResourceCache("data/", 20);
 
             return true;
         }
@@ -94,6 +106,18 @@ namespace sg
 
         void RegisterDelegates(const AuralFeedback::Options& options)
         {
+            if (options.bEnableOnAlienDestroyed)
+            {
+                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnAlienDestroyed);
+                uge::IEventManager::Get()->vAddListener(functionDelegate, sg::AlienDestroyed::sk_EventType);
+            }
+
+            if (options.bEnableOnFireProjectile)
+            {
+                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnFireProjectile);
+                uge::IEventManager::Get()->vAddListener(functionDelegate, sg::FireProjectile::sk_EventType);
+            }
+
             if (options.bEnableOnMoveActor)
             {
                 uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnMoveActor);
@@ -140,19 +164,38 @@ namespace sg
             return nullptr;
         }
 
+        void OnAlienDestroyed(uge::IEventDataSharedPointer pEventData)
+        {
+            std::shared_ptr<sg::AlienDestroyed> pData = std::static_pointer_cast<sg::AlienDestroyed>(pEventData);
+
+            PlaySoundEffect("data/audio/effects/aural-feedback/explosion.ogg",
+                            0.1f, false, uge::Vector3(0.0f, 0.0f, 0.0f));
+        }
+
+        void OnFireProjectile(uge::IEventDataSharedPointer pEventData)
+        {
+            std::shared_ptr<sg::FireProjectile> pData = std::static_pointer_cast<sg::FireProjectile>(pEventData);
+
+            if (pData->GetType() == sg::FireProjectile::Type::Bullet)
+            {
+                PlaySoundEffect("data/audio/effects/aural-feedback/science_fiction_laser_007.ogg",
+                                0.1f, false, uge::Vector3(0.0f, 0.0f, 0.0f));
+            }
+            else
+            {
+                PlaySoundEffect("data/audio/effects/aural-feedback/musket_caplock_45_calibre_heavy_cartridge_firing.ogg",
+                                0.1f, false, uge::Vector3(0.0f, 0.0f, 0.0f));
+            }
+        }
+
         void OnMoveActor(uge::IEventDataSharedPointer pEventData)
         {
-            std::shared_ptr<sg::MoveActor> pData = std::static_pointer_cast<sg::MoveActor>(pEventData);
-
-            printf("[AuralFeedback] Actor %u started moving!\n", pData->GetActorID());
-            PlaySoundEffect("data/audio/effects/sound.wav", 1.0f, false);
+            std::shared_ptr<sg::MoveActor> pData = std::static_pointer_cast<sg::MoveActor>(pEventData);            
         }
 
         void OnStopActor(uge::IEventDataSharedPointer pEventData)
         {
             std::shared_ptr<sg::StopActor> pData = std::static_pointer_cast<sg::StopActor>(pEventData);
-
-            printf("[AuralFeedback] Actor %u stopped!\n", pData->GetActorID());
         }
 
     private:

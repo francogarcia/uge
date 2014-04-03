@@ -28,7 +28,8 @@ namespace sg
                   uge::ResourceCache& resourceCache,
                   const uge::PlayerProfile& playerProfile)
             : m_pGraphics(pGraphics), m_pAudio(pAudio),
-              m_ResourceCache(resourceCache), m_PlayerProfile(playerProfile)
+              m_ResourceCache(resourceCache), m_PlayerProfile(playerProfile),
+              m_bSetCameraTarget(false)
         {
 
         }
@@ -52,6 +53,8 @@ namespace sg
             }
 
             RegisterEventDelegates();
+
+            m_bSetCameraTarget = false;
 
             // Rendering subsystems.
             uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer(m_pGraphics, m_ResourceCache));
@@ -115,7 +118,7 @@ namespace sg
             uge::HumanGameView::vSetControlledActor(actorID, bSetCameraTarget);
         }
 
-    protected:
+    private:
         void RegisterEventDelegates()
         {
             uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &sg::HumanView::ControlledActorDelegate);
@@ -133,7 +136,7 @@ namespace sg
             std::shared_ptr<uge::EvtData_Set_Controlled_Actor> pData = std::static_pointer_cast<uge::EvtData_Set_Controlled_Actor>(pEventData);
 
             uge::ActorID actorID = pData->GetActorID();
-            vSetControlledActor(actorID, false);
+            vSetControlledActor(actorID, m_bSetCameraTarget);
         }
 
         void SetEventFeedback()
@@ -166,6 +169,8 @@ namespace sg
 
         sg::FeedbackFactory m_FeedbackFactory;
         uge::IViewFeedback* m_pViewFeedback;
+
+        bool m_bSetCameraTarget;
     };
 
 }
