@@ -6,8 +6,8 @@ A game engine for UA-Games.
 UGE is a game engine designed to ease the development of UA-Games. UA-Games follow the principles of the Design for All, aiming to enable as many users as possible, regardless of their (dis)abilities, to play.
 A good introduction to UA-Games is available at: <http://www.gamasutra.com/view/feature/1764/unified_design_of_universally_.php>.
 
-UGE uses many of the Game Coding Complete 4 game engine features (described in McShaffry and Graham’s book Game Coding Complete 4) combined with several open-source libraries to create a cohesive framework to develop UA-Games.
-The engine’s architecture and overall approach is described in the Documentation.
+UGE uses many of the Game Coding Complete 4 game engine features (described in McShaffry and Grahamï¿½s book Game Coding Complete 4) combined with several open-source libraries to create a cohesive framework to develop UA-Games.
+The engineï¿½s architecture and overall approach is described in the Documentation.
 
 UGE is a work in progress and, therefore, is experimental and might be unstable.
 
@@ -16,7 +16,7 @@ UGE is a work in progress and, therefore, is experimental and might be unstable.
 To start using UGE:
 
 1. Download the source code from the repository;
-2. Download the release files 'UGE-Dependencies.zip' and 'UGE-GameData.zip' from <https://github.com/francogarcia/uge/releases/tag/v0.1-alpha>;
+2. Download the release files 'UGE-Dependencies.zip' and 'UGE-GameData.zip' from <https://github.com/francogarcia/uge/releases/tag/v0.1-beta>;
 3. Extract the files from (2) into the root of the source code directory. Merge them to existing files if necessary;
 4. Open the project's solution file under 'source/UGE_VS2012.sln' with Visual C++ or Visual Studio 2012 or newer. The precompiled libraries from (2) only work with version 2012, though;
 5. Compile the project;
@@ -43,12 +43,12 @@ Therefore, UGE only supports Windows platforms at this moment.
 
 ## Required Toolchain
 
-At this moment, Visual Studio or Visual C++ 2012 or newer are required to compile the project. This repository only provides pre-compiled dependencies for version 2012, though.
-Earlier versions are not supported, as UGE’s require some C++11 features.
+At this moment, Visual Studio or Visual C++ 2012 is required to compile the project. Currently, version 2013 is unsupported.
+Earlier versions are not supported, as UGEï¿½s require some C++11 features.
 
 ## Disclaimer of Warranty
 
-THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM ï¿½AS ISï¿½ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 
 ## Limitation of Liability
 
