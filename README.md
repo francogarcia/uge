@@ -54,7 +54,7 @@ Therefore, UGE only supports Windows platforms at this moment.
 ## Required Toolchain
 
 At this moment, Visual Studio or Visual C++ 2012 is required to compile the project.
-Earlier versions are not supported, as UGE's require some C++11 features.
+Earlier versions are not supported, as UGE requires some C++11 features.
 
 ## Disclaimer of Warranty
 
