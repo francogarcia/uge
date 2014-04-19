@@ -14,9 +14,6 @@
     <ClCompile Include="Utilities\Math\PrimeSearch.cpp">
       <Filter>Utilities\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities\Math\RandomNumberGenerator.cpp">
-      <Filter>Utilities\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Utilities\Math\Rect.cpp">
       <Filter>Utilities\Math</Filter>
     </ClCompile>
@@ -453,9 +450,6 @@
       <Filter>Utilities\Math</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\Math\PrimeSearch.h">
-      <Filter>Utilities\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\Math\RandomNumberGenerator.h">
       <Filter>Utilities\Math</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\Math\Rect.h">

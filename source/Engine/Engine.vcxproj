@@ -233,7 +233,6 @@
     <ClCompile Include="Utilities\Math\Plane.cpp" />
     <ClCompile Include="Utilities\Math\PrimeSearch.cpp" />
     <ClCompile Include="Utilities\Math\Quaternion.cpp" />
-    <ClCompile Include="Utilities\Math\RandomNumberGenerator.cpp" />
     <ClCompile Include="Utilities\Math\Rect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -429,7 +428,6 @@
     <ClInclude Include="Utilities\Math\Point.h" />
     <ClInclude Include="Utilities\Math\PrimeSearch.h" />
     <ClInclude Include="Utilities\Math\Quaternion.h" />
-    <ClInclude Include="Utilities\Math\RandomNumberGenerator.h" />
     <ClInclude Include="Utilities\Math\Rect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

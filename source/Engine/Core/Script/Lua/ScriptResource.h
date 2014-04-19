@@ -1,67 +1,31 @@
 /*
-  * (c) Copyright 2014 Franco Eusébio Garcia
-  *
-  * This program is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser GPL v3
-  * as published by the Free Software Foundation.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
-  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
-  *
-  * You should have received a copy of the GNU Lesser GPL v3
-  * along with this program; if not, write to the Free Software
-  */
+ * (c) Copyright 2012 Michael L. McShaffry and David Graham
+ * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
+ *
+ * This file is part of UGE. 
+ *
+ * UGE is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser GPL v3
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
+ *
+ * You should have received a copy of the GNU Lesser GPL v3
+ * along with this program; if not, write to the Free Software
+ */
+
+/*
+ *  This file's implementation is based on the text and source code of
+ * the book Game Coding Complete, 4th edition, by Michael L. McShaffry (Mr. Mike)
+ * and David Graham (Rez).
+ *  The original source code of the book is licensed under the GNU Lesser General
+ * Public License, version 3.0 <http://www.gnu.org/licenses/lgpl-3.0.txt>.
+ */
 
 #pragma once
-//========================================================================
-// ScriptResource.h
-//
-// Part of the GameCode4 Application
-//
-// GameCode4 is the sample application that encapsulates much of the source code
-// discussed in "Game Coding Complete - 4th Edition" by Mike McShaffry and David
-// "Rez" Graham, published by Charles River Media.
-// ISBN-10: 1133776574 | ISBN-13: 978-1133776574
-//
-// If this source code has found it's way to you, and you think it has helped you
-// in any way, do the authors a favor and buy a new copy of the book - there are
-// detailed explanations in it that compliment this code well. Buy a copy at Amazon.com
-// by clicking here:
-//    http://www.amazon.com/gp/product/1133776574/ref=olp_product_details?ie=UTF8&me=&seller=
-//
-// There's a companion web site at http://www.mcshaffry.com/GameCode/
-//
-// The source code is managed and maintained through Google Code:
-//    http://code.google.com/p/gamecode4/
-//
-// (c) Copyright 2012 Michael L. McShaffry and David Graham
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser GPL v3
-// as published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-// http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
-//
-// You should have received a copy of the GNU Lesser GPL v3
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-//
-//========================================================================
-
-// --------------------------------------------------------------------------
-// File:        ScriptResource.h
-//
-// Purpose:     The declaration of a quick'n dirty ZIP file reader class.
-//              Original code from Javier Arevalo.
-//              Get zlib from http://www.cdrom.com/pub/infozip/zlib/
-//
-// class XmlFile - Chapter 7, page 186
-// --------------------------------------------------------------------------
 
 #include <Core/Resource/ResourceCache.h>
 
