@@ -35,18 +35,13 @@
 namespace uge
 {
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // LuaStateManager                              - Chapter 12, page 367
-    //---------------------------------------------------------------------------------------------------------------------
     class LuaStateManager : public IScriptManager
     {
     public:
-        // Singleton functions
         static bool Create();
         static void Destroy();
         static LuaStateManager* Get();
 
-        // IScriptManager interface
         virtual bool vInit() override;
         virtual void vExecuteFile(const char* pScriptFile) override;
         virtual void vExecuteString(const char* pScriptString) override;
@@ -54,7 +49,6 @@ namespace uge
         LuaPlus::LuaObject GetGlobalVars();
         LuaPlus::LuaState* GetLuaState() const;
 
-        // public helpers
         LuaPlus::LuaObject CreatePath(const char* pPath, bool bIgnoreLastElement = false);
         void ConvertVec3ToTable(const Vector3& vec, LuaPlus::LuaObject& outLuaTable) const;
         void ConvertTableToVec3(const LuaPlus::LuaObject& luaTable, Vector3& outVec3) const;
@@ -63,10 +57,10 @@ namespace uge
         void SetError(int errorNum);
         void ClearStack();
 
-        // private constructor & destructor; call the static Create() and Destroy() functions instead
         explicit LuaStateManager();
         virtual ~LuaStateManager();
 
+    private:
         static LuaStateManager* s_pSingleton;
         LuaPlus::LuaState* m_pLuaState;
         std::string m_LastError;

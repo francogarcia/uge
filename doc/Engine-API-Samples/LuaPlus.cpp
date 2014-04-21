@@ -113,7 +113,7 @@ LuaPlus::LuaState* CPPFlexibleClass::s_pLuaState = nullptr;
 
 int main(int argc, char* argv[])
 {
-    debug::log::Init("data/debug/LogConfig.xml");
+    debug::log::Init("LogConfig.xml");
 
     // Using LuaPlus API directly.
     bool bUseLuaSTDLibrary = true;

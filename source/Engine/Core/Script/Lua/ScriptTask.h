@@ -29,23 +29,18 @@
 
 #pragma once
 
-
 #include <Core/Task/Task.h>
 #include "LuaStateManager.h"
 
 namespace uge
 {
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // ScriptTask                                                   - Chapter 12, page 370
-    //---------------------------------------------------------------------------------------------------------------------
     class ScriptTask : public Task
     {
     public:
         static void RegisterScriptClass();
 
     protected:
-        // Task interface
         virtual void vOnInit() override;
         virtual void vOnUpdate(const unsigned long deltaMs) override;
         virtual void vOnSuccess() override;
@@ -53,23 +48,19 @@ namespace uge
         virtual void vOnAbort() override;
 
     private:
-        // private helpers
         static void RegisterScriptClassFunctions(LuaPlus::LuaObject& metaTableObj);
         static LuaPlus::LuaObject CreateFromScript(LuaPlus::LuaObject self, LuaPlus::LuaObject constructionData, LuaPlus::LuaObject originalSubClass);
         virtual bool BuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData);
 
-        // These are needed because the base-class version of these functions are all const and LuaPlus can't deal
-        // with registering const functions.
         bool ScriptIsAlive();
         bool ScriptIsDead();
         bool ScriptIsPaused();
 
-        // This wrapper function is needed so we can translate a Lua script object to something C++ can use.
         void ScriptAttachChild(LuaPlus::LuaObject child);
 
-        // don't allow construction outside of this class
         explicit ScriptTask();
 
+    private:
         unsigned long m_Frequency;
         unsigned long m_Time;
         LuaPlus::LuaObject m_ScriptInitFunction;
@@ -77,7 +68,7 @@ namespace uge
         LuaPlus::LuaObject m_ScriptSuccessFunction;
         LuaPlus::LuaObject m_ScriptFailFunction;
         LuaPlus::LuaObject m_ScriptAbortFunction;
-        // The Lua instance of the class.
+
         LuaPlus::LuaObject m_Self;
     };
 

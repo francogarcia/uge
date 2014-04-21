@@ -1,60 +1,117 @@
-#include "GameEngineStd.h"
+#include <Core/Script/Lua/LuaStateManager.h>
+#include <Core/Script/Lua/ScriptTask.h>
+#include <Core/Script/Lua/ScriptExports.h>
 
-#include <Debug/Logger.h>
+#include <Engine/GameApplication/BaseGameApplication.h>
+#include <Engine/GameLogic/BaseGameLogic.h>
 
-#include <Script/Lua/LuaStateManager.h>
-#include <Script/Lua/ScriptTask.h>
-#include <Script/Lua/ScriptExports.h>
+#include <Utilities/Debug/Logger.h>
 
-#include <GameEngineApplication.h>
+class Application : public uge::BaseGameApplication
+{
+public:
+    virtual bool vInit() override
+    {
+        bool bReturn = uge::BaseGameApplication::vInit();
 
-GameEngineApplication* g_pApp = nullptr;
+        return bReturn;
+    }
+
+    virtual bool vDestroy() override
+    {
+        bool bReturn = uge::BaseGameApplication::vDestroy();
+
+        //uge::LuaStateManager::Destroy();
+        //uge::ScriptExports::Unregister();
+
+        return bReturn;
+    }
+
+    virtual bool vRun() override
+    {
+        // Fake timer to test the events created in Lua.
+        unsigned long timeNow = 0u;
+        unsigned long lastTime = 0u;
+        unsigned long finalTime = 1000u;
+        while (timeNow < finalTime)
+        {
+            m_pGameLogic->vOnUpdate(timeNow, timeNow - lastTime);
+
+            lastTime = timeNow;
+            timeNow += 1u;
+        }
+
+        return true;
+    }
+
+    virtual uge::BaseGameLogic* vCreateGameLogic() override
+    {
+        return LIB_NEW uge::BaseGameLogic;
+    }
+
+protected:
+    virtual bool vInitOutputSystems() override
+    {
+        return true;
+    }
+
+    virtual bool vInitLuaScripting() override
+    {
+        if (!uge::LuaStateManager::Create())
+        {
+            std::cerr << "Error creating the state manager!" << std::endl;
+
+            return false;
+        }
+
+        uge::IScriptManager* pScriptManager = uge::LuaStateManager::Get();
+        pScriptManager->vExecuteFile("PreInit.lua");
+        uge::ScriptExports::Register();
+        uge::ScriptTask::RegisterScriptClass();
+
+        pScriptManager->vExecuteString("x = 1");
+        pScriptManager->vExecuteString("x = x + 10");
+        pScriptManager->vExecuteString("print(x)");
+        pScriptManager->vExecuteString("= x");
+        pScriptManager->vExecuteString("fileName = \"LuaTask.lua\"");
+        pScriptManager->vExecuteString("LoadAndExecuteScriptResource(fileName)");
+
+        // A very simple Lua shell.
+        LuaPlus::LuaState* pLuaState = uge::LuaStateManager::Get()->GetLuaState();
+        pLuaState->DoFile("lua/Shell.lua"); // LoadAndExecuteScriptResource(fileName)
+
+        pScriptManager->vExecuteString("print(\"bye!\")");
+        pScriptManager->vExecuteString("io.write(x)");
+
+        //pScriptManager->vExecuteString("LoadAndExecuteScriptResource(\"LuaTask.lua\")");
+
+        pLuaState = nullptr;
+
+        return true;
+    }
+};
 
 int main(int argc, char* argv[])
 {
-    g_pApp = new GameEngineApplication;
-    assert(g_pApp && "Could not create the application!");
-    if (!g_pApp->vInit())
+    uge::debug::log::Init("LogConfig.xml");
+
+    uge::GameApplication* pGameApplication = LIB_NEW Application;
+
+    if (!pGameApplication->vInit())
     {
         std::cerr << "Error creating the application!" << std::endl;
 
         return -1;
     }
 
-    debug::log::Init("data/debug/LogConfig.xml");
-
-    if (!LuaStateManager::Create())
+    if (!pGameApplication->vRun())
     {
-        std::cerr << "Error creating the state manager!" << std::endl;
+        std::cerr << "Error running the application!" << std::endl;
 
         return -1;
-    }    
+    }
 
-    IScriptManager* pScriptManager = LuaStateManager::Get();
-
-    pScriptManager->vExecuteFile("data/scripts/PreInit.lua");
-    ScriptExports::Register();
-
-    pScriptManager->vExecuteString("x = 0");
-    pScriptManager->vExecuteString("x = x + 10");
-    pScriptManager->vExecuteString("print(x)");
-    pScriptManager->vExecuteString("= x");
-
-    // A very simple Lua shell.
-    LuaPlus::LuaState* pLuaState = LuaStateManager::Get()->GetLuaState();
-    pLuaState->DoFile("data/scripts/Shell.lua"); // ExecuteFile("LuaTask.lua")
-
-    pScriptManager->vExecuteString("print(\"bye!\")");
-    pScriptManager->vExecuteString("io.write(x)");
-
-    pLuaState->DoFile("data/LuaTask.lua");
-
-    pScriptManager = nullptr;
-    LuaStateManager::Destroy();
-
-    ScriptExports::Unregister();
-
-    debug::log::Destroy();
+    uge::debug::log::Destroy();
 
     return 0;
 }

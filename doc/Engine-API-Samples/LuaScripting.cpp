@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-    uge::debug::log::Init("data/debug/LogConfig.xml");
+    uge::debug::log::Init("LogConfig.xml");
 
     if (!uge::LuaStateManager::Create())
     {
@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
     uge::IScriptManager* pScriptManager = uge::LuaStateManager::Get();
     pScriptManager->vExecuteFile("PreInit.lua");
     uge::ScriptExports::Register();
+    uge::ScriptTask::RegisterScriptClass();
     
     pScriptManager->vExecuteString("x = 1");
     pScriptManager->vExecuteString("x = x + 10");

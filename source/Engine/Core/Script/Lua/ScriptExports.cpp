@@ -45,15 +45,6 @@
 namespace uge
 {
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // This is the C++ listener proxy for script event listeners.  It pairs a single event type with a Lua callback
-    // function.  Note that this event can be defined in C++ or Lua.  It may also be sent from C++ or Lua.
-    //
-    // The Lua callback function should take in a table with the event data.  The return value is ignored.
-    // function Callback(eventData)
-    //
-    // Chapter 12, page 384
-    //---------------------------------------------------------------------------------------------------------------------
     class ScriptEventListener
     {
     public:
@@ -71,10 +62,6 @@ namespace uge
     };
 
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // This class manages the C++ ScriptListener objects needed for script event listeners.
-    // Chapter 12, page 385
-    //---------------------------------------------------------------------------------------------------------------------
     class ScriptEventListenerMgr
     {
     public:
@@ -88,41 +75,30 @@ namespace uge
     };
 
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Prototypes for the functions to export.                              - Chapter 12, page 368
-    //---------------------------------------------------------------------------------------------------------------------
     class InternalScriptExports
     {
     public:
-        // initialization
         static bool Init();
         static void Destroy();
 
-        // resource loading
         static bool LoadAndExecuteScriptResource(const char* pScriptResource);
 
-        // actors
         static int CreateActor(const char* pActorArchetype, LuaPlus::LuaObject luaPosition, LuaPlus::LuaObject luaYawPitchRoll);
 
-        // event system
         static unsigned long RegisterEventListener(EventType eventType, LuaPlus::LuaObject callbackFunction);
         static void RemoveEventListener(unsigned long listenerId);
         static bool QueueEvent(EventType eventType, LuaPlus::LuaObject eventData);
         static bool TriggerEvent(EventType eventType, LuaPlus::LuaObject eventData);
 
-        // process system
         static void AttachScriptTask(LuaPlus::LuaObject scriptTask);
 
-        // math
         static float GetYRotationFromVector(LuaPlus::LuaObject vec3);
         static float WrapPi(float wrapMe);
         static LuaPlus::LuaObject GetVectorFromRotation(float angleRadians);
 
-        // misc
         static void LuaLog(LuaPlus::LuaObject text);
         static unsigned long GetTickCount();
 
-        // physics
         static void ApplyForce(LuaPlus::LuaObject normalDir, float force, int actorId);
         static void ApplyTorque(LuaPlus::LuaObject axis, float force, int actorId);
 
@@ -134,9 +110,6 @@ namespace uge
 
     ScriptEventListenerMgr* InternalScriptExports::s_pScriptEventListenerMgr = nullptr;
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Destructor
-    //---------------------------------------------------------------------------------------------------------------------
     ScriptEventListenerMgr::~ScriptEventListenerMgr()
     {
         for (auto it = m_Listeners.begin(); it != m_Listeners.end(); ++it)
@@ -147,17 +120,11 @@ namespace uge
         m_Listeners.clear();
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Adds a new listener
-    //---------------------------------------------------------------------------------------------------------------------
     void ScriptEventListenerMgr::AddListener(ScriptEventListener* pListener)
     {
         m_Listeners.insert(pListener);
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Destroys a listener
-    //---------------------------------------------------------------------------------------------------------------------
     void ScriptEventListenerMgr::DestroyListener(ScriptEventListener* pListener)
     {
         ScriptEventListenerSet::iterator findIt = m_Listeners.find(pListener);
@@ -172,10 +139,6 @@ namespace uge
         }
     }
 
-
-    //---------------------------------------------------------------------------------------------------------------------
-    // Event Listener
-    //---------------------------------------------------------------------------------------------------------------------
     ScriptEventListener::ScriptEventListener(const EventType& eventType, const LuaPlus::LuaObject& scriptCallbackFunction)
         :   m_ScriptCallbackFunction(scriptCallbackFunction)
     {
@@ -201,9 +164,6 @@ namespace uge
         Callback(pScriptEvent->GetEventData());
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Initializes the script export system
-    //---------------------------------------------------------------------------------------------------------------------
     bool InternalScriptExports::Init()
     {
         assert((s_pScriptEventListenerMgr == nullptr) && "The event listener was already initialized!");
@@ -212,19 +172,12 @@ namespace uge
         return true;
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Destroys the script export system
-    //---------------------------------------------------------------------------------------------------------------------
     void InternalScriptExports::Destroy()
     {
         assert((s_pScriptEventListenerMgr != nullptr) && "The event listener was not initialized!");
         SAFE_DELETE(s_pScriptEventListenerMgr);
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Loads a script resource then executes it.  This is used by the require() function in script (defined in
-    // PreInit.lua).
-    //---------------------------------------------------------------------------------------------------------------------
     bool InternalScriptExports::LoadAndExecuteScriptResource(const char* pScriptResource)
     {
         if (!g_pApp->vGetResourceCache()->IsUsingDevelopmentDirectories())
@@ -242,30 +195,21 @@ namespace uge
         {
             // If we're using development directories, have Lua execute the file directly instead of going through
             // the resource cache.  This allows Decoda to see the file for debugging purposes.
-            std::string path("..\\Assets\\");
-            path += pScriptResource;
-            LuaStateManager::Get()->vExecuteFile(path.c_str());
+            LuaStateManager::Get()->vExecuteFile(pScriptResource);
             return true;
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Instantiates a C++ ScriptListener object, inserts it into the manager, and returns a handle to it.  The script
-    // should maintain the handle if it needs to remove the listener at some point.  Otherwise, the listener will be
-    // destroyed when the program exits.
-    //---------------------------------------------------------------------------------------------------------------------
     unsigned long InternalScriptExports::RegisterEventListener(EventType eventType, LuaPlus::LuaObject callbackFunction)
     {
         assert(s_pScriptEventListenerMgr);
 
         if (callbackFunction.IsFunction())
         {
-            // create the C++ listener proxy and set it to listen for the event
             ScriptEventListener* pListener = LIB_NEW ScriptEventListener(eventType, callbackFunction);
             s_pScriptEventListenerMgr->AddListener(pListener);
             IEventManager::Get()->vAddListener(pListener->GetDelegate(), eventType);
 
-            // convert the pointer to an unsigned long to use as the handle
             unsigned long pHandle = reinterpret_cast<unsigned long>(pListener);
             return pHandle;
         }
@@ -274,22 +218,15 @@ namespace uge
         return 0;
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Removes a script listener.
-    //---------------------------------------------------------------------------------------------------------------------
     void InternalScriptExports::RemoveEventListener(unsigned long listenerId)
     {
         assert(s_pScriptEventListenerMgr && "The event listener was not initialized!");
         assert((listenerId != 0) && "Invalid listener ID!");
 
-        // convert the listenerId back into a pointer
         ScriptEventListener* pListener = reinterpret_cast<ScriptEventListener*>(listenerId);
         s_pScriptEventListenerMgr->DestroyListener(pListener);  // the destructor will remove the listener
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Queue's an event from the script.  Returns true if the event was sent, false if not.
-    //---------------------------------------------------------------------------------------------------------------------
     bool InternalScriptExports::QueueEvent(EventType eventType, LuaPlus::LuaObject eventData)
     {
         std::shared_ptr<ScriptEvent> pEvent(BuildEvent(eventType, eventData));
@@ -301,9 +238,6 @@ namespace uge
         return false;
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Sends an event from the script.  Returns true if the event was sent, false if not.
-    //---------------------------------------------------------------------------------------------------------------------
     bool InternalScriptExports::TriggerEvent(EventType eventType, LuaPlus::LuaObject eventData)
     {
         std::shared_ptr<ScriptEvent> pEvent(BuildEvent(eventType, eventData));
@@ -314,9 +248,6 @@ namespace uge
         return false;
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // Builds the event to be sent or queued
-    //---------------------------------------------------------------------------------------------------------------------
     std::shared_ptr<ScriptEvent> InternalScriptExports::BuildEvent(EventType eventType, LuaPlus::LuaObject& eventData)
     {
         // create the event from the event type
@@ -442,10 +373,6 @@ namespace uge
         return ::GetTickCount();
     }
 
-
-    //---------------------------------------------------------------------------------------------------------------------
-    // Script exports for the physics system
-    //---------------------------------------------------------------------------------------------------------------------
     void InternalScriptExports::ApplyForce(LuaPlus::LuaObject normalDirLua, float force, int actorId)
     {
         // TODO: Implement this.
@@ -474,10 +401,6 @@ namespace uge
         //LOG_ERROR("Invalid object passed to ApplyTorque(); type = " + std::string(axisLua.TypeName()));
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // This function registers all the ScriptExports functions with the scripting system.  It is called in
-    // Application::Init().
-    //---------------------------------------------------------------------------------------------------------------------
     void ScriptExports::Register()
     {
         LuaPlus::LuaObject globals = LuaStateManager::Get()->GetGlobalVars();
@@ -516,10 +439,6 @@ namespace uge
         globals.RegisterDirect("ApplyTorque", &InternalScriptExports::ApplyTorque);
     }
 
-    //---------------------------------------------------------------------------------------------------------------------
-    // This function unregisters all the ScriptExports functions and gives any underlying systems a chance to destroy
-    // themselves.  It is called in the Application destructor.
-    //---------------------------------------------------------------------------------------------------------------------
     void ScriptExports::Unregister()
     {
         InternalScriptExports::Destroy();

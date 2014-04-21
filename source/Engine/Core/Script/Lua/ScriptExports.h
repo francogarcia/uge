@@ -34,10 +34,6 @@ namespace uge
 
     namespace ScriptExports
     {
-        /**
-         *  Register new function or methods to Lua in this function.
-         *  This should be called before using the Scripting System.
-         */
         void Register(void);
         void Unregister(void);
     }
