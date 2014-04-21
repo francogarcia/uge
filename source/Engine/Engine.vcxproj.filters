@@ -419,6 +419,9 @@
     <ClCompile Include="Engine\GameView\ViewFeedback\IViewFeedback.cpp">
       <Filter>Engine\GameView\ViewFeedback</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Script\Lua\LuaCppInheritable.cpp">
+      <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineStd.h" />
@@ -881,6 +884,9 @@
     </ClInclude>
     <ClInclude Include="Engine\GameView\ViewFeedback\IViewFeedback.h">
       <Filter>Engine\GameView\ViewFeedback</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Script\Lua\LuaCppInheritable.h">
+      <Filter>Core\Script\Lua</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

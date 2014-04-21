@@ -153,6 +153,7 @@
     <ClCompile Include="Core\Scene\SceneEvents.cpp" />
     <ClCompile Include="Core\Scene\SceneNode.cpp" />
     <ClCompile Include="Core\Scene\SceneNodeProperties.cpp" />
+    <ClCompile Include="Core\Script\Lua\LuaCppInheritable.cpp" />
     <ClCompile Include="Engine\GameController\GameController.cpp" />
     <ClCompile Include="Engine\GameLogic\GameState\GameStateFactory.cpp" />
     <ClCompile Include="Engine\GameLogic\GameState\GameStateStack.cpp" />
@@ -343,6 +344,7 @@
     <ClInclude Include="Core\Scene\SceneEvents.h" />
     <ClInclude Include="Core\Scene\SceneNode.h" />
     <ClInclude Include="Core\Scene\SceneNodeProperties.h" />
+    <ClInclude Include="Core\Script\Lua\LuaCppInheritable.h" />
     <ClInclude Include="Engine\GameController\GameController.h" />
     <ClInclude Include="Engine\GameLogic\GameState\GameStateFactory.h" />
     <ClInclude Include="Engine\GameLogic\GameState\GameStateStack.h" />

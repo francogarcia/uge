@@ -86,6 +86,15 @@ protected:
 
         return true;
     }
+
+    bool vInitResourceCache() override
+    {
+        const std::string resourceFileName = "data/data.zip";
+        int resourceCacheSizeMB = 100; // 100MB
+        uge::IResourceFile* pResourceFile = LIB_NEW uge::ZipFileDevelopmentResource(resourceFileName, "./", uge::ZipFileDevelopmentResource::Mode::Editor);
+
+        return m_Resources.Init(resourceCacheSizeMB, pResourceFile);
+    }
 };
 
 int main(int argc, char* argv[])
