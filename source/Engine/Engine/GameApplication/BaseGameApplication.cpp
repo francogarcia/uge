@@ -110,8 +110,8 @@ namespace uge
 
         m_pGameLogic->vDestroy();
 
-        ScriptExports::Unregister();
-        LuaStateManager::Destroy();
+        lua::ScriptExports::Unregister();
+        lua::LuaStateManager::Destroy();
 
         if (!m_Output.Destroy())
         {
@@ -249,7 +249,7 @@ namespace uge
 
     bool BaseGameApplication::vInitLuaScripting()
     {
-        if (!LuaStateManager::Create())
+        if (!lua::LuaStateManager::Create())
         {
             LOG_FATAL("Could create the Lua scripting system!");
 
@@ -263,8 +263,8 @@ namespace uge
             // This do the loading. The file won't be used it, but it will be loaded.
             ResourceHandleSharedPointer pResourceHandle = m_Resources.GetResourceHandle(&resource);
 
-            ScriptExports::Register();
-            ScriptTask::RegisterScriptClass();
+            lua::ScriptExports::Register();
+            lua::ScriptTask::RegisterScriptClass();
             Component::BaseLuaScriptComponent::RegisterScriptFunctions();
         }
 

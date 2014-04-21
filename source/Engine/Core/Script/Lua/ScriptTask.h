@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -35,41 +35,46 @@
 namespace uge
 {
 
-    class ScriptTask : public Task
+    namespace lua
     {
-    public:
-        static void RegisterScriptClass();
 
-    protected:
-        virtual void vOnInit() override;
-        virtual void vOnUpdate(const unsigned long deltaMs) override;
-        virtual void vOnSuccess() override;
-        virtual void vOnFail() override;
-        virtual void vOnAbort() override;
+        class ScriptTask : public Task
+        {
+        public:
+            static void RegisterScriptClass();
 
-    private:
-        static void RegisterScriptClassFunctions(LuaPlus::LuaObject& metaTableObj);
-        static LuaPlus::LuaObject CreateFromScript(LuaPlus::LuaObject self, LuaPlus::LuaObject constructionData, LuaPlus::LuaObject originalSubClass);
-        virtual bool BuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData);
+        protected:
+            virtual void vOnInit() override;
+            virtual void vOnUpdate(const unsigned long deltaMs) override;
+            virtual void vOnSuccess() override;
+            virtual void vOnFail() override;
+            virtual void vOnAbort() override;
 
-        bool ScriptIsAlive();
-        bool ScriptIsDead();
-        bool ScriptIsPaused();
+        private:
+            static void RegisterScriptClassFunctions(LuaPlus::LuaObject& metaTableObj);
+            static LuaPlus::LuaObject CreateFromScript(LuaPlus::LuaObject self, LuaPlus::LuaObject constructionData, LuaPlus::LuaObject originalSubClass);
+            virtual bool BuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData);
 
-        void ScriptAttachChild(LuaPlus::LuaObject child);
+            bool ScriptIsAlive();
+            bool ScriptIsDead();
+            bool ScriptIsPaused();
 
-        explicit ScriptTask();
+            void ScriptAttachChild(LuaPlus::LuaObject child);
 
-    private:
-        unsigned long m_Frequency;
-        unsigned long m_Time;
-        LuaPlus::LuaObject m_ScriptInitFunction;
-        LuaPlus::LuaObject m_ScriptUpdateFunction;
-        LuaPlus::LuaObject m_ScriptSuccessFunction;
-        LuaPlus::LuaObject m_ScriptFailFunction;
-        LuaPlus::LuaObject m_ScriptAbortFunction;
+            explicit ScriptTask();
 
-        LuaPlus::LuaObject m_Self;
-    };
+        private:
+            unsigned long m_Frequency;
+            unsigned long m_Time;
+            LuaPlus::LuaObject m_ScriptInitFunction;
+            LuaPlus::LuaObject m_ScriptUpdateFunction;
+            LuaPlus::LuaObject m_ScriptSuccessFunction;
+            LuaPlus::LuaObject m_ScriptFailFunction;
+            LuaPlus::LuaObject m_ScriptAbortFunction;
+
+            LuaPlus::LuaObject m_Self;
+        };
+
+    }
 
 }

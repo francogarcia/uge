@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -39,50 +39,55 @@
 namespace uge
 {
 
-    std::string LuaScriptResourceLoader::vGetPattern()
+    namespace lua
     {
-        return "*.lua";
-    }
 
-    bool LuaScriptResourceLoader::vUseRawFile()
-    {
-        return false;
-    }
+        std::string LuaScriptResourceLoader::vGetPattern()
+        {
+            return "*.lua";
+        }
 
-    bool LuaScriptResourceLoader::vDiscardRawBufferAfterLoad()
-    {
-        return true;
-    }
-
-    bool LuaScriptResourceLoader::vAddNullZero()
-    {
-        return true;
-    }
-
-    unsigned int LuaScriptResourceLoader::vGetLoadedResourceSize(char* pRawBuffer, unsigned int rawSize)
-    {
-        return rawSize;
-    }
-
-    bool LuaScriptResourceLoader::vLoadResource(char* pRawBuffer, unsigned int rawSize, ResourceHandleSharedPointer pResourceHandle)
-    {
-        if (rawSize <= 0)
+        bool LuaScriptResourceLoader::vUseRawFile()
         {
             return false;
         }
 
-        // Runs the lua script if possible or whilst initializing the game.
-        if ((g_pApp->GetGameLogic() == nullptr) || (g_pApp->GetGameLogic()->CanRunLua()))
+        bool LuaScriptResourceLoader::vDiscardRawBufferAfterLoad()
         {
-            LuaStateManager::Get()->vExecuteString(pRawBuffer);
+            return true;
         }
 
-        return true;
-    }
+        bool LuaScriptResourceLoader::vAddNullZero()
+        {
+            return true;
+        }
 
-    IResourceLoaderSharedPointer LuaScriptResourceLoader::CreateLoader()
-    {
-        return std::shared_ptr<IResourceLoader>(LIB_NEW LuaScriptResourceLoader());
+        unsigned int LuaScriptResourceLoader::vGetLoadedResourceSize(char* pRawBuffer, unsigned int rawSize)
+        {
+            return rawSize;
+        }
+
+        bool LuaScriptResourceLoader::vLoadResource(char* pRawBuffer, unsigned int rawSize, ResourceHandleSharedPointer pResourceHandle)
+        {
+            if (rawSize <= 0)
+            {
+                return false;
+            }
+
+            // Runs the lua script if possible or whilst initializing the game.
+            if ((g_pApp->GetGameLogic() == nullptr) || (g_pApp->GetGameLogic()->CanRunLua()))
+            {
+                LuaStateManager::Get()->vExecuteString(pRawBuffer);
+            }
+
+            return true;
+        }
+
+        IResourceLoaderSharedPointer LuaScriptResourceLoader::CreateLoader()
+        {
+            return std::shared_ptr<IResourceLoader>(LIB_NEW LuaScriptResourceLoader());
+        }
+
     }
 
 }

@@ -90,8 +90,8 @@ namespace uge
 
         BaseLuaScriptComponent::BaseLuaScriptComponent()
         {
-            m_scriptObject.AssignNil(LuaStateManager::Get()->GetLuaState());
-            m_scriptDestructor.AssignNil(LuaStateManager::Get()->GetLuaState());
+            m_scriptObject.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
+            m_scriptDestructor.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
         }
 
         BaseLuaScriptComponent::~BaseLuaScriptComponent()
@@ -104,13 +104,13 @@ namespace uge
             }
 
             // clear out the script object
-            m_scriptObject.AssignNil(LuaStateManager::Get()->GetLuaState());
+            m_scriptObject.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
 
             // if we were given a path for this script object, set it to nil
             if (!m_scriptObjectName.empty())
             {
                 m_scriptObjectName += " = nil;";
-                LuaStateManager::Get()->vExecuteString(m_scriptObjectName.c_str());
+                lua::LuaStateManager::Get()->vExecuteString(m_scriptObjectName.c_str());
             }
         }
 
@@ -118,7 +118,7 @@ namespace uge
         {
             assert(pInitXMLData != nullptr && "Invalid initialization data!");
 
-            LuaStateManager* pStateManager = LuaStateManager::Get();
+            lua::LuaStateManager* pStateManager = lua::LuaStateManager::Get();
             LOG_ASSERT(pStateManager && "LuaStateManager could not be created!");
 
             // load the <ScriptObject> tag and validate it
@@ -215,7 +215,7 @@ namespace uge
 
         void BaseLuaScriptComponent::CreateScriptObject()
         {
-            LuaStateManager* pStateMgr = LuaStateManager::Get();
+            lua::LuaStateManager* pStateMgr = lua::LuaStateManager::Get();
             LOG_ASSERT(pStateMgr);
             LOG_ASSERT(!m_scriptObject.IsNil());
 
@@ -231,7 +231,7 @@ namespace uge
         void BaseLuaScriptComponent::RegisterScriptFunctions()
         {
             // create the metatable
-            LuaPlus::LuaObject metaTableObj = LuaStateManager::Get()->GetGlobalVars().CreateTable(METATABLE_NAME);
+            LuaPlus::LuaObject metaTableObj = lua::LuaStateManager::Get()->GetGlobalVars().CreateTable(METATABLE_NAME);
             metaTableObj.SetObject("__index", metaTableObj);
 
             // transform component functions
@@ -248,10 +248,10 @@ namespace uge
 
         void BaseLuaScriptComponent::UnregisterScriptFunctions()
         {
-            LuaPlus::LuaObject metaTableObj = LuaStateManager::Get()->GetGlobalVars().Lookup(METATABLE_NAME);
+            LuaPlus::LuaObject metaTableObj = lua::LuaStateManager::Get()->GetGlobalVars().Lookup(METATABLE_NAME);
             if (!metaTableObj.IsNil())
             {
-                metaTableObj.AssignNil(LuaStateManager::Get()->GetLuaState());
+                metaTableObj.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
             }
         }
 

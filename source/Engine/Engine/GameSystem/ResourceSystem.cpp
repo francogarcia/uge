@@ -83,7 +83,7 @@ namespace uge
         IResourceLoaderSharedPointer pCreateXMLLoader = XMLResourceLoader::CreateLoader();
         RegisterResourceLoader(pCreateXMLLoader);
         // Lua loader.
-        IResourceLoaderSharedPointer pCreateLuaScriptLoader = LuaScriptResourceLoader::CreateLoader();
+        IResourceLoaderSharedPointer pCreateLuaScriptLoader = lua::LuaScriptResourceLoader::CreateLoader();
         RegisterResourceLoader(pCreateLuaScriptLoader);
     }
 }

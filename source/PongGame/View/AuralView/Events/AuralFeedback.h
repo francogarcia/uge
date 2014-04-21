@@ -193,7 +193,7 @@ private:
 
         uge::IResourceLoaderSharedPointer pCreateXMLLoader = uge::XMLResourceLoader::CreateLoader();
         m_ResourceCache.RegisterLoader(pCreateXMLLoader);
-        uge::IResourceLoaderSharedPointer pCreateLuaScriptLoader = uge::LuaScriptResourceLoader::CreateLoader();
+        uge::IResourceLoaderSharedPointer pCreateLuaScriptLoader = uge::lua::LuaScriptResourceLoader::CreateLoader();
         m_ResourceCache.RegisterLoader(pCreateLuaScriptLoader);
         // OGG loader.
         m_ResourceCache.RegisterLoader(std::shared_ptr<uge::IResourceLoader>(LIB_NEW uge::OpenALSoftOggResourceLoader));

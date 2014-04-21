@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -34,36 +34,40 @@
 
 namespace uge
 {
-
-    class LuaStateManager : public IScriptManager
+    namespace lua
     {
-    public:
-        static bool Create();
-        static void Destroy();
-        static LuaStateManager* Get();
 
-        virtual bool vInit() override;
-        virtual void vExecuteFile(const char* pScriptFile) override;
-        virtual void vExecuteString(const char* pScriptString) override;
+        class LuaStateManager : public IScriptManager
+        {
+        public:
+            static bool Create();
+            static void Destroy();
+            static LuaStateManager* Get();
 
-        LuaPlus::LuaObject GetGlobalVars();
-        LuaPlus::LuaState* GetLuaState() const;
+            virtual bool vInit() override;
+            virtual void vExecuteFile(const char* pScriptFile) override;
+            virtual void vExecuteString(const char* pScriptString) override;
 
-        LuaPlus::LuaObject CreatePath(const char* pPath, bool bIgnoreLastElement = false);
-        void ConvertVec3ToTable(const Vector3& vec, LuaPlus::LuaObject& outLuaTable) const;
-        void ConvertTableToVec3(const LuaPlus::LuaObject& luaTable, Vector3& outVec3) const;
+            LuaPlus::LuaObject GetGlobalVars();
+            LuaPlus::LuaState* GetLuaState() const;
 
-    private:
-        void SetError(int errorNum);
-        void ClearStack();
+            LuaPlus::LuaObject CreatePath(const char* pPath, bool bIgnoreLastElement = false);
+            void ConvertVec3ToTable(const Vector3& vec, LuaPlus::LuaObject& outLuaTable) const;
+            void ConvertTableToVec3(const LuaPlus::LuaObject& luaTable, Vector3& outVec3) const;
 
-        explicit LuaStateManager();
-        virtual ~LuaStateManager();
+        private:
+            void SetError(int errorNum);
+            void ClearStack();
 
-    private:
-        static LuaStateManager* s_pSingleton;
-        LuaPlus::LuaState* m_pLuaState;
-        std::string m_LastError;
-    };
+            explicit LuaStateManager();
+            virtual ~LuaStateManager();
+
+        private:
+            static LuaStateManager* s_pSingleton;
+            LuaPlus::LuaState* m_pLuaState;
+            std::string m_LastError;
+        };
+
+    }
 
 }

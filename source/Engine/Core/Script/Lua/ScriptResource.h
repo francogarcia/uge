@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -34,18 +34,23 @@
 namespace uge
 {
 
-    class LuaScriptResourceLoader : public IResourceLoader
+    namespace lua
     {
-    public:
 
-        virtual std::string vGetPattern() override;
-        virtual bool vUseRawFile() override;
-        virtual bool vDiscardRawBufferAfterLoad() override;
-        virtual bool vAddNullZero() override;
-        virtual unsigned int vGetLoadedResourceSize(char* pRawBuffer, unsigned int rawSize) override;
-        virtual bool vLoadResource(char* pRawBuffer, unsigned int rawSize, ResourceHandleSharedPointer pResourceHandle);
+        class LuaScriptResourceLoader : public IResourceLoader
+        {
+        public:
 
-        static IResourceLoaderSharedPointer CreateLoader();
-    };
+            virtual std::string vGetPattern() override;
+            virtual bool vUseRawFile() override;
+            virtual bool vDiscardRawBufferAfterLoad() override;
+            virtual bool vAddNullZero() override;
+            virtual unsigned int vGetLoadedResourceSize(char* pRawBuffer, unsigned int rawSize) override;
+            virtual bool vLoadResource(char* pRawBuffer, unsigned int rawSize, ResourceHandleSharedPointer pResourceHandle);
+
+            static IResourceLoaderSharedPointer CreateLoader();
+        };
+
+    }
 
 }

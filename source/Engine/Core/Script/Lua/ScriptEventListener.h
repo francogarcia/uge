@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -36,60 +36,65 @@
 namespace uge
 {
 
-    class ScriptEventListener : public IEventListener
+    namespace lua
     {
-    public:
-        ScriptEventListener(LuaPlus::LuaObject explicitHandlerFunction);
 
-        virtual ~ScriptEventListener()
+        class ScriptEventListener : public IEventListener
         {
-        }
+        public:
+            ScriptEventListener(LuaPlus::LuaObject explicitHandlerFunction);
 
-        virtual char const* GetName(void)
+            virtual ~ScriptEventListener()
+            {
+            }
+
+            virtual char const* GetName(void)
+            {
+                return "Script Listener";
+            }
+
+            virtual bool HandleEvent(LuaPlus::ILuaTable const& event);
+
+            const LuaPlus::LuaObject& GetHandlerFunction(void) const
+            {
+                return m_HandlerFunction;
+            }
+
+        protected:
+            virtual bool VCallLuaFunction(LuaPlus::LuaObject& eventData);
+
+            LuaPlus::LuaObject m_HandlerFunction;
+        };
+
+        class ScriptActorEventListener : public ScriptEventListener
         {
-            return "Script Listener";
-        }
+        public:
+            ScriptActorEventListener(LuaPlus::LuaObject explicitHandlerFunction, const ActorId actorID);
 
-        virtual bool HandleEvent(LuaPlus::ILuaTable const& event);
+            virtual ~ScriptActorEventListener()
+            {
+            }
 
-        const LuaPlus::LuaObject& GetHandlerFunction(void) const
-        {
-            return m_HandlerFunction;
-        }
+            virtual char const* GetName(void)
+            {
+                return "Script Actor Listener";
+            }
 
-    protected:
-        virtual bool VCallLuaFunction(LuaPlus::LuaObject& eventData);
+            ActorId GetActorID(void) const
+            {
+                return m_SrcActorID;
+            }
 
-        LuaPlus::LuaObject m_HandlerFunction;
-    };
+        private:
 
-    class ScriptActorEventListener : public ScriptEventListener
-    {
-    public:
-        ScriptActorEventListener(LuaPlus::LuaObject explicitHandlerFunction, const ActorId actorID);
+            // This will pass the event data object as well as
+            // look up our actor's specific script data to pass.
+            virtual bool VCallLuaFunction(LuaPlus::LuaObject& eventData);
 
-        virtual ~ScriptActorEventListener()
-        {
-        }
+            // Our source actor.
+            const ActorId m_SrcActorID;
+        };
 
-        virtual char const* GetName(void)
-        {
-            return "Script Actor Listener";
-        }
-
-        ActorId GetActorID(void) const
-        {
-            return m_SrcActorID;
-        }
-
-    private:
-
-        // This will pass the event data object as well as
-        // look up our actor's specific script data to pass.
-        virtual bool VCallLuaFunction(LuaPlus::LuaObject& eventData);
-
-        // Our source actor.
-        const ActorId m_SrcActorID;
-    };
+    }
 
 }

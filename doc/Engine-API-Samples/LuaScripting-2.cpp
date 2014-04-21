@@ -57,17 +57,17 @@ protected:
 
     virtual bool vInitLuaScripting() override
     {
-        if (!uge::LuaStateManager::Create())
+        if (!uge::lua::LuaStateManager::Create())
         {
             std::cerr << "Error creating the state manager!" << std::endl;
 
             return false;
         }
 
-        uge::IScriptManager* pScriptManager = uge::LuaStateManager::Get();
+        uge::IScriptManager* pScriptManager = uge::lua::LuaStateManager::Get();
         pScriptManager->vExecuteFile("PreInit.lua");
-        uge::ScriptExports::Register();
-        uge::ScriptTask::RegisterScriptClass();
+        uge::lua::ScriptExports::Register();
+        uge::lua::ScriptTask::RegisterScriptClass();
 
         pScriptManager->vExecuteString("x = 1");
         pScriptManager->vExecuteString("x = x + 10");
@@ -77,15 +77,12 @@ protected:
         pScriptManager->vExecuteString("LoadAndExecuteScriptResource(fileName)");
 
         // A very simple Lua shell.
-        LuaPlus::LuaState* pLuaState = uge::LuaStateManager::Get()->GetLuaState();
-        pLuaState->DoFile("lua/Shell.lua"); // LoadAndExecuteScriptResource(fileName)
+        pScriptManager->vExecuteFile("Shell.lua");
+        //pScriptManager->vExecuteString("LoadAndExecuteScriptResource(\"LuaTask.lua\")");
 
         pScriptManager->vExecuteString("print(\"bye!\")");
         pScriptManager->vExecuteString("io.write(x)");
 
-        //pScriptManager->vExecuteString("LoadAndExecuteScriptResource(\"LuaTask.lua\")");
-
-        pLuaState = nullptr;
 
         return true;
     }
