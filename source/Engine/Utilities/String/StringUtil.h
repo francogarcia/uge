@@ -65,6 +65,10 @@ namespace uge
      */
     std::wstring WStringToUpper(const std::wstring& wtext);
 
+    bool StringComp(const char* const pStr1, const char* const pStr2);
+
+    bool StringCompCaseInsensitive(const char* const pStr1, const char* const pStr2);
+
     /**
      *  Compares two strings in a case insensitive way.
      * @param str1 : first string.

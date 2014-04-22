@@ -32,6 +32,7 @@
 #include "ScriptTask.h"
 
 #include <Utilities/Debug/Logger.h>
+#include <Utilities/String/StringUtil.h>
 
 namespace uge
 {
@@ -54,7 +55,7 @@ namespace uge
             pLuaState = nullptr;
         }
 
-        bool ScriptTask::BuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData)
+        bool ScriptTask::vBuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData)
         {
             if (scriptClass.IsTable())
             {
@@ -113,7 +114,7 @@ namespace uge
                     const char* pDataKey = constructionDataIt.GetKey().GetString();
                     LuaPlus::LuaObject dataValue = constructionDataIt.GetValue();
 
-                    if ((!strcmp(pDataKey, "frequency")) && (dataValue.IsInteger()))
+                    if ((StringComp(pDataKey, "m_Frequency")) && (dataValue.IsInteger()))
                     {
                         m_Frequency = dataValue.GetInteger();
                     }
@@ -226,13 +227,9 @@ namespace uge
 
         void ScriptTask::RegisterScriptClass()
         {
-            LuaPlus::LuaObject metaTableObj = LuaStateManager::Get()->GetGlobalVars().CreateTable(SCRIPT_TASK_NAME);
-            metaTableObj.SetObject("__index", metaTableObj);
-            metaTableObj.SetObject("base", metaTableObj);  // base refers to the parent class; ie the metatable
-            metaTableObj.SetBoolean("cpp", true);
-
-            RegisterScriptClassFunctions(metaTableObj);
-            metaTableObj.RegisterDirect("Create", &ScriptTask::CreateFromScript);
+            CppInheritable::RegisterLuaScriptClass(SCRIPT_TASK_NAME,
+                                                   ScriptTask::CreateFromScript,
+                                                   ScriptTask::RegisterScriptClassFunctions);
         }
 
         LuaPlus::LuaObject ScriptTask::CreateFromScript(LuaPlus::LuaObject self, LuaPlus::LuaObject constructionData, LuaPlus::LuaObject originalSubClass)
@@ -242,22 +239,11 @@ namespace uge
             LOG_MSG("Script", std::string("Creating instance of ") + SCRIPT_TASK_NAME);
             ScriptTask* pObject = LIB_NEW ScriptTask;
 
-            pObject->m_Self.AssignNewTable(LuaStateManager::Get()->GetLuaState());
-            if (pObject->BuildCppDataFromScript(originalSubClass, constructionData))
-            {
-                LuaPlus::LuaObject metaTableObj = LuaStateManager::Get()->GetGlobalVars().Lookup(SCRIPT_TASK_NAME);
-                assert(!metaTableObj.IsNil());
-
-                pObject->m_Self.SetLightUserData("__object", pObject);
-                pObject->m_Self.SetMetaTable(metaTableObj);
-            }
-            else
-            {
-                pObject->m_Self.AssignNil(LuaStateManager::Get()->GetLuaState());
-                SAFE_DELETE(pObject);
-            }
-
-            return pObject->m_Self;
+            return CppInheritable::CreateCppFromLuaScript<ScriptTask>(pObject,
+                                                                      SCRIPT_TASK_NAME,
+                                                                      self,
+                                                                      constructionData,
+                                                                      originalSubClass);
         }
 
         void ScriptTask::RegisterScriptClassFunctions(LuaPlus::LuaObject& metaTableObj)

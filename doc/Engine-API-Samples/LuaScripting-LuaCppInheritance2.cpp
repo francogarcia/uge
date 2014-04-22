@@ -59,11 +59,11 @@ private:
                                                LuaPlus::LuaObject constructionData,
                                                LuaPlus::LuaObject subclass)
     {
-        return CreateCppFromLuaScript(LIB_NEW CPP,
-                                      g_sClassName,
-                                      self,
-                                      constructionData,
-                                      subclass);
+        return CreateCppFromLuaScript<CPP>(LIB_NEW CPP,
+                                           g_sClassName,
+                                           self,
+                                           constructionData,
+                                           subclass);
     }
 
     virtual bool vBuildCppDataFromScript(LuaPlus::LuaObject scriptClass,
@@ -160,15 +160,24 @@ public:
         return true;
     }
 
+protected:
     virtual uge::BaseGameLogic* vCreateGameLogic() override
     {
         return LIB_NEW uge::BaseGameLogic;
     }
 
-protected:
     virtual bool vInitOutputSystems() override
     {
         return true;
+    }
+
+    bool vInitResourceCache() override
+    {
+        const std::string resourceFileName = "data/data.zip";
+        int resourceCacheSizeMB = 100; // 100MB
+        uge::IResourceFile* pResourceFile = LIB_NEW uge::ZipFileDevelopmentResource(resourceFileName, "./", uge::ZipFileDevelopmentResource::Mode::Editor);
+
+        return m_Resources.Init(resourceCacheSizeMB, pResourceFile);
     }
 };
 
@@ -188,6 +197,13 @@ int main(int argc, char* argv[])
     if (!pGameApplication->vRun())
     {
         std::cerr << "Error running the application!" << std::endl;
+
+        return -1;
+    }
+
+    if (!pGameApplication->vDestroy())
+    {
+        std::cerr << "Error destroying the application!" << std::endl;
 
         return -1;
     }

@@ -75,6 +75,16 @@ namespace uge
         return buffer;
     }
 
+    bool StringComp(const char* const pStr1, const char* const pStr2)
+    {
+        return (std::strcmp(pStr1, pStr2) == 0);
+    }
+
+    bool StringCompCaseInsensitive(const char* const pStr1, const char* const pStr2)
+    {
+        return StringCompCaseInsensitive(std::string(pStr1), std::string(pStr2));
+    }
+
     bool StringCompCaseInsensitive(std::string str1, std::string str2)
     {
         return (StringToLower(str1) == StringToLower(str2));

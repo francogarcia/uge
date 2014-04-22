@@ -213,6 +213,14 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    // Commented as the output system was not created.
+    //if (!pGameApplication->vDestroy())
+    //{
+    //    std::cerr << "Error destroying the application!" << std::endl;
+
+    //    return -1;
+    //}
+
     uge::debug::log::Destroy();
 
     return 0;

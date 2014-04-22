@@ -30,6 +30,8 @@
 #pragma once
 
 #include <Core/Task/Task.h>
+
+#include "LuaCppInheritable.h"
 #include "LuaStateManager.h"
 
 namespace uge
@@ -38,7 +40,7 @@ namespace uge
     namespace lua
     {
 
-        class ScriptTask : public Task
+        class ScriptTask : public Task, public CppInheritable
         {
         public:
             static void RegisterScriptClass();
@@ -53,7 +55,7 @@ namespace uge
         private:
             static void RegisterScriptClassFunctions(LuaPlus::LuaObject& metaTableObj);
             static LuaPlus::LuaObject CreateFromScript(LuaPlus::LuaObject self, LuaPlus::LuaObject constructionData, LuaPlus::LuaObject originalSubClass);
-            virtual bool BuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData);
+            virtual bool vBuildCppDataFromScript(LuaPlus::LuaObject scriptClass, LuaPlus::LuaObject constructionData) override;
 
             bool ScriptIsAlive();
             bool ScriptIsDead();
@@ -66,13 +68,12 @@ namespace uge
         private:
             unsigned long m_Frequency;
             unsigned long m_Time;
+
             LuaPlus::LuaObject m_ScriptInitFunction;
             LuaPlus::LuaObject m_ScriptUpdateFunction;
             LuaPlus::LuaObject m_ScriptSuccessFunction;
             LuaPlus::LuaObject m_ScriptFailFunction;
             LuaPlus::LuaObject m_ScriptAbortFunction;
-
-            LuaPlus::LuaObject m_Self;
         };
 
     }

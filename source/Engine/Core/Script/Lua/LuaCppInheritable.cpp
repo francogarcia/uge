@@ -40,7 +40,7 @@ namespace uge
         }
 
         void CppInheritable::RegisterLuaScriptClass(const char* const pClassName,
-                                                    CreateFromLuaScriptDelegate creationDelegate,
+                                                    CreateFromLuaScriptFunction creationDelegate,
                                                     RegisterLuaClassFunctions functionRegisterDelegate)
         {
             LuaPlus::LuaObject metaTable = lua::LuaStateManager::Get()->GetGlobalVars().CreateTable(pClassName);
@@ -52,59 +52,34 @@ namespace uge
             metaTable.RegisterDirect("Create", creationDelegate);
         }
 
-        LuaPlus::LuaObject CppInheritable::CreateCppFromLuaScript(CppInheritable* pObject,
-                                                                  const char* const pClassName,
-                                                                  LuaPlus::LuaObject self,
-                                                                  LuaPlus::LuaObject constructionData,
-                                                                  LuaPlus::LuaObject subclass)
+        bool CppInheritable::vBuildCppDataFromScript(LuaPlus::LuaObject scriptClass,
+                                                     LuaPlus::LuaObject constructionData)
         {
-            pObject->m_Self.AssignNewTable(lua::LuaStateManager::Get()->GetLuaState());
-            if (pObject->vBuildCppDataFromScript(subclass, constructionData))
+            if (!scriptClass.IsTable())
             {
-                LuaPlus::LuaObject metaTable = lua::LuaStateManager::Get()->GetGlobalVars().Lookup(pClassName);
-                LOG_ASSERT(!metaTable.IsNil() && "Invalid meta table!");
+                LOG_ERROR("Error creating the class from the script.");
 
-                // Saves this object C++ pointer.
-                pObject->m_Self.SetLightUserData("__object", pObject);
-                pObject->m_Self.SetMetaTable(metaTable);
-            }
-            else
-            {
-                pObject->m_Self.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
-                SAFE_DELETE(pObject);
+                return false;
             }
 
-            return pObject->m_Self;
+            // Override methods here if necessary.
+
+            if (constructionData.IsTable())
+            {
+                for (LuaPlus::LuaTableIterator constructionDataIterator(constructionData);
+                     constructionDataIterator;
+                     constructionDataIterator.Next())
+                {
+                    const char* pKey = constructionDataIterator.GetKey().GetString();
+                    LuaPlus::LuaObject value = constructionDataIterator.GetValue();
+
+                    // Override attributes here if necessary.
+                    m_Self.SetObject(pKey, value);
+                }
+            }
+
+            return true;
         }
-
-        //bool CppInheritable::vBuildCppDataFromScript(LuaPlus::LuaObject scriptClass,
-        //                                             LuaPlus::LuaObject constructionData)
-        //{
-        //    if (!scriptClass.IsTable())
-        //    {
-        //        LOG_ERROR("Error creating the class from the script.");
-
-        //        return false;
-        //    }
-
-        //    // Override methods here if necessary.
-
-        //    if (constructionData.IsTable())
-        //    {
-        //        for (LuaPlus::LuaTableIterator constructionDataIterator(constructionData);
-        //             constructionDataIterator;
-        //             constructionDataIterator.Next())
-        //        {
-        //            const char* pKey = constructionDataIterator.GetKey().GetString();
-        //            LuaPlus::LuaObject value = constructionDataIterator.GetValue();
-
-        //            // Override attributes here if necessary.
-        //            m_Self.SetObject(pKey, value);
-        //        }
-        //    }
-
-        //    return true;
-        //}
 
     }
 }
