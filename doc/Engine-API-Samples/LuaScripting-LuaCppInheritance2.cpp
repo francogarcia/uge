@@ -1,3 +1,4 @@
+#include <Core/Script/Lua/LuaCppInheritable.h>
 #include <Core/Script/Lua/LuaStateManager.h>
 #include <Core/Script/Lua/ScriptTask.h>
 #include <Core/Script/Lua/ScriptExports.h>

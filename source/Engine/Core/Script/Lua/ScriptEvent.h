@@ -40,13 +40,13 @@ namespace uge
         class ScriptEvent;
         typedef ScriptEvent* (*CreateEventForScriptFunctionType)(void);
 
-#define REGISTER_SCRIPT_EVENT(eventClass, eventType) \
-    ScriptEvent::RegisterEventTypeWithScript(#eventClass, eventType); \
-    ScriptEvent::AddCreationFunction(eventType, &eventClass::CreateEventForScript)
+#define REGISTER_LUA_SCRIPT_EVENT(eventClass, eventType) \
+    uge::lua::ScriptEvent::RegisterEventTypeWithScript(#eventClass, eventType); \
+    uge::lua::ScriptEvent::AddCreationFunction(eventType, &eventClass::CreateEventForScript)
 
-#define EXPORT_FOR_SCRIPT_EVENT(eventClass) \
+#define EXPORT_FOR_LUA_SCRIPT_EVENT(eventClass) \
 public: \
-    static ScriptEvent* CreateEventForScript() \
+    static uge::lua::ScriptEvent* CreateEventForScript() \
     { \
         return new eventClass; \
     }
@@ -60,7 +60,7 @@ public: \
             LuaPlus::LuaObject GetEventData();
             bool SetEventData(LuaPlus::LuaObject eventData);
 
-            static void RegisterEventTypeWithScript(const char* key, EventType type);
+            static void RegisterEventTypeWithScript(const char* pKey, EventType type);
             static void AddCreationFunction(EventType type, CreateEventForScriptFunctionType pCreationFunctionPtr);
             static ScriptEvent* CreateEventFromScript(EventType type);
 

@@ -70,7 +70,7 @@ namespace uge
             return m_bEventDataIsValid;
         }
 
-        void ScriptEvent::RegisterEventTypeWithScript(const char* key, EventType type)
+        void ScriptEvent::RegisterEventTypeWithScript(const char* pKey, EventType type)
         {
             LuaPlus::LuaObject eventTypeTable = LuaStateManager::Get()->GetGlobalVars().GetByName("EventType");
             if (eventTypeTable.IsNil())
@@ -79,9 +79,9 @@ namespace uge
             }
 
             LOG_ASSERT(eventTypeTable.IsTable() && "Event is not a table!");
-            LOG_ASSERT(eventTypeTable[key].IsNil() && "Event is nil!");
+            LOG_ASSERT(eventTypeTable[pKey].IsNil() && "Event already exists!");
 
-            eventTypeTable.SetNumber(key, (double) type);
+            eventTypeTable.SetNumber(pKey, (double) type);
         }
 
         void ScriptEvent::AddCreationFunction(EventType type, CreateEventForScriptFunctionType pCreationFunctionPtr)

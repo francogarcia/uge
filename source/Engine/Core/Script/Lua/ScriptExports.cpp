@@ -65,10 +65,10 @@ namespace uge
         };
 
 
-        class ScriptEventListenerMgr
+        class ScriptEventListenerManager
         {
         public:
-            ~ScriptEventListenerMgr();
+            ~ScriptEventListenerManager();
             void AddListener(ScriptEventListener* pListener);
             void DestroyListener(ScriptEventListener* pListener);
 
@@ -108,12 +108,12 @@ namespace uge
         private:
             static std::shared_ptr<ScriptEvent> BuildEvent(EventType eventType, LuaPlus::LuaObject& eventData);
 
-            static ScriptEventListenerMgr* s_pScriptEventListenerMgr;
+            static ScriptEventListenerManager* s_pScriptEventListenerMgr;
         };
 
-        ScriptEventListenerMgr* InternalScriptExports::s_pScriptEventListenerMgr = nullptr;
+        ScriptEventListenerManager* InternalScriptExports::s_pScriptEventListenerMgr = nullptr;
 
-        ScriptEventListenerMgr::~ScriptEventListenerMgr()
+        ScriptEventListenerManager::~ScriptEventListenerManager()
         {
             for (auto it = m_Listeners.begin(); it != m_Listeners.end(); ++it)
             {
@@ -123,12 +123,12 @@ namespace uge
             m_Listeners.clear();
         }
 
-        void ScriptEventListenerMgr::AddListener(ScriptEventListener* pListener)
+        void ScriptEventListenerManager::AddListener(ScriptEventListener* pListener)
         {
             m_Listeners.insert(pListener);
         }
 
-        void ScriptEventListenerMgr::DestroyListener(ScriptEventListener* pListener)
+        void ScriptEventListenerManager::DestroyListener(ScriptEventListener* pListener)
         {
             ScriptEventListenerSet::iterator findIt = m_Listeners.find(pListener);
             if (findIt != m_Listeners.end())
@@ -159,7 +159,7 @@ namespace uge
 
         void ScriptEventListener::ScriptEventDelegate(IEventDataSharedPointer pEvent)
         {
-            assert(m_ScriptCallbackFunction.IsFunction() && "Invalid callbak is not a function!");  // this should never happen since it's validated before even creating this object
+            assert(m_ScriptCallbackFunction.IsFunction() && "Invalid callback is not a function!");  // this should never happen since it's validated before even creating this object
 
             // call the Lua function
             std::shared_ptr<ScriptEvent> pScriptEvent = std::static_pointer_cast<ScriptEvent>(pEvent);
@@ -170,7 +170,7 @@ namespace uge
         bool InternalScriptExports::Init()
         {
             assert((s_pScriptEventListenerMgr == nullptr) && "The event listener was already initialized!");
-            s_pScriptEventListenerMgr = LIB_NEW ScriptEventListenerMgr;
+            s_pScriptEventListenerMgr = LIB_NEW ScriptEventListenerManager;
 
             return true;
         }
@@ -233,7 +233,7 @@ namespace uge
         bool InternalScriptExports::QueueEvent(EventType eventType, LuaPlus::LuaObject eventData)
         {
             std::shared_ptr<ScriptEvent> pEvent(BuildEvent(eventType, eventData));
-            if (pEvent)
+            if (pEvent != nullptr)
             {
                 IEventManager::Get()->vQueueEvent(pEvent);
                 return true;
@@ -244,7 +244,7 @@ namespace uge
         bool InternalScriptExports::TriggerEvent(EventType eventType, LuaPlus::LuaObject eventData)
         {
             std::shared_ptr<ScriptEvent> pEvent(BuildEvent(eventType, eventData));
-            if (pEvent)
+            if (pEvent != nullptr)
             {
                 return IEventManager::Get()->vTriggerEvent(pEvent);
             }
@@ -255,7 +255,7 @@ namespace uge
         {
             // create the event from the event type
             std::shared_ptr<ScriptEvent> pEvent(ScriptEvent::CreateEventFromScript(eventType));
-            if (!pEvent)
+            if (pEvent == nullptr)
             {
                 return std::shared_ptr<ScriptEvent>();
             }
@@ -437,7 +437,7 @@ namespace uge
             globals.RegisterDirect("Log", &InternalScriptExports::LuaLog);
             globals.RegisterDirect("GetTickCount", &InternalScriptExports::GetTickCount);
 
-            //// Physics
+            // Physics
             globals.RegisterDirect("ApplyForce", &InternalScriptExports::ApplyForce);
             globals.RegisterDirect("ApplyTorque", &InternalScriptExports::ApplyTorque);
         }
