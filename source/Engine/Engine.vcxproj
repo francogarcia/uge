@@ -104,7 +104,7 @@
     <ClCompile Include="Core\EntityComponent\Component\CollidableComponent.cpp" />
     <ClCompile Include="Core\EntityComponent\Component\IAuditoryComponent.cpp" />
     <ClCompile Include="Core\EntityComponent\Component\IGraphicalComponent.cpp" />
-    <ClCompile Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.cpp" />
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\LuaScriptComponent.cpp" />
     <ClCompile Include="Core\EntityComponent\Component\Implementation\BulletPhysicsBoxComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -294,7 +294,7 @@
     <ClInclude Include="Core\EntityComponent\Component\CollidableComponent.h" />
     <ClInclude Include="Core\EntityComponent\Component\IAuditoryComponent.h" />
     <ClInclude Include="Core\EntityComponent\Component\IGraphicalComponent.h" />
-    <ClInclude Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.h" />
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\LuaScriptComponent.h" />
     <ClInclude Include="Core\EntityComponent\Component\Implementation\BulletPhysicsBoxComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

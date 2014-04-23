@@ -22,12 +22,13 @@
 
 #include "BaseGameApplication.h"
 
+#include <Core/EntityComponent/Component/Implementation/LuaScriptComponent.h>
+
 #include <Core/Events/EventManager.h>
 
 #include <Core/Physics/Implementation/BulletPhysics/BulletPhysics.h>
 #include <Core/Physics/Implementation/NullPhysics/NullPhysics.h>
 
-#include <Core/EntityComponent/Component/Implementation/BaseLuaScriptComponent.h>
 #include <Core/Script/Lua/ScriptResource.h>
 #include <Core/Script/Lua/LuaStateManager.h>
 #include <Core/Script/Lua/ScriptExports.h>
@@ -265,7 +266,7 @@ namespace uge
 
             lua::ScriptExports::Register();
             lua::ScriptTask::RegisterScriptClass();
-            Component::BaseLuaScriptComponent::RegisterScriptFunctions();
+            Component::LuaScriptComponent::RegisterScriptFunctions();
         }
 
         return true;

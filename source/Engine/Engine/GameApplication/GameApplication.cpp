@@ -35,8 +35,6 @@
 
 #include <Engine/GameLogic/BaseGameLogic.h>
 
-#include <Core/EntityComponent/Component/Implementation/BaseLuaScriptComponent.h>
-
 #include <Core/Script/Lua/LuaStateManager.h>
 #include <Core/Script/Lua/ScriptExports.h>
 #include <Core/Script/Lua/ScriptTask.h>

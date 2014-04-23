@@ -38,6 +38,7 @@
 #include "../Component/Implementation/BulletPhysicsComponent.h"
 //#include "../Component/Implementation/BulletPhysicsBoxComponent.h"
 //#include "../Component/Implementation/BulletPhysicsSphereComponent.h"
+#include "../Component/Implementation/LuaScriptComponent.h"
 #include "../Component/Implementation/OgreGraphicalComponent.h"
 #include "../Component/Implementation/OpenALSoftAudioComponent.h"
 #include "../Component/Implementation/YSEAudioComponent.h"
@@ -63,6 +64,7 @@ namespace uge
         m_ComponentFactory.Register<Component::CollidableComponent>(Component::GetComponentID(Component::CollidableComponent::g_ComponentName));
         //m_ComponentFactory.Register<Component::BulletPhysicsBoxComponent>(Component::GetComponentID(Component::BulletPhysicsBoxComponent::g_ComponentName));
         //m_ComponentFactory.Register<Component::BulletPhysicsSphereComponent>(Component::GetComponentID(Component::BulletPhysicsSphereComponent::g_ComponentName));
+        m_ComponentFactory.Register<Component::LuaScriptComponent>(Component::GetComponentID(Component::LuaScriptComponent::g_ComponentName));
         m_ComponentFactory.Register<Component::OgreGraphicalComponent>(Component::GetComponentID(Component::OgreGraphicalComponent::g_ComponentName));
         m_ComponentFactory.Register<Component::OpenALSoftAudioComponent>(Component::GetComponentID(Component::OpenALSoftAudioComponent::g_ComponentName));
         m_ComponentFactory.Register<Component::YSEAudioComponent>(Component::GetComponentID(Component::YSEAudioComponent::g_ComponentName));

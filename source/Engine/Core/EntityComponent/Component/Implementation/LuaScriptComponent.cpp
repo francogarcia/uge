@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -27,50 +27,14 @@
  * Public License, version 3.0 <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 
-//========================================================================
-// BaseScriptComponent.cpp - Component for exposing actors to Lua
-//
-// Part of the GameCode4 Application
-//
-// GameCode4 is the sample application that encapsulates much of the source code
-// discussed in "Game Coding Complete - 4th Edition" by Mike McShaffry and David
-// "Rez" Graham, published by Charles River Media.
-// ISBN-10: 1133776574 | ISBN-13: 978-1133776574
-//
-// If this source code has found it's way to you, and you think it has helped you
-// in any way, do the authors a favor and buy a new copy of the book - there are
-// detailed explanations in it that compliment this code well. Buy a copy at Amazon.com
-// by clicking here:
-//    http://www.amazon.com/gp/product/1133776574/ref=olp_product_details?ie=UTF8&me=&seller=
-//
-// There's a companion web site at http://www.mcshaffry.com/GameCode/
-//
-// The source code is managed and maintained through Google Code:
-//    http://code.google.com/p/gamecode4/
-//
-// (c) Copyright 2012 Michael L. McShaffry and David Graham
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser GPL v3
-// as published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-// http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
-//
-// You should have received a copy of the GNU Lesser GPL v3
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-//
-//========================================================================
-
 #include "GameEngineStd.h"
 
-#include "BaseLuaScriptComponent.h"
+#include "LuaScriptComponent.h"
+
+#include <Core/Script/Lua/LuaStateManager.h>
 
 #include <Utilities/Debug/Logger.h>
-#include <Core/Script/Lua/LuaStateManager.h>
+#include <Utilities/String/StringUtil.h>
 #include <Utilities/Util.h>
 
 // component interfaces
@@ -86,167 +50,213 @@ namespace uge
 
         // This is the name of the metatable where all the function definitions exported to Lua will live.
         static const char* METATABLE_NAME = "BaseScriptComponentMetaTable";
-        const char* BaseLuaScriptComponent::g_ComponentName = "BaseScriptComponent";
+        const char* LuaScriptComponent::g_ComponentName = "LuaScriptComponent";
 
-        BaseLuaScriptComponent::BaseLuaScriptComponent()
+        LuaScriptComponent::LuaScriptComponent()
         {
-            m_scriptObject.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
-            m_scriptDestructor.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
+            m_ScriptObject.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
+            m_ScriptDestructor.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
         }
 
-        BaseLuaScriptComponent::~BaseLuaScriptComponent()
+        LuaScriptComponent::~LuaScriptComponent()
         {
             // call the script destructor if there is one
-            if (m_scriptDestructor.IsFunction())
+            if (m_ScriptDestructor.IsFunction())
             {
-                LuaPlus::LuaFunction<void> func(m_scriptDestructor);
-                func(m_scriptObject);
+                LuaPlus::LuaFunction<void> func(m_ScriptDestructor);
+                func(m_ScriptObject);
             }
 
             // clear out the script object
-            m_scriptObject.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
+            m_ScriptObject.AssignNil(lua::LuaStateManager::Get()->GetLuaState());
 
             // if we were given a path for this script object, set it to nil
-            if (!m_scriptObjectName.empty())
+            if (!m_ScriptObjectName.empty())
             {
-                m_scriptObjectName += " = nil;";
-                lua::LuaStateManager::Get()->vExecuteString(m_scriptObjectName.c_str());
+                m_ScriptObjectName += " = nil;";
+                lua::LuaStateManager::Get()->vExecuteString(m_ScriptObjectName.c_str());
             }
         }
 
-        bool BaseLuaScriptComponent::vInit(XMLElement* pInitXMLData)
+        bool LuaScriptComponent::vInit(XMLElement* pInitXMLData)
         {
             assert(pInitXMLData != nullptr && "Invalid initialization data!");
 
             lua::LuaStateManager* pStateManager = lua::LuaStateManager::Get();
-            LOG_ASSERT(pStateManager && "LuaStateManager could not be created!");
+            LOG_ASSERT(pStateManager && "LuaStateManager have not been created!");
 
-            // load the <ScriptObject> tag and validate it
-            XMLElement xmlElement = pInitXMLData->GetFirstChildElement("ScriptObject");
+            XMLElement xmlElement = pInitXMLData->GetFirstChildElement("ScriptResource");
             if (!xmlElement.IsGood())
             {
-                LOG_ERROR("No <ScriptObject> tag in XML.  This won't be a very useful script component.");
-
-                return true;  // technically it succeeded even though it won't be accessible
+                LOG_WARNING("No resource for the script component!");
+            }
+            else
+            {
+                xmlElement.GetAttribute("resource", &m_ScriptResourceFileName);
+                pStateManager->vExecuteFile(m_ScriptResourceFileName.c_str());
             }
 
-            // read all the attributes
+            xmlElement = pInitXMLData->GetFirstChildElement("ScriptObject");
+            if (!xmlElement.IsGood())
+            {
+                LOG_ERROR("No <ScriptObject> tag in XML");
+
+                return false;
+            }
+
             std::string attributeValue;
             if (xmlElement.GetAttribute("var", &attributeValue))
             {
-                m_scriptObjectName = attributeValue;
+                m_ScriptObjectName = attributeValue;
             }
 
             if (xmlElement.GetAttribute("constructor", &attributeValue))
             {
-                m_constructorName = attributeValue;
+                m_ConstructorName = attributeValue;
             }
 
             if (xmlElement.GetAttribute("destructor", &attributeValue))
             {
-                m_destructorName = attributeValue;
+                m_DestructorName = attributeValue;
             }
 
             // Having a var attribute will export the instance of this object to that name.
-            if (!m_scriptObjectName.empty())
+            if (!m_ScriptObjectName.empty())
             {
-                m_scriptObject = pStateManager->CreatePath(m_scriptObjectName.c_str());
+                m_ScriptObject = pStateManager->CreatePath(m_ScriptObjectName.c_str());
 
-                if (!m_scriptObject.IsNil())
+                if (!m_ScriptObject.IsNil())
                 {
                     CreateScriptObject();
                 }
             }
 
-            // The scriptConstructor attribute will also cause a Lua object to be created if one wasn't created in
-            // the previous step.  The scriptConstructor string is treated as a function of the form f(scriptObject)
+            // The 'constructor' attribute will also cause a Lua object to be created if one wasn't created in
+            // the previous step.  The 'constructor' string is treated as a function of the form f(scriptObject)
             // and is called.
-            if (!m_constructorName.empty())
+            if (!m_ConstructorName.empty())
             {
-                m_scriptConstructor = pStateManager->GetGlobalVars().Lookup(m_constructorName.c_str());
-                if (m_scriptConstructor.IsFunction())
+                m_ScriptConstructor = pStateManager->GetGlobalVars().Lookup(m_ConstructorName.c_str());
+                if (m_ScriptConstructor.IsFunction())
                 {
-                    // m_scriptObject could be nil if there was no scriptObject attribute.  If this is the case,
+                    // m_ScriptObject could be nil if there was no scriptObject attribute.  If this is the case,
                     // the Lua object is created here.
-                    if (m_scriptObject.IsNil())
+                    if (m_ScriptObject.IsNil())
                     {
-                        m_scriptObject.AssignNewTable(pStateManager->GetLuaState());
+                        m_ScriptObject.AssignNewTable(pStateManager->GetLuaState());
                         CreateScriptObject();
                     }
                 }
             }
 
-            // The scriptDestructor attribute is treated as a function in the form of f(scriptObject) and is called
+            // The 'destructor' attribute is treated as a function in the form of f(scriptObject) and is called
             // when the C++ ScriptObject instance is destroyed.
-            if (!m_destructorName.empty())
+            if (!m_DestructorName.empty())
             {
-                m_scriptDestructor = pStateManager->GetGlobalVars().Lookup(m_destructorName.c_str());
+                m_ScriptDestructor = pStateManager->GetGlobalVars().Lookup(m_DestructorName.c_str());
             }
 
             // read the <ScriptData> tag
             xmlElement = pInitXMLData->GetFirstChildElement("ScriptData");
             if (xmlElement.IsGood())
             {
-                if (m_scriptObject.IsNil())
+                if (m_ScriptObject.IsNil())
                 {
-                    LOG_ERROR("m_scriptObject cannot be nil when ScriptData has been defined");
+                    LOG_ERROR("m_ScriptObject cannot be nil when ScriptData has been defined");
 
                     return false;
                 }
 
-                for (XMLAttribute xmlAttribute = xmlElement.GetFirstAttribute(); xmlAttribute.IsGood(); xmlAttribute = xmlAttribute.GetNextAttribute())
+                for (XMLElement xmlDataElement = xmlElement.GetFirstChildElement("Attribute");
+                     xmlDataElement.IsGood(); xmlDataElement = xmlDataElement.GetNextSiblingElement())
                 {
-                    m_scriptObject.SetString(xmlAttribute.GetName().c_str(), xmlAttribute.GetValue().c_str());
+                    std::string type;
+                    xmlDataElement.GetAttribute("type", &type);
+
+                    std::string name;
+                    xmlDataElement.GetAttribute("name", &name);
+
+                    if (type == "string")
+                    {
+                        std::string value;
+                        xmlDataElement.GetAttribute("value", &value);
+
+                        m_ScriptObject.SetString(name.c_str(), value.c_str());
+                    }
+                    else if (type == "number")
+                    {
+                        double value;
+                        xmlDataElement.GetDoubleAttribute("value", &value);
+
+                        m_ScriptObject.SetNumber(name.c_str(), value);
+                    }
+                    else if (type == "boolean")
+                    {
+                        bool bValue;
+                        xmlDataElement.GetBoolAttribute("value", &bValue);
+
+                        m_ScriptObject.SetBoolean(name.c_str(), bValue);
+                    }
                 }
             }
 
             return true;
         }
 
-        void BaseLuaScriptComponent::vPostInit()
+        void LuaScriptComponent::vPostInit()
         {
             // call the script constructor if one exists
-            if (m_scriptConstructor.IsFunction())
+            if (m_ScriptConstructor.IsFunction())
             {
-                LuaPlus::LuaFunction<bool> func(m_scriptConstructor);
-                func(m_scriptObject);
+                LuaPlus::LuaFunction<bool> func(m_ScriptConstructor);
+                func(m_ScriptObject);
             }
         }
 
-        void BaseLuaScriptComponent::CreateScriptObject()
+        void LuaScriptComponent::vUpdate(const unsigned long dt)
+        {
+
+        }
+
+        void LuaScriptComponent::vOnChange()
+        {
+
+        }
+
+        void LuaScriptComponent::CreateScriptObject()
         {
             lua::LuaStateManager* pStateMgr = lua::LuaStateManager::Get();
             LOG_ASSERT(pStateMgr);
-            LOG_ASSERT(!m_scriptObject.IsNil());
+            LOG_ASSERT(!m_ScriptObject.IsNil());
 
             LuaPlus::LuaObject metaTableObj = pStateMgr->GetGlobalVars().Lookup(METATABLE_NAME);
             LOG_ASSERT(!metaTableObj.IsNil());
 
             LuaPlus::LuaObject boxedPtr = pStateMgr->GetLuaState()->BoxPointer(this);
             boxedPtr.SetMetaTable(metaTableObj);
-            m_scriptObject.SetLightUserData("__object", this);
-            m_scriptObject.SetMetaTable(metaTableObj);
+            m_ScriptObject.SetLightUserData("__object", this);
+            m_ScriptObject.SetMetaTable(metaTableObj);
         }
 
-        void BaseLuaScriptComponent::RegisterScriptFunctions()
+        void LuaScriptComponent::RegisterScriptFunctions()
         {
             // create the metatable
             LuaPlus::LuaObject metaTableObj = lua::LuaStateManager::Get()->GetGlobalVars().CreateTable(METATABLE_NAME);
             metaTableObj.SetObject("__index", metaTableObj);
 
             // transform component functions
-            //metaTableObj.RegisterObjectDirect("GetActorId",		        (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::GetActorID);
-            //metaTableObj.RegisterObjectDirect("GetPos",				    (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::GetPos);
-            //metaTableObj.RegisterObjectDirect("SetPos",				    (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::SetPos);
-            //metaTableObj.RegisterObjectDirect("GetLookAt",	            (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::GetLookAt);
-            //metaTableObj.RegisterObjectDirect("GetYOrientationRadians", (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::GetYOrientationRadians);
-            //metaTableObj.RegisterObjectDirect("RotateY",	            (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::RotateY);
-            //metaTableObj.RegisterObjectDirect("Stop",	                (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::Stop);
+            //metaTableObj.RegisterObjectDirect("GetActorId",		        (LuaScriptComponent*)0, &LuaScriptComponent::GetActorID);
+            //metaTableObj.RegisterObjectDirect("GetPos",				    (LuaScriptComponent*)0, &LuaScriptComponent::GetPos);
+            //metaTableObj.RegisterObjectDirect("SetPos",				    (LuaScriptComponent*)0, &LuaScriptComponent::SetPos);
+            //metaTableObj.RegisterObjectDirect("GetLookAt",	            (LuaScriptComponent*)0, &LuaScriptComponent::GetLookAt);
+            //metaTableObj.RegisterObjectDirect("GetYOrientationRadians", (LuaScriptComponent*)0, &LuaScriptComponent::GetYOrientationRadians);
+            //metaTableObj.RegisterObjectDirect("RotateY",	            (LuaScriptComponent*)0, &LuaScriptComponent::RotateY);
+            //metaTableObj.RegisterObjectDirect("Stop",	                (LuaScriptComponent*)0, &LuaScriptComponent::Stop);
 
-            //metaTableObj.RegisterObjectDirect("SetPosition",	        (BaseLuaScriptComponent*)0, &BaseLuaScriptComponent::SetPosition);
+            //metaTableObj.RegisterObjectDirect("SetPosition",	        (LuaScriptComponent*)0, &LuaScriptComponent::SetPosition);
         }
 
-        void BaseLuaScriptComponent::UnregisterScriptFunctions()
+        void LuaScriptComponent::UnregisterScriptFunctions()
         {
             LuaPlus::LuaObject metaTableObj = lua::LuaStateManager::Get()->GetGlobalVars().Lookup(METATABLE_NAME);
             if (!metaTableObj.IsNil())
@@ -256,7 +266,7 @@ namespace uge
         }
 
         // FIXME if needed
-        //LuaPlus::LuaObject BaseLuaScriptComponent::GetActorID()
+        //LuaPlus::LuaObject LuaScriptComponent::GetActorID()
         //{
         //    //GCC_LOG("ObjectSystem", "BaseScriptComponent::GetEntityId() return 0x" + ToStr(m_pOwner->GetId(), 16) + " on C++ side");
         //
@@ -273,7 +283,7 @@ namespace uge
         //    //return m_pOwner->GetId();
         //}
 
-        //LuaPlus::LuaObject BaseLuaScriptComponent::GetPos()
+        //LuaPlus::LuaObject LuaScriptComponent::GetPos()
         //{
         //    LuaPlus::LuaObject ret;
         //
@@ -286,7 +296,7 @@ namespace uge
         //    return ret;
         //}
         //
-        //void BaseLuaScriptComponent::SetPos(LuaPlus::LuaObject newPos)
+        //void LuaScriptComponent::SetPos(LuaPlus::LuaObject newPos)
         //{
         //    shared_ptr<TransformComponent> pTransformComponent = MakeStrongPtr(m_pOwner->GetComponent<TransformComponent>(TransformComponent::g_Name));
         //    if (pTransformComponent)
@@ -302,7 +312,7 @@ namespace uge
         //}
         //
         //
-        //LuaPlus::LuaObject BaseLuaScriptComponent::GetLookAt() const
+        //LuaPlus::LuaObject LuaScriptComponent::GetLookAt() const
         //{
         //    LuaPlus::LuaObject ret;
         //
@@ -315,7 +325,7 @@ namespace uge
         //    return ret;
         //}
         //
-        //float BaseLuaScriptComponent::GetYOrientationRadians() const
+        //float LuaScriptComponent::GetYOrientationRadians() const
         //{
         //    shared_ptr<TransformComponent> pTransformComponent = MakeStrongPtr(m_pOwner->GetComponent<TransformComponent>(TransformComponent::g_Name));
         //    if (pTransformComponent)
@@ -329,7 +339,7 @@ namespace uge
         //    }
         //}
         //
-        //void BaseLuaScriptComponent::RotateY(float angleRadians)
+        //void LuaScriptComponent::RotateY(float angleRadians)
         //{
         //    shared_ptr<PhysicsComponent> pPhysicalComponent = MakeStrongPtr(m_pOwner->GetComponent<PhysicsComponent>(PhysicsComponent::g_Name));
         //    if (pPhysicalComponent)
@@ -337,21 +347,21 @@ namespace uge
         //}
         //
         //
-        //void BaseLuaScriptComponent::SetPosition(float x, float y, float z)
+        //void LuaScriptComponent::SetPosition(float x, float y, float z)
         //{
         //    shared_ptr<PhysicsComponent> pPhysicalComponent = MakeStrongPtr(m_pOwner->GetComponent<PhysicsComponent>(PhysicsComponent::g_Name));
         //    if (pPhysicalComponent)
         //        pPhysicalComponent->SetPosition(x, y, z);
         //}
         //
-        //void BaseLuaScriptComponent::Stop()
+        //void LuaScriptComponent::Stop()
         //{
         //    shared_ptr<PhysicsComponent> pPhysicalComponent = MakeStrongPtr(m_pOwner->GetComponent<PhysicsComponent>(PhysicsComponent::g_Name));
         //    if (pPhysicalComponent)
         //        pPhysicalComponent->Stop();
         //}
 
-        const std::string BaseLuaScriptComponent::vGetName() const
+        const std::string LuaScriptComponent::vGetName() const
         {
             return g_ComponentName;
         }

@@ -239,9 +239,6 @@
     <ClCompile Include="Core\EntityComponent\Component\MoveableComponent.cpp">
       <Filter>Core\EntityComponent\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.cpp">
-      <Filter>Core\EntityComponent\Component\Implementation</Filter>
-    </ClCompile>
     <ClCompile Include="Core\EntityComponent\Component\Implementation\OgreGraphicalComponent.cpp">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
     </ClCompile>
@@ -421,6 +418,9 @@
     </ClCompile>
     <ClCompile Include="Core\Script\Lua\LuaCppInheritable.cpp">
       <Filter>Core\Script\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityComponent\Component\Implementation\LuaScriptComponent.cpp">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -687,9 +687,6 @@
     <ClInclude Include="Core\EntityComponent\Component\ScriptComponentInterface.h">
       <Filter>Core\EntityComponent\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Core\EntityComponent\Component\Implementation\BaseLuaScriptComponent.h">
-      <Filter>Core\EntityComponent\Component\Implementation</Filter>
-    </ClInclude>
     <ClInclude Include="Core\EntityComponent\Component\Implementation\OgreGraphicalComponent.h">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
     </ClInclude>
@@ -887,6 +884,9 @@
     </ClInclude>
     <ClInclude Include="Core\Script\Lua\LuaCppInheritable.h">
       <Filter>Core\Script\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityComponent\Component\Implementation\LuaScriptComponent.h">
+      <Filter>Core\EntityComponent\Component\Implementation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
