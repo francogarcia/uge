@@ -133,8 +133,6 @@
     <ClCompile Include="Core\PlayerProfile\InputSettings\InputSettings.cpp" />
     <ClCompile Include="Core\PlayerProfile\InputSettings\Subsystems\InputSubsystemSettings.cpp" />
     <ClCompile Include="Core\PlayerProfile\OutputSettings\OutputSettings.cpp" />
-    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\AuralSettings.cpp" />
-    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\GraphicalSettings.cpp" />
     <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.cpp" />
     <ClCompile Include="Core\PlayerProfile\OutputSettings\TextSettings.cpp" />
     <ClCompile Include="Core\PlayerProfile\OutputSettings\WindowSettings.cpp" />
@@ -330,8 +328,6 @@
     <ClInclude Include="Core\PlayerProfile\InputSettings\InputSettings.h" />
     <ClInclude Include="Core\PlayerProfile\InputSettings\Subsystems\InputSubsystemSettings.h" />
     <ClInclude Include="Core\PlayerProfile\OutputSettings\OutputSettings.h" />
-    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\AuralSettings.h" />
-    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\GraphicalSettings.h" />
     <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.h" />
     <ClInclude Include="Core\PlayerProfile\OutputSettings\TextSettings.h" />
     <ClInclude Include="Core\PlayerProfile\OutputSettings\WindowSettings.h" />

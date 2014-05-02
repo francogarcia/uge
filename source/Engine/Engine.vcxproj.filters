@@ -431,12 +431,6 @@
     <ClCompile Include="Core\PlayerProfile\OutputSettings\WindowSettings.cpp">
       <Filter>Core\PlayerProfile\OutputSettings</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\AuralSettings.cpp">
-      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\GraphicalSettings.cpp">
-      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
-    </ClCompile>
     <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.cpp">
       <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
     </ClCompile>
@@ -914,12 +908,6 @@
     </ClInclude>
     <ClInclude Include="Core\PlayerProfile\OutputSettings\WindowSettings.h">
       <Filter>Core\PlayerProfile\OutputSettings</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\AuralSettings.h">
-      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\GraphicalSettings.h">
-      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
     </ClInclude>
     <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.h">
       <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
