@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <Core/PlayerProfile/GraphicalPreferences.h>
+#include <Core/PlayerProfile/OutputSettings/WindowSettings.h>
 
 #include <IO/Input/InputDevice/Mouse.h>
 
@@ -33,7 +33,7 @@ namespace uge
         class OISMouse : public Mouse, public OIS::MouseListener
         {
         public:
-            OISMouse(InputMapping::InputMapper& inputMapper, const GraphicalPreferences::WindowSettings& windowSettings, size_t windowHandle);
+            OISMouse(InputMapping::InputMapper& inputMapper, const WindowSettings& windowSettings, size_t windowHandle);
             virtual ~OISMouse();
 
             virtual bool vInit() override;
@@ -56,7 +56,7 @@ namespace uge
             static OIS::MouseButtonID ToOIS(const RawInput::MouseButton& button);
 
         private:
-            GraphicalPreferences::WindowSettings m_WindowSettings;
+            WindowSettings m_WindowSettings;
 
             InputMapping::InputMapper& m_InputMapper;
 

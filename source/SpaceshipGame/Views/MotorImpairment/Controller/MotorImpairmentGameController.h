@@ -22,7 +22,8 @@
 
 #include <Engine/GameController/GameController.h>
 
-#include <Core/PlayerProfile/GraphicalPreferences.h>
+#include <Core/PlayerProfile/InputSettings/InputSettings.h>
+#include <Core/PlayerProfile/OutputSettings/WindowSettings.h>
 
 #include <IO/Input/InputDevice/Implementation/OIS/OISMouse.h>
 #include <IO/Input/InputDevice/Implementation/OIS/OISKeyboard.h>
@@ -35,7 +36,7 @@ namespace sg
     class MotorImpairmentGameController : public uge::GameController
     {
     public:
-        MotorImpairmentGameController(const uge::GraphicalPreferences::WindowSettings& windowSettings, size_t windowHandle);
+        MotorImpairmentGameController(const uge::WindowSettings& windowSettings, size_t windowHandle);
 
         ~MotorImpairmentGameController();
 
@@ -53,7 +54,7 @@ namespace sg
         virtual std::vector<uge::GameController::MappedInputDelegate> vGetMappedInputDelegates() override;
 
     private:
-        uge::GraphicalPreferences::WindowSettings m_WindowSettings;
+        uge::WindowSettings m_WindowSettings;
         size_t m_WindowHandle;
 
         uge::InputDevice::OISKeyboard m_Keyboard;

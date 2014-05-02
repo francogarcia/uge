@@ -18,36 +18,32 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#include "GameEngineStd.h"
+#pragma once
 
-#include "InputPreferences.h"
+#include <Utilities/File/XMLFile.h>
 
-#include <Utilities/Debug/Logger.h>
+#include "PlayerProfile.h"
 
 namespace uge
 {
-
-    InputPreferences::InputPreferences()
+    class PlayerProfileManager
     {
+    public:
+        PlayerProfileManager();
+        ~PlayerProfileManager();
 
-    }
+        bool Init(const std::string& profileListResourceFileName);
+        bool Destroy();
+        
+        const PlayerProfile& GetProfile(const std::string& profileName) const;
+        std::vector<std::string> GetProfileNames() const;
+        
+        void SetActiveProfile(const std::string& profileName);
+        const PlayerProfile& GetActiveProfile() const;
 
-    InputPreferences::~InputPreferences()
-    {
+    private:
+        std::map<std::string, PlayerProfile> m_PlayerProfiles;
 
-    }
-
-    bool InputPreferences::vInit(XMLElement* pXMLData)
-    {
-        LOG_ASSERT(pXMLData != nullptr && "Invalid initialization data!");
-
-        pXMLData->GetAttribute("resource", &m_InputMappingFile);
-
-        return true;
-    }
-
-    const std::string& InputPreferences::GetInputMappingFile() const
-    {
-        return m_InputMappingFile;
-    }
+        const PlayerProfile* m_pActiveProfile;
+    };
 }

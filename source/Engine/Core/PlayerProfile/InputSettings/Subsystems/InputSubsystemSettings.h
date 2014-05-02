@@ -24,19 +24,28 @@
 
 namespace uge
 {
-    class PlayerPreferences
+    class InputSubsystemSettings
     {
     public:
-        PlayerPreferences();
-        virtual ~PlayerPreferences();
+        struct InputSubsystemSettingsData
+        {
+            std::string name;
+            std::string stimuli;
+            std::vector<std::string> devices;
+            std::map<std::string, std::string> settings;
+        };
+
+        InputSubsystemSettings();
+        virtual ~InputSubsystemSettings();
 
         virtual bool vInit(XMLElement* pXMLData);
 
-        const std::string& GetPlayerName() const;
-        const std::string& GetLanguage() const;
+        const InputSubsystemSettings::InputSubsystemSettingsData& GetInputSubsystemSettingsData() const;
+
+    private:
+        bool LoadInputSubsystem(XMLElement* pXMLData);
 
     protected:
-        std::string m_PlayerName;
-        std::string m_Language;
+        InputSubsystemSettings::InputSubsystemSettingsData m_InputSubsystemSettings;
     };
 }

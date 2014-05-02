@@ -31,7 +31,7 @@
 namespace sg
 {
 
-    MotorImpairmentGameController::MotorImpairmentGameController(const uge::GraphicalPreferences::WindowSettings& windowSettings, size_t windowHandle)
+    MotorImpairmentGameController::MotorImpairmentGameController(const uge::WindowSettings& windowSettings, size_t windowHandle)
         : m_WindowSettings(windowSettings),
           m_WindowHandle(windowHandle),
           m_Keyboard(m_InputMapper, windowHandle),
@@ -55,8 +55,9 @@ namespace sg
         m_Keyboard.vInit();
         AddInputDevice(&m_Keyboard);
 
+        const uge::WindowSettings::WindowSettingsData& window = m_WindowSettings.GetWindowSettingsData();
         m_Mouse.vInit();
-        m_Mouse.vSetWindowSize(m_WindowSettings.width, m_WindowSettings.height);
+        m_Mouse.vSetWindowSize(window.width, window.height);
         AddInputDevice(&m_Mouse);
 
         return true;

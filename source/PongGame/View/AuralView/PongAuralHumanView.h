@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <Core/PlayerProfile/PlayerProfiles.h>
+#include <Core/PlayerProfile/PlayerProfile.h>
 
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneNodeRenderer.h>
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneRenderer.h>
@@ -113,7 +113,7 @@ protected:
 
     virtual uge::GameControllerSharedPointer vCreateController() override
     {
-        uge::GameControllerSharedPointer pController(LIB_NEW PongGameController(m_PlayerProfile.GetGraphicalPreferences().GetWindowSettings(),
+        uge::GameControllerSharedPointer pController(LIB_NEW PongGameController(m_PlayerProfile.GetOutputSettings().GetOutputSettingsData().window,
                                                                                 m_pGraphics->vGetWindowHandle()));
 
         return pController;
@@ -136,8 +136,8 @@ protected:
 private:
     void SetEventFeedback()
     {
-        uge::GameplayPreferences::GameplaySettings gameplaySettings = m_PlayerProfile.GetGameplayPreferences().GetGameplaySettings();
-        const auto& specializations = gameplaySettings.eventSpecializationFileNames;
+        uge::GameplaySettings::GameplaySettingsData gameplaySettings = m_PlayerProfile.GetGameplaySettings().GetGameplaySettingsData();
+        const auto& specializations = gameplaySettings.eventSpecializationResources;
         for (const auto& specialization : specializations)
         {
             std::string name = specialization.first;

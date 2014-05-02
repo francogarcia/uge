@@ -24,27 +24,29 @@
 
 namespace uge
 {
-    class AuralPreferences
+    class OutputSubsystemSettings
     {
     public:
-        struct AudioSettings
+        struct OutputSubsystemSettingsData
         {
-            bool bIsEnabled;
-            float fVolume;
-        };        
+            std::vector<std::string> devices;
+            std::string name;
+            std::string stimuli;
+            std::map<std::string, std::string> settings;
+        };
 
-        AuralPreferences();
-        virtual ~AuralPreferences();
+        OutputSubsystemSettings();
+        virtual ~OutputSubsystemSettings();
 
         virtual bool vInit(XMLElement* pXMLData);
 
-        const AuralPreferences::AudioSettings& GetMusicSettings() const;
-        const AuralPreferences::AudioSettings& GetSFXSettings() const;
-        const AuralPreferences::AudioSettings& GetSpeechSettings() const;
+        const OutputSubsystemSettings::OutputSubsystemSettingsData& GetOutputSubsystemSettingsData() const;
+        OutputSubsystemSettings::OutputSubsystemSettingsData& GetOutputSubsystemSettingsData();
+
+    private:
+        bool LoadOutputSubsystem(XMLElement* pXMLData);
 
     protected:
-        AuralPreferences::AudioSettings m_MusicSettings;
-        AuralPreferences::AudioSettings m_SfxSettings;
-        AuralPreferences::AudioSettings m_SpeechSettings;
+        OutputSubsystemSettings::OutputSubsystemSettingsData m_OutputSubsystemSettings;
     };
 }

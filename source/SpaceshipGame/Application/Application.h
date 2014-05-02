@@ -63,8 +63,8 @@ namespace sg
 
             m_Output.PostInit();
 
-            const uge::GameplayPreferences::GameplaySettings& gameplaySettings = m_CurrentPlayerProfile.GetGameplayPreferences().GetGameplaySettings();
-            m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationFileName);
+            const uge::GameplaySettings::GameplaySettingsData& gameplaySettings = m_CurrentPlayerProfile.GetGameplaySettings().GetGameplaySettingsData();
+            m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationResource);
 
             return true;
         }
@@ -98,8 +98,8 @@ namespace sg
             std::string profileResource = "";
             profileElement.GetAttribute("name", &profileResource);
 
-            m_PlayerProfiles.SetCurrentProfile(profileResource);
-            m_CurrentPlayerProfile = m_PlayerProfiles.GetCurrentProfile();
+            m_PlayerProfiles.SetActiveProfile(profileResource);
+            m_CurrentPlayerProfile = m_PlayerProfiles.GetActiveProfile();
 
             return true;
         }
@@ -107,7 +107,7 @@ namespace sg
         virtual bool vInitOutputSystems() override
         {
             // Graphics
-            uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetGraphicalPreferences()));
+            uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetOutputSettings()));
 
             // Audio
             const int TOTAL_BUFFERS = 32;
@@ -140,7 +140,7 @@ namespace sg
                 uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
                                                                             m_Output.GetAudio(),
                                                                             m_Resources.GetResourceCache(),
-                                                                            m_PlayerProfiles.GetCurrentProfile()));
+                                                                            m_PlayerProfiles.GetActiveProfile()));
 
                 vAddGameView(pGameView);
 
@@ -156,7 +156,7 @@ namespace sg
                 uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(m_Output.GetGraphics(),
                                                                                            m_Output.GetAudio(),
                                                                                            m_Resources.GetResourceCache(),
-                                                                                           m_PlayerProfiles.GetCurrentProfile()));
+                                                                                           m_PlayerProfiles.GetActiveProfile()));
 
                 vAddGameView(pGameView);
 
@@ -172,7 +172,7 @@ namespace sg
                 uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
                                                                             m_Output.GetAudio(),
                                                                             m_Resources.GetResourceCache(),
-                                                                            m_PlayerProfiles.GetCurrentProfile()));
+                                                                            m_PlayerProfiles.GetActiveProfile()));
 
                 vAddGameView(pGameView);
 
@@ -188,7 +188,7 @@ namespace sg
                 uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
                                                                             m_Output.GetAudio(),
                                                                             m_Resources.GetResourceCache(),
-                                                                            m_PlayerProfiles.GetCurrentProfile()));
+                                                                            m_PlayerProfiles.GetActiveProfile()));
 
                 vAddGameView(pGameView);
 
@@ -204,7 +204,7 @@ namespace sg
                 uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(m_Output.GetGraphics(),
                                                                                  m_Output.GetAudio(),
                                                                                  m_Resources.GetResourceCache(),
-                                                                                 m_PlayerProfiles.GetCurrentProfile()));
+                                                                                 m_PlayerProfiles.GetActiveProfile()));
 
                 vAddGameView(pGameView);
 

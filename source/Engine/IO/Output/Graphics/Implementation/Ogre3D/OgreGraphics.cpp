@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -29,9 +29,9 @@
 
 namespace uge
 {
-    OgreGraphics::OgreGraphics(const std::wstring& windowName, const GraphicalPreferences& graphicalPreferences)
+    OgreGraphics::OgreGraphics(const std::wstring& windowName, const OutputSettings& outputSettings)
         : m_WindowName(windowName),
-          m_GraphicalPreferences(graphicalPreferences),
+          m_OutputSettings(outputSettings),
           m_pRoot(nullptr),
           m_pWindow(nullptr),
           m_pViewport(nullptr)
@@ -70,17 +70,21 @@ namespace uge
         // A list of supported render systems is avaiable at: http://www.ogre3d.org/tikiwiki/Ogre+Wiki+Tutorial+Framework#Setup
         // FIXME: DirectX 10 and 11 are not working. Check http://www.ogre3d.org/tikiwiki/tiki-index.php?page=Basic+Tutorial+6
         // later.
-        const GraphicalPreferences::RendererSettings& rendererSettings = m_GraphicalPreferences.GetRendererSettings();
-        Ogre::RenderSystem* pRenderSystem = m_pRoot->getRenderSystemByName(rendererSettings.name);
-        if (pRenderSystem->getName() != rendererSettings.name)
+        const OutputSubsystemSettings::OutputSubsystemSettingsData& rendererSettings
+            = m_OutputSettings.GetOutputSettingsData().subsystems["ogre"].GetOutputSubsystemSettingsData();
+
+        auto& findIt = rendererSettings.settings.find("renderer");
+        std::string rendererName = findIt->second;
+        Ogre::RenderSystem* pRenderSystem = m_pRoot->getRenderSystemByName(rendererName.c_str());
+        if (pRenderSystem->getName() != rendererName)
         {
             LOG_ERROR("Graphical renderer not found!");
 
             return false;
         }
 
-        const GraphicalPreferences::WindowSettings& windowSettings = m_GraphicalPreferences.GetWindowSettings();
-        pRenderSystem->setConfigOption("Full Screen", windowSettings.bFullScreen ? "Yes" : "No");        
+        const WindowSettings::WindowSettingsData& windowSettings = m_OutputSettings.GetOutputSettingsData().window.GetWindowSettingsData();
+        pRenderSystem->setConfigOption("Full Screen", windowSettings.bFullScreen ? "Yes" : "No");
         pRenderSystem->setConfigOption("VSync", windowSettings.bVSync ? "Yes" : "No");
         std::string videoMode;
         videoMode = IntToString(windowSettings.width) + " x " + IntToString(windowSettings.height) + " @ " + IntToString(windowSettings.pixelDepth) + "-bit colour";
@@ -93,7 +97,7 @@ namespace uge
         Ogre::WindowEventUtilities::addWindowEventListener(m_pWindow, this);
         m_pRoot->addFrameListener(this);
 
-        // Allow the window to be drawn when it lost focus.
+        // Allow the window to be drawn when it lose focus.
         m_pWindow->setDeactivateOnFocusChange(false);
 
         return true;
@@ -180,7 +184,7 @@ namespace uge
         int windowTopPosition, windowLeftPosition;
         m_pWindow->getMetrics(windowWidth, windowHeight, windowDepth, windowLeftPosition, windowTopPosition);
 
-        GraphicalPreferences::WindowSettings& windowSettings = m_GraphicalPreferences.GetWindowSettings();
+        WindowSettings::WindowSettingsData& windowSettings = m_OutputSettings.GetOutputSettingsData().window.GetWindowSettingsData();
         windowSettings.width = windowWidth;
         windowSettings.height = windowHeight;
     }

@@ -184,9 +184,29 @@ namespace uge
         return "";
     }
 
+    const std::string XMLNode::GetNodeValueLowerCase() const
+    {
+        return StringToLower(GetNodeValue());
+    }
+
+    const std::string XMLNode::GetNodeValueUpperCase() const
+    {
+        return StringToUpper(GetNodeValue());
+    }
+
     const std::wstring XMLNode::GetNodeWValue() const
     {
         return StringToWString(GetNodeValue());
+    }
+
+    const std::wstring XMLNode::GetNodeWValueLowerCase() const
+    {
+        return WStringToLower(GetNodeWValue());
+    }
+
+    const std::wstring XMLNode::GetNodeWValueUpperCase() const
+    {
+        return WStringToUpper(GetNodeWValue());
     }
 
     XMLElement::XMLElement() : m_pTinyXMLElement(nullptr)
@@ -210,9 +230,29 @@ namespace uge
         return m_pTinyXMLElement->Name();
     }
 
+    std::string XMLElement::GetElementNameLowerCase()
+    {
+        return StringToLower(GetElementName());
+    }
+
+    std::string XMLElement::GetElementNameUpperCase()
+    {
+        return StringToUpper(GetElementName());
+    }
+
     std::wstring XMLElement::GetElementWName()
     {
         return StringToWString(m_pTinyXMLElement->Name());
+    }
+
+    std::wstring XMLElement::GetElementWNameLowerCase()
+    {
+        return WStringToLower(GetElementWName());
+    }
+
+    std::wstring XMLElement::GetElementWNameUpperCase()
+    {
+        return WStringToUpper(GetElementWName());
     }
 
     void XMLElement::SetElementName(const std::string& attributeName)
@@ -239,6 +279,30 @@ namespace uge
         return false;
     }
 
+    bool XMLElement::GetElementAsTextLowerCase(std::string& elementText) const
+    {
+        if (!GetElementAsText(elementText))
+        {
+            return false;
+        }
+
+        elementText = StringToLower(elementText);
+
+        return true;
+    }
+
+    bool XMLElement::GetElementAsTextUpperCase(std::string& elementText) const
+    {
+        if (!GetElementAsText(elementText))
+        {
+            return false;
+        }
+
+        elementText = StringToUpper(elementText);
+
+        return true;
+    }
+
     bool XMLElement::GetElementAsText(std::wstring& elementText) const
     {
         const char* pText = m_pTinyXMLElement->GetText();
@@ -251,6 +315,30 @@ namespace uge
         }
 
         return false;
+    }
+
+    bool XMLElement::GetElementAsTextLowerCase(std::wstring& elementText) const
+    {
+        if (!GetElementAsText(elementText))
+        {
+            return false;
+        }
+
+        elementText = WStringToLower(elementText);
+
+        return true;
+    }
+
+    bool XMLElement::GetElementAsTextUpperCase(std::wstring& elementText) const
+    {
+        if (!GetElementAsText(elementText))
+        {
+            return false;
+        }
+
+        elementText = WStringToUpper(elementText);
+
+        return true;
     }
 
     XMLAttribute XMLElement::GetFirstAttribute() const
@@ -287,6 +375,30 @@ namespace uge
         return false;
     }
 
+    bool XMLElement::GetAttributeLowerCase(const std::string& attributeName, std::string* pAttributeValue) const
+    {
+        if (!GetAttribute(attributeName, pAttributeValue))
+        {
+            return false;
+        }
+
+        *pAttributeValue = StringToLower(*pAttributeValue);
+
+        return true;
+    }
+
+    bool XMLElement::GetAttributeUpperCase(const std::string& attributeName, std::string* pAttributeValue) const
+    {
+        if (!GetAttribute(attributeName, pAttributeValue))
+        {
+            return false;
+        }
+
+        *pAttributeValue = StringToUpper(*pAttributeValue);
+
+        return true;
+    }
+
     bool XMLElement::GetAttribute(const std::wstring& attributeName, std::wstring* pAttributeValue) const
     {
         const char* pValue = m_pTinyXMLElement->Attribute(WStringToString(attributeName).c_str());
@@ -299,6 +411,30 @@ namespace uge
         }
 
         return false;
+    }
+
+    bool XMLElement::GetAttributeLowerCase(const std::wstring& attributeName, std::wstring* pAttributeValue) const
+    {
+        if (!GetAttribute(attributeName, pAttributeValue))
+        {
+            return false;
+        }
+
+        *pAttributeValue = WStringToLower(*pAttributeValue);
+
+        return true;
+    }
+
+    bool XMLElement::GetAttributeUpperCase(const std::wstring& attributeName, std::wstring* pAttributeValue) const
+    {
+        if (!GetAttribute(attributeName, pAttributeValue))
+        {
+            return false;
+        }
+
+        *pAttributeValue = WStringToUpper(*pAttributeValue);
+
+        return true;
     }
 
     void XMLElement::SetAttribute(const std::string& attributeName, const int attributeValue)
@@ -835,14 +971,44 @@ namespace uge
         return m_pTinyXMLAttribute->Name();
     }
 
+    std::string XMLAttribute::GetNameLowerCase() const
+    {
+        return StringToLower(GetName());
+    }
+
+    std::string XMLAttribute::GetNameUpperCase() const
+    {
+        return StringToUpper(GetName());
+    }
+
     std::string XMLAttribute::GetValue() const
     {
         return m_pTinyXMLAttribute->Value();
     }
 
+    std::string XMLAttribute::GetValueLowerCase() const
+    {
+        return StringToLower(GetValue());
+    }
+
+    std::string XMLAttribute::GetValueUpperCase() const
+    {
+        return StringToUpper(GetValue());
+    }    
+
     std::wstring XMLAttribute::GetWValue() const
     {
         return StringToWString(GetValue());
+    }
+
+    std::wstring XMLAttribute::GetWValueLowerCase() const
+    {
+        return WStringToLower(GetWValue());
+    }
+
+    std::wstring XMLAttribute::GetWValueUpperCase() const
+    {
+        return WStringToUpper(GetWValue());
     }
 
     int XMLAttribute::GetIntValue() const

@@ -23,7 +23,7 @@
 #include <Core/Events/DefaultEvents.h>
 #include <Core/Events/IEventManager.h>
 
-#include <Core/PlayerProfile/PlayerProfiles.h>
+#include <Core/PlayerProfile/PlayerProfile.h>
 
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneNodeRenderer.h>
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneRenderer.h>

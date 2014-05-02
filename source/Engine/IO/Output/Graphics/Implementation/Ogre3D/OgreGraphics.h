@@ -22,7 +22,7 @@
 
 #include <OGRE/Ogre.h>
 
-#include <Core/PlayerProfile/GraphicalPreferences.h>
+#include <Core/PlayerProfile/OutputSettings/OutputSettings.h>
 
 #include <IO/Output/Graphics/Graphics.h>
 
@@ -34,7 +34,7 @@ namespace uge
     class OgreGraphics : public IGraphics, public Ogre::FrameListener, public Ogre::WindowEventListener
     {
     public:
-        OgreGraphics(const std::wstring& windowName, const GraphicalPreferences& graphicalPreferences);
+        OgreGraphics(const std::wstring& windowName, const OutputSettings& outputSettings);
         virtual ~OgreGraphics();
 
         virtual bool vInit() override;
@@ -84,7 +84,7 @@ namespace uge
         void AddViewport(Ogre::Camera* pOgreCamera);
 
     private:
-        GraphicalPreferences m_GraphicalPreferences;
+        OutputSettings m_OutputSettings;
         std::wstring m_WindowName;
 
         // Ogre

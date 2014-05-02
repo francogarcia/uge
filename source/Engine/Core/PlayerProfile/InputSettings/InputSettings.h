@@ -20,21 +20,34 @@
 
 #pragma once
 
+#include "Subsystems/InputSubsystemSettings.h"
+
 #include <Utilities/File/XMLFile.h>
 
 namespace uge
 {
-    class InputPreferences
+    class InputSettings
     {
     public:
-        InputPreferences();
-        virtual ~InputPreferences();
+        struct InputSettingsData
+        {
+            std::string mappingResource;
+            std::map<std::string, InputSubsystemSettings> subsystems;
+        };
+
+        InputSettings();
+        virtual ~InputSettings();
 
         virtual bool vInit(XMLElement* pXMLData);
 
-        const std::string& GetInputMappingFile() const;
+        const InputSettings::InputSettingsData& GetInputSettingsData() const;
+        InputSettings::InputSettingsData& GetInputSettingsData();
+
+    private:
+        bool LoadInputSubsystemsSettings(XMLElement* pXMLData);
+        bool LoadInputMappingSettings(XMLElement* pXMLData);
 
     protected:
-        std::string m_InputMappingFile;
+        InputSettings::InputSettingsData m_InputSettings;
     };
 }

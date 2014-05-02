@@ -142,7 +142,6 @@ namespace uge
         {
             Time::TimePoint currentTime = Time::GetTime();
             unsigned long deltaNanoseconds = Time::GetDeltaAsNanoseconds(currentTime, startTime);
-            //pGraphics->vUpdate(deltaNanoseconds);
             startTime = currentTime;
 
             // FIXME : fix current time.

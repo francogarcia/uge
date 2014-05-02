@@ -20,23 +20,23 @@
 
 #include "GameEngineStd.h"
 
-#include "GraphicalPreferences.h"
+#include "GraphicalSettings.h"
 
 #include <Utilities/Debug/Logger.h>
 
 namespace uge
 {
-    GraphicalPreferences::GraphicalPreferences()
+    GraphicalSettings::GraphicalSettings()
     {
 
     }
 
-    GraphicalPreferences::~GraphicalPreferences()
+    GraphicalSettings::~GraphicalSettings()
     {
 
     }
 
-    bool GraphicalPreferences::vInit(XMLElement* pXMLData)
+    bool GraphicalSettings::vInit(XMLElement* pXMLData)
     {
         LOG_ASSERT(pXMLData != nullptr && "Invalid initialization data!");
 
@@ -78,22 +78,22 @@ namespace uge
         return false;
     }
 
-    const GraphicalPreferences::WindowSettings& GraphicalPreferences::GetWindowSettings() const
+    const GraphicalSettings::WindowSettings& GraphicalSettings::GetWindowSettings() const
     {
         return m_WindowSettings;
     }
 
-    const GraphicalPreferences::RendererSettings& GraphicalPreferences::GetRendererSettings() const
+    const GraphicalSettings::RendererSettings& GraphicalSettings::GetRendererSettings() const
     {
         return m_RendererSettings;
     }
 
-    const GraphicalPreferences::TextSettings& GraphicalPreferences::GetTextSettings() const
+    const GraphicalSettings::TextSettings& GraphicalSettings::GetTextSettings() const
     {
         return m_TextSettings;
     }
 
-    GraphicalPreferences::WindowSettings& GraphicalPreferences::GetWindowSettings()
+    GraphicalSettings::WindowSettings& GraphicalSettings::GetWindowSettings()
     {
         return m_WindowSettings;
     }

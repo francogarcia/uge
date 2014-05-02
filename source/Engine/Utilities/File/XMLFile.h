@@ -198,11 +198,39 @@ namespace uge
         const std::string GetNodeValue() const;
 
         /**
+         *  Retrieves the current value of the node in lower case.
+         * To retrieve the value as a wide string, use GetNodeWValueLowerCase().
+         * @return : new value of the node in lower case.
+         */
+        const std::string GetNodeValueLowerCase() const;
+
+        /**
+         *  Retrieves the current value of the node in upper case.
+         * To retrieve the value as a wide string, use GetNodeWValueUpperCase().
+         * @return : new value of the node in uppder case.
+         */
+        const std::string GetNodeValueUpperCase() const;
+
+        /**
          *  Retrieves the current value of the node.
          * To retrieve the value as a string, use GetNodeValue().
          * @return : new value of the node.
          */
         const std::wstring GetNodeWValue() const;
+
+        /**
+         *  Retrieves the current value of the node in lower case.
+         * To retrieve the value as a string, use GetNodeValueLowerCase().
+         * @return : new value of the node in lower case.
+         */
+        const std::wstring GetNodeWValueLowerCase() const;
+
+        /**
+         *  Retrieves the current value of the node in upper case.
+         * To retrieve the value as a string, use GetNodeValueUpperCase().
+         * @return : new value of the node in upper case.
+         */
+        const std::wstring GetNodeWValueUpperCase() const;
 
     protected:
         /**
@@ -241,10 +269,34 @@ namespace uge
         std::string GetElementName();
 
         /**
+         *  Retrieves the name of the XML element in lower case.
+         * @return : a string containing the name of this element in lower case.
+         */
+        std::string GetElementNameLowerCase();
+
+        /**
+         *  Retrieves the name of the XML element in upper case.
+         * @return : a string containing the name of this element in upper case.
+         */
+        std::string GetElementNameUpperCase();
+
+        /**
          *  Retrieves the name of the XML element as a wide string.
          * @return : a wide string containing the name of this element.
          */
         std::wstring GetElementWName();
+
+        /**
+         *  Retrieves the name of the XML element as a wide string in lower case.
+         * @return : a wide string containing the name of this element in lower case.
+         */
+        std::wstring GetElementWNameLowerCase();
+
+        /**
+         *  Retrieves the name of the XML element as a wide string in upper case.
+         * @return : a wide string containing the name of this element in upper case.
+         */
+        std::wstring GetElementWNameUpperCase();
 
         /**
          *  Changes the name of the XML element to the value of the attribute.
@@ -268,6 +320,24 @@ namespace uge
         bool GetElementAsText(std::string& elementText) const;
 
         /**
+         *  Retrieves the current XML element as text in lower case.
+         * Use this method to retrieve a value stored between tags.
+         * If the element cannot be converted into text, the argument isn't changed.
+         * @param elementText : a string with the value of the element in lower case.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetElementAsTextLowerCase(std::string& elementText) const;
+
+        /**
+         *  Retrieves the current XML element as text in upper case.
+         * Use this method to retrieve a value stored between tags.
+         * If the element cannot be converted into text, the argument isn't changed.
+         * @param elementText : a string with the value of the element in upper case.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetElementAsTextUpperCase(std::string& elementText) const;
+
+        /**
          *  Retrieves the current XML element as text.
          * Use this method to retrieve a value stored between tags.
          * If the element cannot be converted into text, the argument isn't changed.
@@ -275,6 +345,24 @@ namespace uge
          * @return : true if successful; false otherwise.
          */
         bool GetElementAsText(std::wstring& elementText) const;
+
+        /**
+         *  Retrieves the current XML element as text in lower case.
+         * Use this method to retrieve a value stored between tags.
+         * If the element cannot be converted into text, the argument isn't changed.
+         * @param elementText : a string with the value of the element in lower case.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetElementAsTextLowerCase(std::wstring& elementText) const;
+
+        /**
+         *  Retrieves the current XML element as text in upper case.
+         * Use this method to retrieve a value stored between tags.
+         * If the element cannot be converted into text, the argument isn't changed.
+         * @param elementText : a string with the value of the element in upper case.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetElementAsTextUpperCase(std::wstring& elementText) const;
 
         /**
          *  Retrieves the first attribute of the element.
@@ -302,6 +390,26 @@ namespace uge
         bool GetAttribute(const std::string& attributeName, std::string* pAttributeValue) const;
 
         /**
+         *  Retrieves the value for an attribute of the element in lower case.
+         * If the element cannot be retrieved, the argument isn't changed.
+         * To avoid converting the value, type specific methods are also available.
+         * @param attributeName : the name of the element.
+         * @param pAttributeValue : the value of the retrieved attribute in lower case, if exists.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetAttributeLowerCase(const std::string& attributeName, std::string* pAttributeValue) const;
+
+        /**
+         *  Retrieves the value for an attribute of the element in upper case.
+         * If the element cannot be retrieved, the argument isn't changed.
+         * To avoid converting the value, type specific methods are also available.
+         * @param attributeName : the name of the element.
+         * @param pAttributeValue : the value of the retrieved attribute in upper case, if exists.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetAttributeUpperCase(const std::string& attributeName, std::string* pAttributeValue) const;
+
+        /**
          *  Sets a new value for an attribute of the element.
          * @param attributeName : the name of the element.
          * @param attributeValue : the new value for the element.
@@ -317,6 +425,26 @@ namespace uge
          * @return : true if successful; false otherwise.
          */
         bool GetAttribute(const std::wstring& attributeName, std::wstring* pAttributeValue) const;
+
+        /**
+         *  Retrieves the value for an attribute of the element in lower case.
+         * If the element cannot be retrieved, the argument isn't changed.
+         * To avoid converting the value, type specific methods are also available.
+         * @param attributeName : the name of the element.
+         * @param pAttributeValue : the value of the retrieved attribute in lower case, if exists.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetAttributeLowerCase(const std::wstring& attributeName, std::wstring* pAttributeValue) const;
+
+        /**
+         *  Retrieves the value for an attribute of the element in upper case.
+         * If the element cannot be retrieved, the argument isn't changed.
+         * To avoid converting the value, type specific methods are also available.
+         * @param attributeName : the name of the element.
+         * @param pAttributeValue : the value of the retrieved attribute in upper case, if exists.
+         * @return : true if successful; false otherwise.
+         */
+        bool GetAttributeUpperCase(const std::wstring& attributeName, std::wstring* pAttributeValue) const;
 
         /**
          *  Sets a new value for an integer attribute of the element.
@@ -762,16 +890,52 @@ namespace uge
         std::string GetName() const;
 
         /**
+         *  Retrieves the name of the attribute in lower case.
+         * @return : the name of the attribute in lower case.
+         */
+        std::string GetNameLowerCase() const;
+
+        /**
+         *  Retrieves the name of the attribute in upper case.
+         * @return : the name of the attribute in upper case.
+         */
+        std::string GetNameUpperCase() const;
+
+        /**
          *  Retrieves the value of the attribute.
          * @return : the value of the attribute.
          */
         std::string GetValue() const;
 
         /**
+         *  Retrieves the value of the attribute in lower case.
+         * @return : the value of the attribute in lower case.
+         */
+        std::string GetValueLowerCase() const;
+
+        /**
+         *  Retrieves the value of the attribute in upper case.
+         * @return : the value of the attribute in upper case.
+         */
+        std::string GetValueUpperCase() const;
+
+        /**
          *  Retrieves the value of the attribute.
          * @return : the value of the attribute.
          */
         std::wstring GetWValue() const;
+
+        /**
+         *  Retrieves the value of the attribute in lower case.
+         * @return : the value of the attribute in lower case.
+         */
+        std::wstring GetWValueLowerCase() const;
+
+        /**
+         *  Retrieves the value of the attribute in upper case.
+         * @return : the value of the attribute in upper case.
+         */
+        std::wstring GetWValueUpperCase() const;
 
         /**
          *  Retrieves the value of the attribute.

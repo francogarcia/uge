@@ -22,7 +22,7 @@
 
 #include <Engine/GameController/GameController.h>
 
-#include <Core/PlayerProfile/GraphicalPreferences.h>
+#include <Core/PlayerProfile/OutputSettings/WindowSettings.h>
 
 #include <IO/Input/InputDevice/Implementation/OIS/OISMouse.h>
 #include <IO/Input/InputDevice/Implementation/OIS/OISKeyboard.h>
@@ -35,7 +35,7 @@ namespace sg
     class GameController : public uge::GameController
     {
     public:
-        GameController(const uge::GraphicalPreferences::WindowSettings& windowSettings, size_t windowHandle);
+        GameController(const uge::WindowSettings& windowSettings, size_t windowHandle);
 
         ~GameController();
 
@@ -53,7 +53,7 @@ namespace sg
         virtual std::vector<uge::GameController::MappedInputDelegate> vGetMappedInputDelegates() override;
 
     private:
-        uge::GraphicalPreferences::WindowSettings m_WindowSettings;
+        uge::WindowSettings m_WindowSettings;
         size_t m_WindowHandle;
 
         bool m_LastPlayerMoveLeft;

@@ -30,7 +30,7 @@ namespace uge
     namespace InputDevice
     {
         OISMouse::OISMouse(InputMapping::InputMapper& inputMapper,
-                           const GraphicalPreferences::WindowSettings& windowSettings,
+                           const WindowSettings& windowSettings,
                            size_t windowHandle)
             : m_WindowSettings(windowSettings),
               m_InputMapper(inputMapper),
@@ -90,8 +90,9 @@ namespace uge
             mouseState.width = windowWidth;
             mouseState.height = windowHeight;
 
-            m_WindowSettings.width = windowWidth;
-            m_WindowSettings.height = windowHeight;
+            WindowSettings::WindowSettingsData windowSettingsData = m_WindowSettings.GetWindowSettingsData();
+            windowSettingsData.width = windowWidth;
+            windowSettingsData.height = windowHeight;
         }
 
         bool OISMouse::mouseMoved(const OIS::MouseEvent& mouseEvent)

@@ -23,7 +23,7 @@
 #include <Core/Events/DefaultEvents.h>
 #include <Core/Events/IEventManager.h>
 
-#include <Core/PlayerProfile/PlayerProfiles.h>
+#include <Core/PlayerProfile/PlayerProfile.h>
 
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneNodeRenderer.h>
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneRenderer.h>
@@ -61,7 +61,7 @@ namespace sg
         {
             uge::GameControllerSharedPointer pController(
                 LIB_NEW MotorImpairmentGameController(
-                    m_PlayerProfile.GetGraphicalPreferences().GetWindowSettings(),
+                    m_PlayerProfile.GetOutputSettings().GetOutputSettingsData().window,
                     m_pGraphics->vGetWindowHandle()));
 
             return pController;

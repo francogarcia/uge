@@ -20,27 +20,27 @@
 
 #include "GameEngineStd.h"
 
-#include "AuralPreferences.h"
+#include "AuralSettings.h"
 
 #include <Utilities/Debug/Logger.h>
 
 namespace uge
 {
-    AuralPreferences::AuralPreferences()
+    AuralSettings::AuralSettings()
     {
 
     }
 
-    AuralPreferences::~AuralPreferences()
+    AuralSettings::~AuralSettings()
     {
 
     }
 
-    bool AuralPreferences::vInit(XMLElement* pXMLData)
+    bool AuralSettings::vInit(XMLElement* pXMLData)
     {
         LOG_ASSERT(pXMLData != nullptr && "Invalid initialization data!");
 
-        XMLElement xmlElement = pXMLData->GetFirstChildElement("Settings");
+        XMLElement xmlElement = pXMLData->GetFirstChildElement("SettingsData");
         if (xmlElement.IsGood())
         {
             std::string type;
@@ -73,17 +73,17 @@ namespace uge
         return false;
     }
 
-    const AuralPreferences::AudioSettings& AuralPreferences::GetMusicSettings() const
+    const AuralSettings::AudioSettingData& AuralSettings::GetMusicSettings() const
     {
         return m_MusicSettings;
     }
 
-    const AuralPreferences::AudioSettings& AuralPreferences::GetSFXSettings() const
+    const AuralSettings::AudioSettingData& AuralSettings::GetSFXSettings() const
     {
         return m_SfxSettings;
     }
 
-    const AuralPreferences::AudioSettings& AuralPreferences::GetSpeechSettings() const
+    const AuralSettings::AudioSettingData& AuralSettings::GetSpeechSettings() const
     {
         return m_SpeechSettings;
     }

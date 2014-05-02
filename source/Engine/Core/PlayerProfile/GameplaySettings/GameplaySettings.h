@@ -24,27 +24,32 @@
 
 namespace uge
 {
-    class GameplayPreferences
+    class GameplaySettings
     {
     public:
-        struct GameplaySettings
+        struct GameplaySettingsData
         {
-            std::string entitySpecializationFileName;
-            std::map<std::string, std::string> eventSpecializationFileNames;
+            std::vector<std::string> automationSpecializationResources;
+            std::string entitySpecializationResource;
+            std::map<std::string, std::string> eventSpecializationResources;
+            std::string projectionSpecializationResource;
         };
 
-        GameplayPreferences();
-        virtual ~GameplayPreferences();
+        GameplaySettings();
+        virtual ~GameplaySettings();
 
         virtual bool vInit(XMLElement* pXMLData);
 
-        const GameplayPreferences::GameplaySettings& GetGameplaySettings() const;
+        const GameplaySettings::GameplaySettingsData& GetGameplaySettingsData() const;
+        GameplaySettings::GameplaySettingsData& GetGameplaySettingsData();
 
     private:
+        bool LoadAutomationSpecializations(XMLElement* pXMLData);
         bool LoadEntitySpecializations(XMLElement* pXMLData);
         bool LoadEventSpecializations(XMLElement* pXMLData);
+        bool LoadProjectionSpecializations(XMLElement* pXMLData);
 
     protected:
-        GameplayPreferences::GameplaySettings m_GameplaySettings;
+        GameplaySettings::GameplaySettingsData m_GameplaySettings;
     };
 }

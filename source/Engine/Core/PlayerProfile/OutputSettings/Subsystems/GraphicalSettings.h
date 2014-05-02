@@ -24,7 +24,7 @@
 
 namespace uge
 {
-    class GraphicalPreferences
+    class GraphicalSettings
     {
     public:
         struct WindowSettings
@@ -48,21 +48,21 @@ namespace uge
             bool bUseSubtitles;
         };
 
-        GraphicalPreferences();
-        virtual ~GraphicalPreferences();
+        GraphicalSettings();
+        virtual ~GraphicalSettings();
 
         virtual bool vInit(XMLElement* pXMLData);
 
-        const GraphicalPreferences::WindowSettings& GetWindowSettings() const;
-        const GraphicalPreferences::RendererSettings& GetRendererSettings() const;
-        const GraphicalPreferences::TextSettings& GetTextSettings() const;
+        const GraphicalSettings::WindowSettings& GetWindowSettings() const;
+        const GraphicalSettings::RendererSettings& GetRendererSettings() const;
+        const GraphicalSettings::TextSettings& GetTextSettings() const;
 
         // Allow window to be resized.
-        GraphicalPreferences::WindowSettings& GetWindowSettings();
+        GraphicalSettings::WindowSettings& GetWindowSettings();
 
     protected:
-        GraphicalPreferences::WindowSettings m_WindowSettings;
-        GraphicalPreferences::RendererSettings m_RendererSettings;
-        GraphicalPreferences::TextSettings m_TextSettings;
+        GraphicalSettings::WindowSettings m_WindowSettings;
+        GraphicalSettings::RendererSettings m_RendererSettings;
+        GraphicalSettings::TextSettings m_TextSettings;
     };
 }

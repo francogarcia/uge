@@ -72,8 +72,8 @@ public:
         }
         // END TEMPORARY CODE
 
-        const uge::GameplayPreferences::GameplaySettings& gameplaySettings = m_CurrentPlayerProfile.GetGameplayPreferences().GetGameplaySettings();
-        m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationFileName);
+        const uge::GameplaySettings::GameplaySettingsData& gameplaySettings = m_CurrentPlayerProfile.GetGameplaySettings().GetGameplaySettingsData();
+        m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationResource);
 
         return true;
     }
@@ -95,14 +95,14 @@ public:
     {
         // TODO: refactor this -> vInitPlayerProfile or something.
 #if PONG_GRAPHICAL_PROFILE
-        m_PlayerProfiles.SetCurrentProfile("Average User: Default");
+        m_PlayerProfiles.SetActiveProfile("Average User: Default");
 #elif PONG_AURAL_PROFILE
-        m_PlayerProfiles.SetCurrentProfile("Visually Impaired: Blind");
+        m_PlayerProfiles.SetActiveProfile("Visually Impaired: Blind");
 #endif
-        m_CurrentPlayerProfile = m_PlayerProfiles.GetCurrentProfile();
+        m_CurrentPlayerProfile = m_PlayerProfiles.GetActiveProfile();
 
         // Graphics
-        uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetGraphicalPreferences()));
+        uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetOutputSettings()));
 
         // Audio
         const int TOTAL_BUFFERS = 32;
@@ -118,12 +118,12 @@ public:
         uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(m_Output.GetGraphics(),
                                                                              m_Output.GetAudio(),
                                                                              m_Resources.GetResourceCache(),
-                                                                             m_PlayerProfiles.GetCurrentProfile()));
+                                                                             m_PlayerProfiles.GetActiveProfile()));
 #elif PONG_AURAL_PROFILE
         uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(m_Output.GetGraphics(),
                                                                          m_Output.GetAudio(),
                                                                          m_Resources.GetResourceCache(),
-                                                                         m_PlayerProfiles.GetCurrentProfile()));
+                                                                         m_PlayerProfiles.GetActiveProfile()));
 #endif
 
 

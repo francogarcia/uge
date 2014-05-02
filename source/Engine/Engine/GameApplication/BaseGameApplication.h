@@ -28,7 +28,7 @@
 
 #include <Core/Physics/IPhysics.h>
 
-#include <Core/PlayerProfile/PlayerProfiles.h>
+#include <Core/PlayerProfile/PlayerProfileManager.h>
 
 #include <Engine/GameSystem/OutputSystem.h>
 #include <Engine/GameSystem/ResourceSystem.h>
@@ -104,7 +104,7 @@ namespace uge
         ResourceSystem m_Resources;
 
         /// Player profiles.
-        PlayerProfiles m_PlayerProfiles;
+        PlayerProfileManager m_PlayerProfiles;
 
         IGameViewList m_Views;
     };

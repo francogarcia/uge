@@ -392,24 +392,6 @@
     <ClCompile Include="Core\Scene\ICameraRenderer.cpp">
       <Filter>Core\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\AuralPreferences.cpp">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\GraphicalPreferences.cpp">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\InputPreferences.cpp">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\PlayerPreferences.cpp">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\PlayerProfiles.cpp">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PlayerProfile\GameplayPreferences.cpp">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.cpp">
       <Filter>Engine\GameView\ViewFeedback</Filter>
     </ClCompile>
@@ -421,6 +403,42 @@
     </ClCompile>
     <ClCompile Include="Core\EntityComponent\Component\Implementation\LuaScriptComponent.cpp">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\PlayerProfile.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\PlayerProfileManager.cpp">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\GeneralSettings\GeneralSettings.cpp">
+      <Filter>Core\PlayerProfile\GeneralSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\GameplaySettings\GameplaySettings.cpp">
+      <Filter>Core\PlayerProfile\GameplaySettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\InputSettings\InputSettings.cpp">
+      <Filter>Core\PlayerProfile\InputSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\InputSettings\Subsystems\InputSubsystemSettings.cpp">
+      <Filter>Core\PlayerProfile\InputSettings\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\OutputSettings\OutputSettings.cpp">
+      <Filter>Core\PlayerProfile\OutputSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\OutputSettings\TextSettings.cpp">
+      <Filter>Core\PlayerProfile\OutputSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\OutputSettings\WindowSettings.cpp">
+      <Filter>Core\PlayerProfile\OutputSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\AuralSettings.cpp">
+      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\GraphicalSettings.cpp">
+      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.cpp">
+      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -858,24 +876,6 @@
     <ClInclude Include="Core\Scene\ICameraRenderer.h">
       <Filter>Core\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\AuralPreferences.h">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\GraphicalPreferences.h">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\InputPreferences.h">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\PlayerPreferences.h">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\PlayerProfiles.h">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\PlayerProfile\GameplayPreferences.h">
-      <Filter>Core\PlayerProfile</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.h">
       <Filter>Engine\GameView\ViewFeedback</Filter>
     </ClInclude>
@@ -887,6 +887,42 @@
     </ClInclude>
     <ClInclude Include="Core\EntityComponent\Component\Implementation\LuaScriptComponent.h">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\PlayerProfile.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\PlayerProfileManager.h">
+      <Filter>Core\PlayerProfile</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\GeneralSettings\GeneralSettings.h">
+      <Filter>Core\PlayerProfile\GeneralSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\GameplaySettings\GameplaySettings.h">
+      <Filter>Core\PlayerProfile\GameplaySettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\InputSettings\InputSettings.h">
+      <Filter>Core\PlayerProfile\InputSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\InputSettings\Subsystems\InputSubsystemSettings.h">
+      <Filter>Core\PlayerProfile\InputSettings\Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\OutputSettings\OutputSettings.h">
+      <Filter>Core\PlayerProfile\OutputSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\OutputSettings\TextSettings.h">
+      <Filter>Core\PlayerProfile\OutputSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\OutputSettings\WindowSettings.h">
+      <Filter>Core\PlayerProfile\OutputSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\AuralSettings.h">
+      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\GraphicalSettings.h">
+      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.h">
+      <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1078,6 +1114,24 @@
     </Filter>
     <Filter Include="Engine\GameView\ViewFeedback">
       <UniqueIdentifier>{df796698-a77a-4c15-b604-6c6742e0526e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile\GameplaySettings">
+      <UniqueIdentifier>{8828ccce-4518-4b76-8fb7-4a16879bcb18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile\GeneralSettings">
+      <UniqueIdentifier>{c482b379-a370-4d49-8cff-8c0059a4d48e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile\InputSettings">
+      <UniqueIdentifier>{fb91b737-3df5-41bc-ac44-f2bee9a55d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile\OutputSettings">
+      <UniqueIdentifier>{dc3d5fca-107f-471a-b6a9-408ec48c5b61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile\InputSettings\Subsystems">
+      <UniqueIdentifier>{7d0d1467-f6e9-4105-9f29-00171853d65d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PlayerProfile\OutputSettings\Subsystems">
+      <UniqueIdentifier>{7eaa2a6a-c466-4e4b-a058-cd96c4d88b5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

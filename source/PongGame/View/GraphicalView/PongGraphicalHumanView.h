@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <Core/PlayerProfile/PlayerProfiles.h>
+#include <Core/PlayerProfile/PlayerProfile.h>
 
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneNodeRenderer.h>
 #include <Core/Scene/Implementation/Ogre3D/OgreSceneRenderer.h>
@@ -117,7 +117,7 @@ protected:
 
     virtual uge::GameControllerSharedPointer vCreateController() override
     {
-        uge::GameControllerSharedPointer pController(LIB_NEW PongGameController(m_PlayerProfile.GetGraphicalPreferences().GetWindowSettings(),
+        uge::GameControllerSharedPointer pController(LIB_NEW PongGameController(m_PlayerProfile.GetOutputSettings().GetOutputSettingsData().window,
                                                                                 m_pGraphics->vGetWindowHandle()));
 
         return pController;
