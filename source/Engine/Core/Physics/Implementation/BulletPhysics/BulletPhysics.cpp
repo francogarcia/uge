@@ -43,7 +43,7 @@
 #include "ActorMotionState.h"
 
 // FIXME: this should be removed when debug drawer is abstracted.
-#include <Core/Scene/Implementation/Ogre3D/OgreSceneRenderer.h>
+#include <IO/Output/Graphics/Implementation/Ogre3D/Scene/OgreSceneRenderer.h>
 
 namespace uge
 {

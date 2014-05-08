@@ -218,9 +218,6 @@
     <ClCompile Include="IO\Output\IOutput.cpp">
       <Filter>IO\Output</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreSceneRenderer.cpp">
-      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
-    </ClCompile>
     <ClCompile Include="Core\EntityComponent\Component\ActorComponent.cpp">
       <Filter>Core\EntityComponent\Component</Filter>
     </ClCompile>
@@ -248,35 +245,11 @@
     <ClCompile Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.cpp">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneRenderer.cpp">
-      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\YSE\YSESceneRenderer.cpp">
-      <Filter>Core\Scene\Implementation\YSE</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Scene\ISceneNodeRenderer.cpp">
       <Filter>Core\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreSceneNodeRenderer.cpp">
-      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\Ogre3D\OgreCamera.cpp">
-      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneNodeRenderer.cpp">
-      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.cpp">
-      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameSystem\ResourceSystem.cpp">
       <Filter>Engine\GameSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\YSE\YSECamera.cpp">
-      <Filter>Core\Scene\Implementation\YSE</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\Implementation\YSE\YSESceneNodeRenderer.cpp">
-      <Filter>Core\Scene\Implementation\YSE</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\Math\Conversion\YSEMathConversion.cpp">
       <Filter>Utilities\Math\Conversion</Filter>
@@ -436,6 +409,33 @@
     </ClCompile>
     <ClCompile Include="IO\Output\OutputSystemFactory.cpp">
       <Filter>IO\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreCamera.cpp">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneNodeRenderer.cpp">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.cpp">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftCamera.cpp">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftSceneNodeRenderer.cpp">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftSceneRenderer.cpp">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\Scene\YSECamera.cpp">
+      <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\Scene\YSESceneNodeRenderer.cpp">
+      <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Audio\Implementation\YSE\Scene\YSESceneRenderer.cpp">
+      <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -678,9 +678,6 @@
     <ClInclude Include="IO\Output\IOutput.h">
       <Filter>IO\Output</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreSceneRenderer.h">
-      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
-    </ClInclude>
     <ClInclude Include="Core\EntityComponent\Component\ActorComponent.h">
       <Filter>Core\EntityComponent\Component</Filter>
     </ClInclude>
@@ -711,35 +708,11 @@
     <ClInclude Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.h">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneRenderer.h">
-      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\YSE\YSESceneRenderer.h">
-      <Filter>Core\Scene\Implementation\YSE</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Scene\ISceneNodeRenderer.h">
       <Filter>Core\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreSceneNodeRenderer.h">
-      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\Ogre3D\OgreCamera.h">
-      <Filter>Core\Scene\Implementation\Ogre3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftSceneNodeRenderer.h">
-      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.h">
-      <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GameSystem\ResourceSystem.h">
       <Filter>Engine\GameSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\YSE\YSECamera.h">
-      <Filter>Core\Scene\Implementation\YSE</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\Implementation\YSE\YSESceneNodeRenderer.h">
-      <Filter>Core\Scene\Implementation\YSE</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\Math\Conversion\YSEMathConversion.h">
       <Filter>Utilities\Math\Conversion</Filter>
@@ -918,6 +891,33 @@
     <ClInclude Include="IO\Output\OutputSystemFactory.h">
       <Filter>IO\Output</Filter>
     </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreCamera.h">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneNodeRenderer.h">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.h">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftCamera.h">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftSceneNodeRenderer.h">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftSceneRenderer.h">
+      <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\Scene\YSECamera.h">
+      <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\Scene\YSESceneNodeRenderer.h">
+      <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Audio\Implementation\YSE\Scene\YSESceneRenderer.h">
+      <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities">
@@ -1043,14 +1043,8 @@
     <Filter Include="Core\Scene">
       <UniqueIdentifier>{12e19735-7b67-4f76-a98a-8d3490fb30fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Scene\Implementation">
-      <UniqueIdentifier>{a3fb95b5-bf52-4cec-a5e9-d567900a7bd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="IO\Output\Graphics\Implementation">
       <UniqueIdentifier>{cbd64d30-b3e4-449d-8af4-de99b7986ccb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Scene\Implementation\Ogre3D">
-      <UniqueIdentifier>{89cd7e64-8ed0-449c-9d13-120e9d09050e}</UniqueIdentifier>
     </Filter>
     <Filter Include="IO\Output\Graphics\Implementation\Ogre3D">
       <UniqueIdentifier>{fb5d582f-5836-46d5-8b28-87be692580d0}</UniqueIdentifier>
@@ -1060,12 +1054,6 @@
     </Filter>
     <Filter Include="Core\EntityComponent\Component\Implementation">
       <UniqueIdentifier>{ed72705a-af57-444b-894d-dbafad2f6f47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Scene\Implementation\OpenALSoft">
-      <UniqueIdentifier>{586ada20-6052-42d3-8612-bdb633918719}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Scene\Implementation\YSE">
-      <UniqueIdentifier>{31285e74-871e-4f17-8b32-aa1dc221dd4c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameSystem">
       <UniqueIdentifier>{cf07b217-c1c7-4a89-a0ef-2b664c036f1a}</UniqueIdentifier>
@@ -1126,6 +1114,15 @@
     </Filter>
     <Filter Include="Core\PlayerProfile\OutputSettings\Subsystems">
       <UniqueIdentifier>{7eaa2a6a-c466-4e4b-a058-cd96c4d88b5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Graphics\Implementation\Ogre3D\Scene">
+      <UniqueIdentifier>{db0e66cf-a7ab-401e-889b-fd5feb8954c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\Implementation\OpenALSoft\Scene">
+      <UniqueIdentifier>{75a920fa-f522-4cf4-8f10-b54a73d474bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Audio\Implementation\YSE\Scene">
+      <UniqueIdentifier>{1b23930d-5b6b-4d69-8e4e-695258e87849}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -22,10 +22,10 @@
 
 #include <Core/PlayerProfile/PlayerProfile.h>
 
-#include <Core/Scene/Implementation/Ogre3D/OgreSceneNodeRenderer.h>
-#include <Core/Scene/Implementation/Ogre3D/OgreSceneRenderer.h>
-#include <Core/Scene/Implementation/OpenALSoft/OpenALSoftSceneNodeRenderer.h>
-#include <Core/Scene/Implementation/OpenALSoft/OpenALSoftSceneRenderer.h>
+#include <IO/Output/Graphics/Implementation/Ogre3D/Scene/OgreSceneRenderer.h>
+#include <IO/Output/Graphics/Implementation/Ogre3D/Scene/OgreSceneNodeRenderer.h>
+#include <IO/Output/Audio/Implementation/OpenALSoft/Scene/OpenALSoftSceneNodeRenderer.h>
+#include <IO/Output/Audio/Implementation/OpenALSoft/Scene/OpenALSoftSceneRenderer.h>
 
 #include "../PongHumanView.h"
 
