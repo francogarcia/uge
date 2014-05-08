@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -27,39 +27,63 @@
 
 namespace uge
 {
+    typedef unsigned int OutputSystemID;
+    const OutputSystemID NULL_OUTPUT_SYSTEM_ID = 0;
+
     class OutputManager
     {
     public:
         OutputManager();
-        ~OutputManager();
+        virtual ~OutputManager();
 
-        bool Init(IGraphicsSharedPointer pGraphics, IAudioSharedPointer pAudio);
-        void PostInit();
+        bool vInit();
+        bool vPostInit();
+        bool vDestroy();
 
-        bool Destroy();
+        bool vUpdate(const unsigned long timeElapsed);
 
-        void Update(unsigned long timeElapsed);
+        bool vPreRender();
+        bool vRender();
+        bool vPostRender();
 
-        bool PreRender();
+        OutputSystemID AddOutputSystem(IOutputSharedPointer pSystem);
+        void RemoveOutputSystem(const OutputSystemID systemID);
 
-        bool PostRender();
-
-        bool SetGraphicsSystem(IGraphicsSharedPointer pGraphics);
-
-        bool SetAudioSystem(IAudioSharedPointer pAudio);
-
-        IGraphicsSharedPointer GetGraphics();
-
-        IAudioSharedPointer GetAudio();
+        IOutputWeakPointer GetRawOutputSystem(const OutputSystemID systemID);
+        template <class OutputSystemType>
+        std::weak_ptr<OutputSystemType> GetOutputSystem(const OutputSystemID systemID);
 
     private:
-        bool DestroyGraphicsSystem();
-
-        bool DestroyAudioSystem();
+        OutputSystemID GetNextSystemID();
 
     private:
+        struct OutputSystem
+        {
+            OutputType type;
+            IOutputSharedPointer pSystem;
+        };
+
         // Systems
-        IGraphicsSharedPointer m_pGraphics;
-        IAudioSharedPointer m_pAudio;
+        std::map<OutputSystemID, OutputSystem> m_Systems;
+
+        OutputSystemID m_LastSystemID;
+
+        bool m_bInitialized;
     };
+
+    template <class OutputSystemType>
+    std::weak_ptr<OutputSystemType> OutputManager::GetOutputSystem(const OutputSystemID systemID)
+    {
+        IOutputWeakPointer pWeakSystem = GetRawOutputSystem(systemID);
+        if (pWeakSystem.expired())
+        {
+            return std::weak_ptr<OutputSystemType>();
+        }
+
+        // There is no way to cast a weak pointer from one type to another.
+        // Convert to shared pointer first then cast it to the template type.
+        std::shared_ptr<OutputSystemType> pSystem = std::static_pointer_cast<OutputSystemType>(pWeakSystem.lock());
+
+        return std::weak_ptr<OutputSystemType>(pSystem);
+    }
 }

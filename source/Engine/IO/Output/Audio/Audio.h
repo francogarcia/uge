@@ -51,17 +51,22 @@ namespace uge
 
         virtual bool vIsActive() = 0;
 
+        virtual bool vInit() = 0;
+        virtual bool vPostInit() = 0;
+        virtual bool vDestroy() = 0;
+
+        virtual bool vUpdate(const unsigned long timeElapsed) = 0;
+
+        virtual bool vPreRender() = 0;
+        virtual bool vRender() = 0;
+        virtual bool vPostRender() = 0;
+
         virtual IAudioBuffer* vInitAudioBuffer(ResourceHandleSharedPointer pHandle) = 0;
         virtual void vReleaseAudioBuffer(IAudioBuffer* pAudioBuffer) = 0;
-
-        virtual void vUpdate(unsigned long timeElapsed) = 0;
 
         virtual void vStopAllSounds() = 0;
         virtual void vPauseAllSounds() = 0;
         virtual void vResumeAllSounds() = 0;
-
-        virtual bool vInit() = 0;
-        virtual bool vDestroy() = 0;
 
         virtual OutputType vGetOutputType() const = 0;
     };
@@ -74,17 +79,23 @@ namespace uge
 
         virtual bool vIsActive() = 0;
 
+        virtual bool vInit() = 0;
+        virtual bool vPostInit() = 0;
+        virtual bool vDestroy() override;
+
+        virtual bool vUpdate(const unsigned long timeElapsed) = 0;
+
+        virtual bool vPreRender() = 0;
+        virtual bool vRender() = 0;
+        virtual bool vPostRender() = 0;
+
         virtual IAudioBuffer* vInitAudioBuffer(ResourceHandleSharedPointer pHandle) = 0;
         virtual void vReleaseAudioBuffer(IAudioBuffer* pAudioBuffer) = 0;
-
-        virtual void vUpdate(unsigned long timeElapsed) = 0;
 
         virtual void vStopAllSounds() override;
         virtual void vPauseAllSounds() override;
         virtual void vResumeAllSounds() override;
 
-        virtual bool vInit() = 0;
-        virtual bool vDestroy() override;
         bool HasSoundCard();
         bool IsPaused() const;
 

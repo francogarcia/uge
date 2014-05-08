@@ -34,6 +34,7 @@ namespace uge
 
     class IOutput;
     typedef std::shared_ptr<IOutput> IOutputSharedPointer;
+    typedef std::weak_ptr<IOutput> IOutputWeakPointer;
 
     class IOutput
     {
@@ -42,7 +43,14 @@ namespace uge
         virtual ~IOutput();
 
         virtual bool vInit() = 0;
+        virtual bool vPostInit() = 0;
         virtual bool vDestroy() = 0;
+
+        virtual bool vUpdate(const unsigned long timeElapsed) = 0;
+
+        virtual bool vPreRender() = 0;
+        virtual bool vRender() = 0;
+        virtual bool vPostRender() = 0;
 
         virtual OutputType vGetOutputType() const = 0;
     };

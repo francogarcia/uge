@@ -103,6 +103,11 @@ namespace uge
         return true;
     }
 
+    bool OgreGraphics::vPostInit()
+    {
+        return true;
+    }
+
     bool OgreGraphics::vDestroy()
     {
         Ogre::WindowEventUtilities::removeWindowEventListener(m_pWindow, this);
@@ -116,12 +121,9 @@ namespace uge
         return true;
     }
 
-    void OgreGraphics::vSetBackgroundColor(const char r, const char g, const char b, const char a)
+    bool OgreGraphics::vUpdate(const unsigned long timeElapsed)
     {
-        m_pViewport->setBackgroundColour(Ogre::ColourValue(r / 255.0f,
-                                                           g / 255.0f,
-                                                           b / 255.0f,
-                                                           a / 255.0f));
+        return true;
     }
 
     bool OgreGraphics::vPreRender()
@@ -136,9 +138,22 @@ namespace uge
         return true;
     }
 
+    bool OgreGraphics::vRender()
+    {
+        return true;
+    }
+
     bool OgreGraphics::vPostRender()
     {
         return true;
+    }
+
+    void OgreGraphics::vSetBackgroundColor(const char r, const char g, const char b, const char a)
+    {
+        m_pViewport->setBackgroundColour(Ogre::ColourValue(r / 255.0f,
+                                                           g / 255.0f,
+                                                           b / 255.0f,
+                                                           a / 255.0f));
     }
 
     void OgreGraphics::vSetWorldTransform(const Matrix4& worldTransform)

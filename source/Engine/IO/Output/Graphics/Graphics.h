@@ -2,7 +2,7 @@
  * (c) Copyright 2012 Michael L. McShaffry and David Graham
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -10,7 +10,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -59,12 +59,16 @@ namespace uge
         virtual ~IGraphics();
 
         virtual bool vInit() = 0;
+        virtual bool vPostInit() = 0;
         virtual bool vDestroy() = 0;
 
-        virtual void vSetBackgroundColor(const char r, const char g, const char b, const char a) = 0;
+        virtual bool vUpdate(const unsigned long timeElapsed) = 0;
 
         virtual bool vPreRender() = 0;
+        virtual bool vRender() = 0;
         virtual bool vPostRender() = 0;
+
+        virtual void vSetBackgroundColor(const char r, const char g, const char b, const char a) = 0;
 
         virtual void vSetWorldTransform(const Matrix4& worldTransform) = 0;
         virtual void vSetViewTransform(const Matrix4& viewTransform) = 0;

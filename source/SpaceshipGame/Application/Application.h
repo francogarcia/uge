@@ -61,7 +61,7 @@ namespace sg
                 return false;
             }
 
-            m_OutputManager.PostInit();
+            m_OutputManager.vPostInit();
 
             const uge::GameplaySettings::GameplaySettingsData& gameplaySettings = m_CurrentPlayerProfile.GetGameplaySettings().GetGameplaySettingsData();
             m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationResource);
@@ -113,8 +113,13 @@ namespace sg
             const int TOTAL_BUFFERS = 32;
             uge::IAudioSharedPointer pAudio(LIB_NEW uge::OpenALSoftAudio(TOTAL_BUFFERS));
 
-            return m_OutputManager.Init(pGraphics,
-                                 pAudio);
+            m_AudioID = m_OutputManager.AddOutputSystem(pAudio);
+            assert(m_AudioID != uge::NULL_OUTPUT_SYSTEM_ID);
+
+            m_GraphicsID = m_OutputManager.AddOutputSystem(pGraphics);
+            assert(m_GraphicsID != uge::NULL_OUTPUT_SYSTEM_ID);
+
+            return m_OutputManager.vInit();
         }
 
         bool vInitResourceCache() override
@@ -137,8 +142,13 @@ namespace sg
             std::string profileName = m_CurrentPlayerProfile.GetProfileName();
             if (profileName == "Average User: Default")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_OutputManager.GetGraphics(),
-                                                                            m_OutputManager.GetAudio(),
+                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
+                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
+                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
+                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
+
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(pGraphics,
+                                                                            pAudio,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -153,8 +163,13 @@ namespace sg
             }
             else if (profileName == "Motor Impairment")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(m_OutputManager.GetGraphics(),
-                                                                                           m_OutputManager.GetAudio(),
+                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
+                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
+                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
+                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
+
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(pGraphics,
+                                                                                           pAudio,
                                                                                            m_Resources.GetResourceCache(),
                                                                                            m_PlayerProfiles.GetActiveProfile()));
 
@@ -169,8 +184,13 @@ namespace sg
             }
             else if (profileName == "Visual Impairment: Low Vision")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_OutputManager.GetGraphics(),
-                                                                            m_OutputManager.GetAudio(),
+                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
+                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
+                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
+                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
+
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(pGraphics,
+                                                                            pAudio,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -185,8 +205,13 @@ namespace sg
             }
             else if (profileName == "Cognitive Impairment")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_OutputManager.GetGraphics(),
-                                                                            m_OutputManager.GetAudio(),
+                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
+                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
+                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
+                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
+
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(pGraphics,
+                                                                            pAudio,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -201,8 +226,13 @@ namespace sg
             }
             else if (profileName == "Visual Impairment: Blind")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(m_OutputManager.GetGraphics(),
-                                                                                 m_OutputManager.GetAudio(),
+                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
+                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
+                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
+                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
+
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(pGraphics,
+                                                                                 pAudio,
                                                                                  m_Resources.GetResourceCache(),
                                                                                  m_PlayerProfiles.GetActiveProfile()));
 
@@ -223,6 +253,9 @@ namespace sg
 
     private:
         uge::PlayerProfile m_CurrentPlayerProfile;
+
+        uge::OutputSystemID m_GraphicsID;
+        uge::OutputSystemID m_AudioID;
     };
 
 }

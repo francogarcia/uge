@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -22,9 +22,13 @@
 
 #include "OutputManager.h"
 
+#include <Utilities/Debug/Logger.h>
+
 namespace uge
 {
     OutputManager::OutputManager()
+        : m_bInitialized(false),
+          m_LastSystemID(NULL_OUTPUT_SYSTEM_ID)
     {
 
     }
@@ -34,79 +38,184 @@ namespace uge
 
     }
 
-    bool OutputManager::Init(IGraphicsSharedPointer pGraphics, IAudioSharedPointer pAudio)
+    bool OutputManager::vInit()
     {
-        bool bSuccess = SetGraphicsSystem(pGraphics);
-        bSuccess &= SetAudioSystem(pAudio);
+        m_bInitialized = true;
+
+        bool bSuccess = true;
+        for (auto system : m_Systems)
+        {
+            IOutputSharedPointer pSystem = system.second.pSystem;
+            bool bSystemSuccess = pSystem->vInit();
+            if (!bSystemSuccess)
+            {
+                bSuccess = false;
+
+                LOG_ASSERT("Error initializing the system!");
+            }
+
+            pSystem.reset();
+        }
 
         return bSuccess;
     }
 
-    void OutputManager::PostInit()
+    bool OutputManager::vPostInit()
     {
-        //m_pGraphics->vSetBackgroundColor(0, 0, 0, 0);
+        return true;
     }
 
-    bool OutputManager::Destroy()
+    bool OutputManager::vDestroy()
     {
-        bool bSuccess = DestroyGraphicsSystem();
-        bSuccess &= DestroyAudioSystem();
+        bool bSuccess = true;
+        for (auto system : m_Systems)
+        {
+            IOutputSharedPointer pSystem = system.second.pSystem;
+            bool bSystemSuccess = pSystem->vDestroy();
+            if (!bSystemSuccess)
+            {
+                bSuccess = false;
+
+                LOG_ASSERT("Error destroying the system!");
+            }
+
+            pSystem.reset();
+        }
+
+        m_LastSystemID = NULL_OUTPUT_SYSTEM_ID;
+        m_bInitialized = false;
 
         return bSuccess;
     }
 
-    bool OutputManager::PreRender()
+    bool OutputManager::vUpdate(const unsigned long timeElapsed)
     {
-        bool bSuccess = m_pGraphics->vPreRender();
+        bool bSuccess = true;
+        for (auto system : m_Systems)
+        {
+            IOutputSharedPointer pSystem = system.second.pSystem;
+            bool bSystemSuccess = pSystem->vUpdate(timeElapsed);
+            if (!bSystemSuccess)
+            {
+                bSuccess = false;
+
+                LOG_ASSERT("Error updating the system!");
+            }
+        }
 
         return bSuccess;
     }
 
-    void OutputManager::Update(unsigned long timeElapsed)
+    bool OutputManager::vPreRender()
     {
-        m_pAudio->vUpdate(timeElapsed);
-    }
+        bool bSuccess = true;
+        for (auto system : m_Systems)
+        {
+            IOutputSharedPointer pSystem = system.second.pSystem;
+            bool bSystemSuccess = pSystem->vPreRender();
+            if (!bSystemSuccess)
+            {
+                bSuccess = false;
 
-    bool OutputManager::PostRender()
-    {
-        bool bSuccess = m_pGraphics->vPostRender();
+                LOG_ASSERT("Error pre-rendering the system!");
+            }
+        }
 
         return bSuccess;
     }
 
-    bool OutputManager::SetGraphicsSystem(IGraphicsSharedPointer pGraphics)
+    bool OutputManager::vRender()
     {
-        assert(pGraphics != nullptr && "Invalid graphics system!");
-        m_pGraphics = pGraphics;
+        bool bSuccess = true;
+        for (auto system : m_Systems)
+        {
+            IOutputSharedPointer pSystem = system.second.pSystem;
+            bool bSystemSuccess = pSystem->vRender();
+            if (!bSystemSuccess)
+            {
+                bSuccess = false;
 
-        return m_pGraphics->vInit();
+                LOG_ASSERT("Error rendering the system!");
+            }
+        }
+
+        return bSuccess;
     }
 
-    bool OutputManager::DestroyGraphicsSystem()
+    bool OutputManager::vPostRender()
     {
-        return m_pGraphics->vDestroy();
+        bool bSuccess = true;
+        for (auto system : m_Systems)
+        {
+            IOutputSharedPointer pSystem = system.second.pSystem;
+            bool bSystemSuccess = pSystem->vPostRender();
+            if (!bSystemSuccess)
+            {
+                bSuccess = false;
+
+                LOG_ASSERT("Error post-rendering the system!");
+            }
+        }
+
+        return bSuccess;
     }
 
-    bool OutputManager::SetAudioSystem(IAudioSharedPointer pAudio)
+    OutputSystemID OutputManager::AddOutputSystem(IOutputSharedPointer pSystem)
     {
-        assert(pAudio != nullptr && "Invalid audio system!");
-        m_pAudio = pAudio;
+        assert(pSystem != nullptr && "Invalid output system!");
 
-        return m_pAudio->vInit();
+        OutputSystemID systemID = GetNextSystemID();
+        assert(systemID != NULL_OUTPUT_SYSTEM_ID && "Error creating the first output system or too many systems were created!");
+
+        OutputSystem system;
+        system.pSystem = pSystem;
+        system.type = pSystem->vGetOutputType();
+
+        m_Systems.insert(std::make_pair(systemID, system));
+
+        // Initialize the output system if the manager was already initialized.
+        if (m_bInitialized)
+        {
+            if (!pSystem->vInit())
+            {
+                LOG_ERROR("Error initializing the output system!");
+
+                return NULL_OUTPUT_SYSTEM_ID;
+            }
+        }
+
+        return systemID;
     }
 
-    bool OutputManager::DestroyAudioSystem()
+    void OutputManager::RemoveOutputSystem(const OutputSystemID systemID)
     {
-        return m_pAudio->vDestroy();
+        auto system(m_Systems.find(systemID));
+        if (system == m_Systems.end())
+        {
+            return;
+        }
+
+        system->second.pSystem->vDestroy();
+        m_Systems.erase(system);
     }
 
-    IGraphicsSharedPointer OutputManager::GetGraphics()
+    IOutputWeakPointer OutputManager::GetRawOutputSystem(const OutputSystemID systemID)
     {
-        return m_pGraphics;
+        auto system(m_Systems.find(systemID));
+        if (system == m_Systems.end())
+        {
+            return IOutputWeakPointer();
+        }
+
+        IOutputSharedPointer pSystem = system->second.pSystem;
+        assert(pSystem != nullptr);
+
+        return IOutputWeakPointer(pSystem);
     }
 
-    IAudioSharedPointer OutputManager::GetAudio()
+    OutputSystemID OutputManager::GetNextSystemID()
     {
-        return m_pAudio;
+        return ++m_LastSystemID;
     }
+
 }

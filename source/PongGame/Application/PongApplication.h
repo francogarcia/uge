@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -68,7 +68,7 @@ public:
             m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
 #endif
 
-            m_OutputManager.PostInit();
+            m_OutputManager.vPostInit();
         }
         // END TEMPORARY CODE
 
@@ -108,20 +108,30 @@ public:
         const int TOTAL_BUFFERS = 32;
         uge::IAudioSharedPointer pAudio(LIB_NEW uge::OpenALSoftAudio(TOTAL_BUFFERS));
 
-        return m_OutputManager.Init(pGraphics,
-                             pAudio);
+        m_AudioID = m_OutputManager.AddOutputSystem(pAudio);
+        assert(m_AudioID != uge::NULL_OUTPUT_SYSTEM_ID);
+
+        m_GraphicsID = m_OutputManager.AddOutputSystem(pGraphics);
+        assert(m_GraphicsID != uge::NULL_OUTPUT_SYSTEM_ID);
+
+        return m_OutputManager.vInit();
     }
 
     uge::IGameViewSharedPointer CreateGameView()
     {
+        uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
+        uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
+        uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
+        uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
+
 #if PONG_GRAPHICAL_PROFILE
-        uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(m_OutputManager.GetGraphics(),
-                                                                             m_OutputManager.GetAudio(),
+        uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(pGraphics,
+                                                                             pAudio,
                                                                              m_Resources.GetResourceCache(),
                                                                              m_PlayerProfiles.GetActiveProfile()));
 #elif PONG_AURAL_PROFILE
-        uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(m_OutputManager.GetGraphics(),
-                                                                         m_OutputManager.GetAudio(),
+        uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(pGraphics,
+                                                                         pAudio,
                                                                          m_Resources.GetResourceCache(),
                                                                          m_PlayerProfiles.GetActiveProfile()));
 #endif
@@ -132,4 +142,7 @@ public:
 
 private:
     uge::PlayerProfile m_CurrentPlayerProfile;
+
+    uge::OutputSystemID m_GraphicsID;
+    uge::OutputSystemID m_AudioID;
 };

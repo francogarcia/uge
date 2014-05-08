@@ -42,13 +42,6 @@ namespace uge
         return m_bIsInitialized;
     }
 
-    void YSEAudio::vUpdate(unsigned long timeElapsed)
-    {
-        assert(m_bIsInitialized);
-
-        YSE::System.update();
-    }
-
     IAudioBuffer* YSEAudio::vInitAudioBuffer(ResourceHandleSharedPointer pHandle)
     {
         assert(m_bIsInitialized);
@@ -105,6 +98,11 @@ namespace uge
         return m_bIsInitialized;
     }
 
+    bool YSEAudio::vPostInit()
+    {
+        return true;
+    }
+
     bool YSEAudio::vDestroy()
     {
         if (m_bIsInitialized)
@@ -113,6 +111,30 @@ namespace uge
             m_bIsInitialized = false;
         }
 
+        return true;
+    }
+
+    bool YSEAudio::vUpdate(unsigned long timeElapsed)
+    {
+        assert(m_bIsInitialized);
+
+        YSE::System.update();
+
+        return true;
+    }
+
+    bool YSEAudio::vPreRender()
+    {
+        return true;
+    }
+
+    bool YSEAudio::vRender()
+    {
+        return true;
+    }
+
+    bool YSEAudio::vPostRender()
+    {
         return true;
     }
 }
