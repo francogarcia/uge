@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -18,23 +18,31 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#include "PongGameStd.h"
+#pragma once
 
-#include "PongFeedbackFactory.h"
+#include <Core/PlayerProfile/OutputSettings/OutputSettings.h>
+#include <Utilities/PatternTemplates.h>
 
-#include "../AuralView/Events/AuralFeedback.h"
+#include "IOutput.h"
 
-PongFeedbackFactory::PongFeedbackFactory()
+namespace uge
 {
 
-}
+    class OutputFactory
+    {
+    public:
+        OutputFactory();
+        ~OutputFactory();
 
-PongFeedbackFactory::~PongFeedbackFactory()
-{
+        void Init();
 
-}
+        IOutput* CreateOutputSubsystem(const std::string& systemName, const OutputSettings& outputSettings);
 
-void PongFeedbackFactory::vInitFactory()
-{
-    m_Factory.Register<AuralFeedback>(AuralFeedback::g_Name);
+    protected:
+        virtual void vInitFactory();
+
+    protected:
+        GenericObjectFactory<IOutput, std::string> m_Factory;
+    };
+
 }

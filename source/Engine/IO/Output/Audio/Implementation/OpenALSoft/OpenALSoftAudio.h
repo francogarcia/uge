@@ -33,10 +33,13 @@ namespace uge
     class OpenALSoftAudio : public Audio
     {
     public:
-        OpenALSoftAudio(unsigned int totalBuffers = 4);
+        /// The name of the subsystem.
+        static const char* g_Name;
+
+        OpenALSoftAudio();
         ~OpenALSoftAudio();
 
-        virtual bool vInit() override;
+        virtual bool vInit(const OutputSettings& outputSettings) override;
         virtual bool vPostInit() override;
         virtual bool vDestroy() override;
 
@@ -50,6 +53,8 @@ namespace uge
 
         virtual IAudioBuffer* vInitAudioBuffer(ResourceHandleSharedPointer pHandle) override;
         virtual void vReleaseAudioBuffer(IAudioBuffer* pAudioBuffer) override;
+
+        virtual const std::string vGetName() const override;
 
     private:
         TinyOAL::cTinyOAL* m_pTinyOAL;

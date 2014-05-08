@@ -67,8 +67,6 @@ namespace uge
         std::map<OutputSystemID, OutputSystem> m_Systems;
 
         OutputSystemID m_LastSystemID;
-
-        bool m_bInitialized;
     };
 
     template <class OutputSystemType>

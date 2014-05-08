@@ -25,12 +25,18 @@
 #include "OpenALSoftAudioBuffer.h"
 #include "OpenALSoftAudioResource.h"
 
+#include <Utilities/String/StringUtil.h>
+
 namespace uge
 {
-    OpenALSoftAudio::OpenALSoftAudio(unsigned int totalBuffers)
-        : m_TotalBuffers(totalBuffers), m_pTinyOAL(nullptr), m_TotalSoundsBeingPlayed(0)
+    const char* OpenALSoftAudio::g_Name = "OpenAL-Soft";
+
+    const unsigned int TOTAL_BUFFERS = 4u;
+
+    OpenALSoftAudio::OpenALSoftAudio()
+        : m_TotalBuffers(TOTAL_BUFFERS), m_pTinyOAL(nullptr), m_TotalSoundsBeingPlayed(0)
     {
-        assert(totalBuffers > 0);
+
     }
 
     OpenALSoftAudio::~OpenALSoftAudio()
@@ -38,12 +44,19 @@ namespace uge
 
     }
 
-    bool OpenALSoftAudio::vInit()
+    bool OpenALSoftAudio::vInit(const OutputSettings& outputSettings)
     {
         if (m_bIsInitialized)
         {
             return true;
         }
+
+        OutputSettings::OutputSettingsData outputData = outputSettings.GetOutputSettingsData();
+        const OutputSubsystemSettings::OutputSubsystemSettingsData& subsystemSettings
+            = outputData.subsystems["openal-soft"].GetOutputSubsystemSettingsData();
+
+        auto valueIt = subsystemSettings.settings.find("AudioBuffers");
+        m_TotalBuffers = StringToUInt(valueIt->second);
 
         m_Samples.clear();
 
@@ -149,4 +162,9 @@ namespace uge
         m_Samples.remove(pAudioBuffer);
     }
     
+    const std::string OpenALSoftAudio::vGetName() const
+    {
+        return g_Name;
+    }
+
 }

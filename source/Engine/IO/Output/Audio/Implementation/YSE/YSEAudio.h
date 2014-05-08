@@ -29,10 +29,13 @@ namespace uge
     class YSEAudio : public Audio
     {
     public:
+        /// The name of the subsystem.
+        static const char* g_Name;
+
         YSEAudio();
         ~YSEAudio();
 
-        virtual bool vInit() override;
+        virtual bool vInit(const OutputSettings& outputSettings) override;
         virtual bool vPostInit() override;
         virtual bool vDestroy() override;
 
@@ -46,6 +49,8 @@ namespace uge
 
         virtual IAudioBuffer* vInitAudioBuffer(ResourceHandleSharedPointer pHandle) override;
         virtual void vReleaseAudioBuffer(IAudioBuffer* pAudioBuffer) override;
+
+        virtual const std::string vGetName() const override;
 
     private:
 

@@ -79,7 +79,7 @@ namespace uge
              xmlElement = xmlElement.GetNextSiblingElement())
         {
             std::string key;
-            key = xmlElement.GetElementNameLowerCase();
+            key = xmlElement.GetElementName();
 
             std::string value;
             xmlElement.GetElementAsText(value);

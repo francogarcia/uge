@@ -434,6 +434,9 @@
     <ClCompile Include="Engine\GameSystem\InputManager.cpp">
       <Filter>Engine\GameSystem</Filter>
     </ClCompile>
+    <ClCompile Include="IO\Output\OutputFactory.cpp">
+      <Filter>IO\Output</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineStd.h" />
@@ -911,6 +914,9 @@
     </ClInclude>
     <ClInclude Include="Engine\GameSystem\InputManager.h">
       <Filter>Engine\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\OutputFactory.h">
+      <Filter>IO\Output</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

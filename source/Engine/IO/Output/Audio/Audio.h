@@ -51,7 +51,7 @@ namespace uge
 
         virtual bool vIsActive() = 0;
 
-        virtual bool vInit() = 0;
+        virtual bool vInit(const OutputSettings& outputSettings) = 0;
         virtual bool vPostInit() = 0;
         virtual bool vDestroy() = 0;
 
@@ -68,6 +68,8 @@ namespace uge
         virtual void vPauseAllSounds() = 0;
         virtual void vResumeAllSounds() = 0;
 
+        virtual const std::string vGetName() const = 0;
+
         virtual OutputType vGetOutputType() const = 0;
     };
 
@@ -79,7 +81,7 @@ namespace uge
 
         virtual bool vIsActive() = 0;
 
-        virtual bool vInit() = 0;
+        virtual bool vInit(const OutputSettings& outputSettings) = 0;
         virtual bool vPostInit() = 0;
         virtual bool vDestroy() override;
 

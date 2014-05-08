@@ -42,7 +42,7 @@ namespace uge
 
     IViewFeedback* ViewFeedbackFactory::CreateViewFeedback(const std::string& eventSpecializationName)
     {
-        IViewFeedback* pViewFeedback = m_StateFactory.Create(eventSpecializationName);
+        IViewFeedback* pViewFeedback = m_Factory.Create(eventSpecializationName);
 
         return pViewFeedback;
     }

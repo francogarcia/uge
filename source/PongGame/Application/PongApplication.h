@@ -22,6 +22,8 @@
 
 #include <Engine/GameApplication/BaseGameApplication.h>
 
+#include <IO/Output/OutputFactory.h>
+
 #include "../Logic/PongGameLogic.h"
 
 #include "../View/AuralView/PongAuralHumanView.h"
@@ -101,12 +103,10 @@ public:
 #endif
         m_CurrentPlayerProfile = m_PlayerProfiles.GetActiveProfile();
 
-        // Graphics
-        uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetOutputSettings()));
-
-        // Audio
-        const int TOTAL_BUFFERS = 32;
-        uge::IAudioSharedPointer pAudio(LIB_NEW uge::OpenALSoftAudio(TOTAL_BUFFERS));
+        m_OutputFactory.Init();
+        const uge::OutputSettings& outputSettings = m_CurrentPlayerProfile.GetOutputSettings();
+        uge::IOutputSharedPointer pGraphics(m_OutputFactory.CreateOutputSubsystem("Ogre", outputSettings));
+        uge::IOutputSharedPointer pAudio(m_OutputFactory.CreateOutputSubsystem("OpenAL-Soft", outputSettings));
 
         m_AudioID = m_OutputManager.AddOutputSystem(pAudio);
         assert(m_AudioID != uge::NULL_OUTPUT_SYSTEM_ID);
@@ -142,6 +142,8 @@ public:
 
 private:
     uge::PlayerProfile m_CurrentPlayerProfile;
+
+    uge::OutputFactory m_OutputFactory;
 
     uge::OutputSystemID m_GraphicsID;
     uge::OutputSystemID m_AudioID;

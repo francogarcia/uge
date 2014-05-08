@@ -29,9 +29,10 @@
 
 namespace uge
 {
-    OgreGraphics::OgreGraphics(const std::wstring& windowName, const OutputSettings& outputSettings)
-        : m_WindowName(windowName),
-          m_OutputSettings(outputSettings),
+    const char* OgreGraphics::g_Name = "Ogre";
+
+    OgreGraphics::OgreGraphics()
+        : m_WindowName(L"OgreGraphics"),
           m_pRoot(nullptr),
           m_pWindow(nullptr),
           m_pViewport(nullptr)
@@ -44,8 +45,18 @@ namespace uge
 
     }
 
-    bool OgreGraphics::vInit()
+    bool OgreGraphics::vInit(const OutputSettings& outputSettings)
     {
+        m_OutputSettings = outputSettings;
+
+        OutputSettings::OutputSettingsData outputData = outputSettings.GetOutputSettingsData();
+        const OutputSubsystemSettings::OutputSubsystemSettingsData& rendererSettings
+            = outputData.subsystems["ogre"].GetOutputSubsystemSettingsData();
+
+        auto valueIt = rendererSettings.settings.find("WindowName");
+        m_WindowName = StringToWString(valueIt->second);
+
+        // Setup Ogre.
         Ogre::String m_UserConfiguration;
         Ogre::String m_PluginsConfiguration;
         Ogre::String m_DebugLogFile;
@@ -70,10 +81,7 @@ namespace uge
         // A list of supported render systems is avaiable at: http://www.ogre3d.org/tikiwiki/Ogre+Wiki+Tutorial+Framework#Setup
         // FIXME: DirectX 10 and 11 are not working. Check http://www.ogre3d.org/tikiwiki/tiki-index.php?page=Basic+Tutorial+6
         // later.
-        const OutputSubsystemSettings::OutputSubsystemSettingsData& rendererSettings
-            = m_OutputSettings.GetOutputSettingsData().subsystems["ogre"].GetOutputSubsystemSettingsData();
-
-        auto& findIt = rendererSettings.settings.find("renderer");
+        auto& findIt = rendererSettings.settings.find("Renderer");
         std::string rendererName = findIt->second;
         Ogre::RenderSystem* pRenderSystem = m_pRoot->getRenderSystemByName(rendererName.c_str());
         if (pRenderSystem->getName() != rendererName)
@@ -169,6 +177,30 @@ namespace uge
     void OgreGraphics::vSetProjectionTransform(const Matrix4& projectionTransform)
     {
 
+    }
+
+    float OgreGraphics::vGetAspectRatio() const
+    {
+        return Ogre::Real(m_pViewport->getActualWidth() /
+                          Ogre::Real(m_pViewport->getActualHeight()));
+    }
+
+    size_t OgreGraphics::vGetWindowHandle() const
+    {
+        size_t windowHandle;
+        m_pWindow->getCustomAttribute("WINDOW", &windowHandle);
+
+        return windowHandle;
+    }
+
+    const std::string OgreGraphics::vGetName() const
+    {
+        return g_Name;
+    }
+
+    OutputType OgreGraphics::vGetOutputType() const
+    {
+        return OutputType::Graphical;
     }
 
     // Ogre3D overloads.

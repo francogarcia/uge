@@ -27,8 +27,7 @@
 namespace uge
 {
     OutputManager::OutputManager()
-        : m_bInitialized(false),
-          m_LastSystemID(NULL_OUTPUT_SYSTEM_ID)
+        : m_LastSystemID(NULL_OUTPUT_SYSTEM_ID)
     {
 
     }
@@ -40,24 +39,7 @@ namespace uge
 
     bool OutputManager::vInit()
     {
-        m_bInitialized = true;
-
-        bool bSuccess = true;
-        for (auto system : m_Systems)
-        {
-            IOutputSharedPointer pSystem = system.second.pSystem;
-            bool bSystemSuccess = pSystem->vInit();
-            if (!bSystemSuccess)
-            {
-                bSuccess = false;
-
-                LOG_ASSERT("Error initializing the system!");
-            }
-
-            pSystem.reset();
-        }
-
-        return bSuccess;
+        return true;
     }
 
     bool OutputManager::vPostInit()
@@ -83,7 +65,6 @@ namespace uge
         }
 
         m_LastSystemID = NULL_OUTPUT_SYSTEM_ID;
-        m_bInitialized = false;
 
         return bSuccess;
     }
@@ -172,17 +153,6 @@ namespace uge
         system.type = pSystem->vGetOutputType();
 
         m_Systems.insert(std::make_pair(systemID, system));
-
-        // Initialize the output system if the manager was already initialized.
-        if (m_bInitialized)
-        {
-            if (!pSystem->vInit())
-            {
-                LOG_ERROR("Error initializing the output system!");
-
-                return NULL_OUTPUT_SYSTEM_ID;
-            }
-        }
 
         return systemID;
     }

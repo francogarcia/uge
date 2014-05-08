@@ -41,7 +41,7 @@ namespace uge
         virtual void vInitFactory();
 
     protected:
-        GenericObjectFactory<IViewFeedback, std::string> m_StateFactory;
+        GenericObjectFactory<IViewFeedback, std::string> m_Factory;
     };
 
 }

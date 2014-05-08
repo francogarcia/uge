@@ -39,7 +39,7 @@ namespace sg
 
     void FeedbackFactory::vInitFactory()
     {
-        m_StateFactory.Register<sg::AuralFeedback>(sg::AuralFeedback::g_Name);
+        m_Factory.Register<sg::AuralFeedback>(sg::AuralFeedback::g_Name);
     }
 
 }

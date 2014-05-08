@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <Core/PlayerProfile/OutputSettings/OutputSettings.h>
 #include <Utilities/Math/Matrix.h>
 
 namespace uge
@@ -42,7 +43,7 @@ namespace uge
         IOutput();
         virtual ~IOutput();
 
-        virtual bool vInit() = 0;
+        virtual bool vInit(const OutputSettings& outputSettings) = 0;
         virtual bool vPostInit() = 0;
         virtual bool vDestroy() = 0;
 
@@ -52,6 +53,7 @@ namespace uge
         virtual bool vRender() = 0;
         virtual bool vPostRender() = 0;
 
+        virtual const std::string vGetName() const = 0;
         virtual OutputType vGetOutputType() const = 0;
     };
 }

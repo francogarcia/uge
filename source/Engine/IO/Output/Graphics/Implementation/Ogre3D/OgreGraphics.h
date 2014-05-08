@@ -34,10 +34,13 @@ namespace uge
     class OgreGraphics : public IGraphics, public Ogre::FrameListener, public Ogre::WindowEventListener
     {
     public:
-        OgreGraphics(const std::wstring& windowName, const OutputSettings& outputSettings);
+        /// The name of the subsystem.
+        static const char* g_Name;
+
+        OgreGraphics();
         virtual ~OgreGraphics();
 
-        virtual bool vInit() override;
+        virtual bool vInit(const OutputSettings& outputSettings) override;
         virtual bool vPostInit() override;
         virtual bool vDestroy() override;
 
@@ -53,24 +56,13 @@ namespace uge
         virtual void vSetViewTransform(const Matrix4& viewTransform) override;
         virtual void vSetProjectionTransform(const Matrix4& projectionTransform) override;
 
-        virtual float vGetAspectRatio() const override
-        {
-            return Ogre::Real(m_pViewport->getActualWidth() /
-                              Ogre::Real(m_pViewport->getActualHeight()));
-        }
+        virtual float vGetAspectRatio() const override;
 
-        virtual size_t vGetWindowHandle() const override
-        {
-            size_t windowHandle;
-            m_pWindow->getCustomAttribute("WINDOW", &windowHandle);
+        virtual size_t vGetWindowHandle() const override;
 
-            return windowHandle;
-        }
+        virtual const std::string vGetName() const override;
 
-        virtual OutputType vGetOutputType() const override
-        {
-            return OutputType::Graphical;
-        }
+        virtual OutputType vGetOutputType() const override;
 
     protected:
         // Ogre3D members.

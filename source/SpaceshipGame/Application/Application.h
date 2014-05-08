@@ -22,6 +22,7 @@
 
 #include <Engine/GameApplication/BaseGameApplication.h>
 
+#include <IO/Output/OutputFactory.h>
 #include <IO/Output/Audio/Implementation/OpenALSoft/OpenALSoftAudio.h>
 #include <IO/Output/Graphics/Implementation/Ogre3D/OgreGraphics.h>
 
@@ -53,7 +54,6 @@ namespace sg
             {
                 return false;
             }
-
 
             uge::IGameViewSharedPointer pGameView = CreateGameView();
             if (pGameView == nullptr)
@@ -106,12 +106,15 @@ namespace sg
 
         virtual bool vInitOutputSystems() override
         {
-            // Graphics
-            uge::IGraphicsSharedPointer pGraphics(LIB_NEW uge::OgreGraphics(vGetGameTitle(), m_CurrentPlayerProfile.GetOutputSettings()));
+            const uge::OutputSettings& outputSettings = m_CurrentPlayerProfile.GetOutputSettings();
 
-            // Audio
-            const int TOTAL_BUFFERS = 32;
-            uge::IAudioSharedPointer pAudio(LIB_NEW uge::OpenALSoftAudio(TOTAL_BUFFERS));
+            std::string graphicsName = outputSettings.GetOutputSettingsData().subsystems.at("ogre").GetOutputSubsystemSettingsData().name;
+            std::string audioName = outputSettings.GetOutputSettingsData().subsystems.at("openal-soft").GetOutputSubsystemSettingsData().name;
+
+            m_OutputFactory.Init();
+            // TODO: use the factory.
+            uge::IOutputSharedPointer pGraphics(m_OutputFactory.CreateOutputSubsystem(graphicsName, outputSettings));
+            uge::IOutputSharedPointer pAudio(m_OutputFactory.CreateOutputSubsystem(audioName, outputSettings));
 
             m_AudioID = m_OutputManager.AddOutputSystem(pAudio);
             assert(m_AudioID != uge::NULL_OUTPUT_SYSTEM_ID);
@@ -253,6 +256,8 @@ namespace sg
 
     private:
         uge::PlayerProfile m_CurrentPlayerProfile;
+
+        uge::OutputFactory m_OutputFactory;
 
         uge::OutputSystemID m_GraphicsID;
         uge::OutputSystemID m_AudioID;
