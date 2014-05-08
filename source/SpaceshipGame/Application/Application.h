@@ -61,7 +61,7 @@ namespace sg
                 return false;
             }
 
-            m_Output.PostInit();
+            m_OutputManager.PostInit();
 
             const uge::GameplaySettings::GameplaySettingsData& gameplaySettings = m_CurrentPlayerProfile.GetGameplaySettings().GetGameplaySettingsData();
             m_pGameLogic->vSetPlayerProfileFileName(gameplaySettings.entitySpecializationResource);
@@ -113,7 +113,7 @@ namespace sg
             const int TOTAL_BUFFERS = 32;
             uge::IAudioSharedPointer pAudio(LIB_NEW uge::OpenALSoftAudio(TOTAL_BUFFERS));
 
-            return m_Output.Init(pGraphics,
+            return m_OutputManager.Init(pGraphics,
                                  pAudio);
         }
 
@@ -137,8 +137,8 @@ namespace sg
             std::string profileName = m_CurrentPlayerProfile.GetProfileName();
             if (profileName == "Average User: Default")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
-                                                                            m_Output.GetAudio(),
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_OutputManager.GetGraphics(),
+                                                                            m_OutputManager.GetAudio(),
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -153,8 +153,8 @@ namespace sg
             }
             else if (profileName == "Motor Impairment")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(m_Output.GetGraphics(),
-                                                                                           m_Output.GetAudio(),
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(m_OutputManager.GetGraphics(),
+                                                                                           m_OutputManager.GetAudio(),
                                                                                            m_Resources.GetResourceCache(),
                                                                                            m_PlayerProfiles.GetActiveProfile()));
 
@@ -169,8 +169,8 @@ namespace sg
             }
             else if (profileName == "Visual Impairment: Low Vision")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
-                                                                            m_Output.GetAudio(),
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_OutputManager.GetGraphics(),
+                                                                            m_OutputManager.GetAudio(),
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -185,8 +185,8 @@ namespace sg
             }
             else if (profileName == "Cognitive Impairment")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_Output.GetGraphics(),
-                                                                            m_Output.GetAudio(),
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(m_OutputManager.GetGraphics(),
+                                                                            m_OutputManager.GetAudio(),
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -201,8 +201,8 @@ namespace sg
             }
             else if (profileName == "Visual Impairment: Blind")
             {
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(m_Output.GetGraphics(),
-                                                                                 m_Output.GetAudio(),
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(m_OutputManager.GetGraphics(),
+                                                                                 m_OutputManager.GetAudio(),
                                                                                  m_Resources.GetResourceCache(),
                                                                                  m_PlayerProfiles.GetActiveProfile()));
 

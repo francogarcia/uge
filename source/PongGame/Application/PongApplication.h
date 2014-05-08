@@ -68,7 +68,7 @@ public:
             m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
 #endif
 
-            m_Output.PostInit();
+            m_OutputManager.PostInit();
         }
         // END TEMPORARY CODE
 
@@ -108,20 +108,20 @@ public:
         const int TOTAL_BUFFERS = 32;
         uge::IAudioSharedPointer pAudio(LIB_NEW uge::OpenALSoftAudio(TOTAL_BUFFERS));
 
-        return m_Output.Init(pGraphics,
+        return m_OutputManager.Init(pGraphics,
                              pAudio);
     }
 
     uge::IGameViewSharedPointer CreateGameView()
     {
 #if PONG_GRAPHICAL_PROFILE
-        uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(m_Output.GetGraphics(),
-                                                                             m_Output.GetAudio(),
+        uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(m_OutputManager.GetGraphics(),
+                                                                             m_OutputManager.GetAudio(),
                                                                              m_Resources.GetResourceCache(),
                                                                              m_PlayerProfiles.GetActiveProfile()));
 #elif PONG_AURAL_PROFILE
-        uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(m_Output.GetGraphics(),
-                                                                         m_Output.GetAudio(),
+        uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(m_OutputManager.GetGraphics(),
+                                                                         m_OutputManager.GetAudio(),
                                                                          m_Resources.GetResourceCache(),
                                                                          m_PlayerProfiles.GetActiveProfile()));
 #endif

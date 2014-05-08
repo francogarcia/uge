@@ -20,21 +20,21 @@
 
 #include "GameEngineStd.h"
 
-#include "OutputSystem.h"
+#include "OutputManager.h"
 
 namespace uge
 {
-    OutputSystem::OutputSystem()
+    OutputManager::OutputManager()
     {
 
     }
 
-    OutputSystem::~OutputSystem()
+    OutputManager::~OutputManager()
     {
 
     }
 
-    bool OutputSystem::Init(IGraphicsSharedPointer pGraphics, IAudioSharedPointer pAudio)
+    bool OutputManager::Init(IGraphicsSharedPointer pGraphics, IAudioSharedPointer pAudio)
     {
         bool bSuccess = SetGraphicsSystem(pGraphics);
         bSuccess &= SetAudioSystem(pAudio);
@@ -42,12 +42,12 @@ namespace uge
         return bSuccess;
     }
 
-    void OutputSystem::PostInit()
+    void OutputManager::PostInit()
     {
         //m_pGraphics->vSetBackgroundColor(0, 0, 0, 0);
     }
 
-    bool OutputSystem::Destroy()
+    bool OutputManager::Destroy()
     {
         bool bSuccess = DestroyGraphicsSystem();
         bSuccess &= DestroyAudioSystem();
@@ -55,26 +55,26 @@ namespace uge
         return bSuccess;
     }
 
-    bool OutputSystem::PreRender()
+    bool OutputManager::PreRender()
     {
         bool bSuccess = m_pGraphics->vPreRender();
 
         return bSuccess;
     }
 
-    void OutputSystem::Update(unsigned long timeElapsed)
+    void OutputManager::Update(unsigned long timeElapsed)
     {
         m_pAudio->vUpdate(timeElapsed);
     }
 
-    bool OutputSystem::PostRender()
+    bool OutputManager::PostRender()
     {
         bool bSuccess = m_pGraphics->vPostRender();
 
         return bSuccess;
     }
 
-    bool OutputSystem::SetGraphicsSystem(IGraphicsSharedPointer pGraphics)
+    bool OutputManager::SetGraphicsSystem(IGraphicsSharedPointer pGraphics)
     {
         assert(pGraphics != nullptr && "Invalid graphics system!");
         m_pGraphics = pGraphics;
@@ -82,12 +82,12 @@ namespace uge
         return m_pGraphics->vInit();
     }
 
-    bool OutputSystem::DestroyGraphicsSystem()
+    bool OutputManager::DestroyGraphicsSystem()
     {
         return m_pGraphics->vDestroy();
     }
 
-    bool OutputSystem::SetAudioSystem(IAudioSharedPointer pAudio)
+    bool OutputManager::SetAudioSystem(IAudioSharedPointer pAudio)
     {
         assert(pAudio != nullptr && "Invalid audio system!");
         m_pAudio = pAudio;
@@ -95,17 +95,17 @@ namespace uge
         return m_pAudio->vInit();
     }
 
-    bool OutputSystem::DestroyAudioSystem()
+    bool OutputManager::DestroyAudioSystem()
     {
         return m_pAudio->vDestroy();
     }
 
-    IGraphicsSharedPointer OutputSystem::GetGraphics()
+    IGraphicsSharedPointer OutputManager::GetGraphics()
     {
         return m_pGraphics;
     }
 
-    IAudioSharedPointer OutputSystem::GetAudio()
+    IAudioSharedPointer OutputManager::GetAudio()
     {
         return m_pAudio;
     }

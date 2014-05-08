@@ -114,7 +114,7 @@ namespace uge
         lua::ScriptExports::Unregister();
         lua::LuaStateManager::Destroy();
 
-        if (!m_Output.Destroy())
+        if (!m_OutputManager.Destroy())
         {
             return false;
         }
@@ -169,7 +169,7 @@ namespace uge
         m_pGameLogic->vOnUpdate(timeNow, timeElapsed);
 
         // Update all views.
-        m_Output.Update(timeElapsed);
+        m_OutputManager.Update(timeElapsed);
         for (const auto& gameView : m_Views)
         {
             gameView->vOnUpdate(timeElapsed);
@@ -180,7 +180,7 @@ namespace uge
 
     bool BaseGameApplication::vRender(const unsigned long timeElapsed)
     {
-        if (!m_Output.PreRender())
+        if (!m_OutputManager.PreRender())
         {
             return false;
         }
@@ -191,7 +191,7 @@ namespace uge
             gameView->vOnRender(0u, timeElapsed);
         }
 
-        if (!m_Output.PostRender())
+        if (!m_OutputManager.PostRender())
         {
             return false;
         }

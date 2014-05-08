@@ -163,8 +163,8 @@
     <ClCompile Include="Engine\GameLogic\GameState\GameStateStack.cpp" />
     <ClCompile Include="Engine\GameLogic\GameState\IGameState.cpp" />
     <ClCompile Include="Engine\GameLogic\SceneManager\SceneManager.cpp" />
-    <ClCompile Include="Engine\GameSystem\InputSystem.cpp" />
-    <ClCompile Include="Engine\GameSystem\OutputSystem.cpp" />
+    <ClCompile Include="Engine\GameSystem\InputManager.cpp" />
+    <ClCompile Include="Engine\GameSystem\OutputManager.cpp" />
     <ClCompile Include="Engine\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="Engine\GameView\SceneRendererManager.cpp" />
     <ClCompile Include="Engine\GameView\ViewFeedback\IViewFeedback.cpp" />
@@ -358,8 +358,8 @@
     <ClInclude Include="Engine\GameLogic\GameState\GameStateStack.h" />
     <ClInclude Include="Engine\GameLogic\GameState\IGameState.h" />
     <ClInclude Include="Engine\GameLogic\SceneManager\SceneManager.h" />
-    <ClInclude Include="Engine\GameSystem\InputSystem.h" />
-    <ClInclude Include="Engine\GameSystem\OutputSystem.h" />
+    <ClInclude Include="Engine\GameSystem\InputManager.h" />
+    <ClInclude Include="Engine\GameSystem\OutputManager.h" />
     <ClInclude Include="Engine\GameSystem\ResourceSystem.h" />
     <ClInclude Include="Engine\GameView\SceneRendererManager.h" />
     <ClInclude Include="Engine\GameView\ViewFeedback\IViewFeedback.h" />

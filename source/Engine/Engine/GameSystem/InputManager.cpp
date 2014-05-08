@@ -20,7 +20,7 @@
 
 #include "GameEngineStd.h"
 
-#include "InputSystem.h"
+#include "InputManager.h"
 
 namespace uge
 {

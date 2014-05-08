@@ -27,11 +27,11 @@
 
 namespace uge
 {
-    class OutputSystem
+    class OutputManager
     {
     public:
-        OutputSystem();
-        ~OutputSystem();
+        OutputManager();
+        ~OutputManager();
 
         bool Init(IGraphicsSharedPointer pGraphics, IAudioSharedPointer pAudio);
         void PostInit();

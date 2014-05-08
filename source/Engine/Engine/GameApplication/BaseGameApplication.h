@@ -30,7 +30,7 @@
 
 #include <Core/PlayerProfile/PlayerProfileManager.h>
 
-#include <Engine/GameSystem/OutputSystem.h>
+#include <Engine/GameSystem/OutputManager.h>
 #include <Engine/GameSystem/ResourceSystem.h>
 
 #include <Engine/GameView/IGameView.h>
@@ -100,7 +100,7 @@ namespace uge
 
     protected:
         /// Game systems.
-        OutputSystem m_Output;
+        OutputManager m_OutputManager;
         ResourceSystem m_Resources;
 
         /// Player profiles.

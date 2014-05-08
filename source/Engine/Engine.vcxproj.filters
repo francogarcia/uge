@@ -269,13 +269,7 @@
     <ClCompile Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.cpp">
       <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\GameSystem\InputSystem.cpp">
-      <Filter>Engine\GameSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameSystem\ResourceSystem.cpp">
-      <Filter>Engine\GameSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameSystem\OutputSystem.cpp">
       <Filter>Engine\GameSystem</Filter>
     </ClCompile>
     <ClCompile Include="Core\Scene\Implementation\YSE\YSECamera.cpp">
@@ -433,6 +427,12 @@
     </ClCompile>
     <ClCompile Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.cpp">
       <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameSystem\OutputManager.cpp">
+      <Filter>Engine\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameSystem\InputManager.cpp">
+      <Filter>Engine\GameSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -729,13 +729,7 @@
     <ClInclude Include="Core\Scene\Implementation\OpenALSoft\OpenALSoftCamera.h">
       <Filter>Core\Scene\Implementation\OpenALSoft</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\GameSystem\InputSystem.h">
-      <Filter>Engine\GameSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GameSystem\ResourceSystem.h">
-      <Filter>Engine\GameSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameSystem\OutputSystem.h">
       <Filter>Engine\GameSystem</Filter>
     </ClInclude>
     <ClInclude Include="Core\Scene\Implementation\YSE\YSECamera.h">
@@ -911,6 +905,12 @@
     </ClInclude>
     <ClInclude Include="Core\PlayerProfile\OutputSettings\Subsystems\OutputSubsystemSettings.h">
       <Filter>Core\PlayerProfile\OutputSettings\Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameSystem\OutputManager.h">
+      <Filter>Engine\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameSystem\InputManager.h">
+      <Filter>Engine\GameSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
