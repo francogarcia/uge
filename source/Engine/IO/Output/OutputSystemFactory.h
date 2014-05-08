@@ -28,11 +28,11 @@
 namespace uge
 {
 
-    class OutputFactory
+    class OutputSystemFactory
     {
     public:
-        OutputFactory();
-        ~OutputFactory();
+        OutputSystemFactory();
+        ~OutputSystemFactory();
 
         void Init();
 

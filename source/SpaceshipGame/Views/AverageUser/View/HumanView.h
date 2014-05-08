@@ -80,7 +80,6 @@ namespace sg
             uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer(m_pGraphics, m_ResourceCache));
             pOgreSceneRenderer->Load();
 
-            // TODO: save the renderer ID.
             m_GraphicalRendererID = vAddSceneRenderer(pOgreSceneRenderer);
 
             uge::OpenALSoftSceneRendererSharedPointer pOpenALSoftSceneRenderer(LIB_NEW uge::OpenALSoftSceneRenderer(m_pAudio, m_ResourceCache));

@@ -20,7 +20,7 @@
 
 #include "GameEngineStd.h"
 
-#include "OutputFactory.h"
+#include "OutputSystemFactory.h"
 
 #include <Utilities/Debug/Logger.h>
 #include <Utilities/String/StringUtil.h>
@@ -32,17 +32,17 @@
 namespace uge
 {
 
-    OutputFactory::OutputFactory()
+    OutputSystemFactory::OutputSystemFactory()
     {
 
     }
 
-    OutputFactory::~OutputFactory()
+    OutputSystemFactory::~OutputSystemFactory()
     {
 
     }
 
-    void OutputFactory::Init()
+    void OutputSystemFactory::Init()
     {
         m_Factory.Register<OgreGraphics>(StringToLower(OgreGraphics::g_Name));
         m_Factory.Register<OpenALSoftAudio>(StringToLower(OpenALSoftAudio::g_Name));
@@ -51,7 +51,7 @@ namespace uge
         vInitFactory();
     }
 
-    IOutput* OutputFactory::CreateOutputSubsystem(const std::string& systemName, const OutputSettings& outputSettings)
+    IOutput* OutputSystemFactory::CreateOutputSubsystem(const std::string& systemName, const OutputSettings& outputSettings)
     {
         IOutput* pSystem = m_Factory.Create(systemName);
         if (!pSystem->vInit(outputSettings))
@@ -65,7 +65,7 @@ namespace uge
         return pSystem;
     }
 
-    void OutputFactory::vInitFactory()
+    void OutputSystemFactory::vInitFactory()
     {
 
     }

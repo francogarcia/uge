@@ -80,6 +80,11 @@ namespace uge
             return false;
         }
 
+        if (!vInitOutputSystemFactory())
+        {
+            return false;
+        }
+
         if (!vInitOutputSystems())
         {
             return false;
@@ -113,6 +118,11 @@ namespace uge
 
         lua::ScriptExports::Unregister();
         lua::LuaStateManager::Destroy();
+
+        if (m_pOutputSystemFactory != nullptr)
+        {
+            SAFE_DELETE(m_pOutputSystemFactory);
+        }
 
         if (!m_OutputManager.vDestroy())
         {
@@ -298,6 +308,15 @@ namespace uge
         }
 
         return m_pGameLogic->vInit();
+    }
+
+    bool BaseGameApplication::vInitOutputSystemFactory()
+    {
+        m_pOutputSystemFactory = LIB_NEW OutputSystemFactory;
+
+        m_pOutputSystemFactory->Init();
+
+        return true;
     }
 
     GameViewID BaseGameApplication::vAddGameView(IGameViewSharedPointer pGameView, ActorID actorID)

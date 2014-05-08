@@ -36,15 +36,15 @@ namespace uge
         OutputManager();
         virtual ~OutputManager();
 
-        bool vInit();
-        bool vPostInit();
-        bool vDestroy();
+        virtual bool vInit();
+        virtual bool vPostInit();
+        virtual bool vDestroy();
 
-        bool vUpdate(const unsigned long timeElapsed);
+        virtual bool vUpdate(const unsigned long timeElapsed);
 
-        bool vPreRender();
-        bool vRender();
-        bool vPostRender();
+        virtual bool vPreRender();
+        virtual bool vRender();
+        virtual bool vPostRender();
 
         OutputSystemID AddOutputSystem(IOutputSharedPointer pSystem);
         void RemoveOutputSystem(const OutputSystemID systemID);

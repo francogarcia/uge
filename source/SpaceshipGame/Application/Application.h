@@ -22,7 +22,6 @@
 
 #include <Engine/GameApplication/BaseGameApplication.h>
 
-#include <IO/Output/OutputFactory.h>
 #include <IO/Output/Audio/Implementation/OpenALSoft/OpenALSoftAudio.h>
 #include <IO/Output/Graphics/Implementation/Ogre3D/OgreGraphics.h>
 
@@ -107,14 +106,19 @@ namespace sg
         virtual bool vInitOutputSystems() override
         {
             const uge::OutputSettings& outputSettings = m_CurrentPlayerProfile.GetOutputSettings();
+            const uge::OutputSettings::OutputSettingsData& outputSettingsData = outputSettings.GetOutputSettingsData();
+
+            for (const auto& subsystem : outputSettingsData.subsystems)
+            {
+                std::string name = subsystem.first;
+                const uge::OutputSubsystemSettings::OutputSubsystemSettingsData& data = subsystem.second.GetOutputSubsystemSettingsData();
+            }
 
             std::string graphicsName = outputSettings.GetOutputSettingsData().subsystems.at("ogre").GetOutputSubsystemSettingsData().name;
             std::string audioName = outputSettings.GetOutputSettingsData().subsystems.at("openal-soft").GetOutputSubsystemSettingsData().name;
-
-            m_OutputFactory.Init();
-            // TODO: use the factory.
-            uge::IOutputSharedPointer pGraphics(m_OutputFactory.CreateOutputSubsystem(graphicsName, outputSettings));
-            uge::IOutputSharedPointer pAudio(m_OutputFactory.CreateOutputSubsystem(audioName, outputSettings));
+           
+            uge::IOutputSharedPointer pGraphics(m_pOutputSystemFactory->CreateOutputSubsystem(graphicsName, outputSettings));
+            uge::IOutputSharedPointer pAudio(m_pOutputSystemFactory->CreateOutputSubsystem(audioName, outputSettings));
 
             m_AudioID = m_OutputManager.AddOutputSystem(pAudio);
             assert(m_AudioID != uge::NULL_OUTPUT_SYSTEM_ID);
@@ -256,8 +260,6 @@ namespace sg
 
     private:
         uge::PlayerProfile m_CurrentPlayerProfile;
-
-        uge::OutputFactory m_OutputFactory;
 
         uge::OutputSystemID m_GraphicsID;
         uge::OutputSystemID m_AudioID;

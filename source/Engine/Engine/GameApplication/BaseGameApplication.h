@@ -35,6 +35,8 @@
 
 #include <Engine/GameView/IGameView.h>
 
+#include <IO/Output/OutputSystemFactory.h>
+
 namespace uge
 {
 
@@ -96,12 +98,16 @@ namespace uge
 
         virtual bool vInitGameLogic();
 
+        virtual bool vInitOutputSystemFactory();
+
         virtual bool vInitOutputSystems() = 0;
 
     protected:
         /// Game systems.
         OutputManager m_OutputManager;
         ResourceSystem m_Resources;
+
+        OutputSystemFactory* m_pOutputSystemFactory;
 
         /// Player profiles.
         PlayerProfileManager m_PlayerProfiles;

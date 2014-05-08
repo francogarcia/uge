@@ -211,7 +211,7 @@
     <ClCompile Include="IO\Output\Graphics\Graphics.cpp" />
     <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\OgreGraphics.cpp" />
     <ClCompile Include="IO\Output\IOutput.cpp" />
-    <ClCompile Include="IO\Output\OutputFactory.cpp" />
+    <ClCompile Include="IO\Output\OutputSystemFactory.cpp" />
     <ClCompile Include="Utilities\Debug\Logger.cpp" />
     <ClCompile Include="Core\EntityComponent\Entity\Actor.cpp" />
     <ClCompile Include="Core\EntityComponent\Entity\ActorFactory.cpp" />
@@ -409,7 +409,7 @@
     <ClInclude Include="IO\Output\Graphics\Graphics.h" />
     <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\OgreGraphics.h" />
     <ClInclude Include="IO\Output\IOutput.h" />
-    <ClInclude Include="IO\Output\OutputFactory.h" />
+    <ClInclude Include="IO\Output\OutputSystemFactory.h" />
     <ClInclude Include="UGE.h" />
     <ClInclude Include="Utilities\Debug\Logger.h" />
     <ClInclude Include="Core\EntityComponent\Entity\Actor.h" />
