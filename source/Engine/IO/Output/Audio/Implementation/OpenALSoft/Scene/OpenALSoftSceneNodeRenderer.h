@@ -21,10 +21,11 @@
 #pragma once
 
 #include <Core/EntityComponent/Component/Implementation/OpenALSoftAudioComponent.h>
-#include <Core/Scene/ISceneNodeRenderer.h>
+
 #include <Core/Scene/SceneNode.h>
 
 #include <IO/Output/Audio/Implementation/OpenALSoft/OpenALSoftAudio.h>
+#include <IO/Output/Scene/ISceneNodeRenderer.h>
 
 namespace uge
 {

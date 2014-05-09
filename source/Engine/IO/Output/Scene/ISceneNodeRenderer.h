@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "IScene.h"
-#include "SceneNodeProperties.h"
+#include <Core/Scene/IScene.h>
+#include <Core/Scene/SceneNodeProperties.h>
 
 namespace uge
 {

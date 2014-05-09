@@ -212,9 +212,6 @@
     <ClCompile Include="Core\Scene\SceneNodeProperties.cpp">
       <Filter>Core\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Scene\ISceneRenderer.cpp">
-      <Filter>Core\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="IO\Output\IOutput.cpp">
       <Filter>IO\Output</Filter>
     </ClCompile>
@@ -244,9 +241,6 @@
     </ClCompile>
     <ClCompile Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.cpp">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Scene\ISceneNodeRenderer.cpp">
-      <Filter>Core\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\GameSystem\ResourceSystem.cpp">
       <Filter>Engine\GameSystem</Filter>
@@ -356,9 +350,6 @@
     <ClCompile Include="Core\Scene\SceneEvents.cpp">
       <Filter>Core\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Scene\ICameraRenderer.cpp">
-      <Filter>Core\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.cpp">
       <Filter>Engine\GameView\ViewFeedback</Filter>
     </ClCompile>
@@ -436,6 +427,18 @@
     </ClCompile>
     <ClCompile Include="IO\Output\Audio\Implementation\YSE\Scene\YSESceneRenderer.cpp">
       <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Scene\ICameraRenderer.cpp">
+      <Filter>IO\Output\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Scene\ISceneNodeRenderer.cpp">
+      <Filter>IO\Output\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Scene\ISceneRenderer.cpp">
+      <Filter>IO\Output\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Output\Scene\SceneRendererFactory.cpp">
+      <Filter>IO\Output\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -672,9 +675,6 @@
     <ClInclude Include="Core\Scene\SceneNodeProperties.h">
       <Filter>Core\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Scene\ISceneRenderer.h">
-      <Filter>Core\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="IO\Output\IOutput.h">
       <Filter>IO\Output</Filter>
     </ClInclude>
@@ -707,9 +707,6 @@
     </ClInclude>
     <ClInclude Include="Core\EntityComponent\Component\Implementation\YSEAudioComponent.h">
       <Filter>Core\EntityComponent\Component\Implementation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scene\ISceneNodeRenderer.h">
-      <Filter>Core\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\GameSystem\ResourceSystem.h">
       <Filter>Engine\GameSystem</Filter>
@@ -837,9 +834,6 @@
     <ClInclude Include="Core\Scene\SceneEvents.h">
       <Filter>Core\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Scene\ICameraRenderer.h">
-      <Filter>Core\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GameView\ViewFeedback\ViewFeedbackFactory.h">
       <Filter>Engine\GameView\ViewFeedback</Filter>
     </ClInclude>
@@ -897,9 +891,6 @@
     <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneNodeRenderer.h">
       <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.h">
-      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="IO\Output\Audio\Implementation\OpenALSoft\Scene\OpenALSoftCamera.h">
       <Filter>IO\Output\Audio\Implementation\OpenALSoft\Scene</Filter>
     </ClInclude>
@@ -917,6 +908,21 @@
     </ClInclude>
     <ClInclude Include="IO\Output\Audio\Implementation\YSE\Scene\YSESceneRenderer.h">
       <Filter>IO\Output\Audio\Implementation\YSE\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Scene\ICameraRenderer.h">
+      <Filter>IO\Output\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Scene\ISceneNodeRenderer.h">
+      <Filter>IO\Output\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Scene\ISceneRenderer.h">
+      <Filter>IO\Output\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Scene\SceneRendererFactory.h">
+      <Filter>IO\Output\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.h">
+      <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1123,6 +1129,9 @@
     </Filter>
     <Filter Include="IO\Output\Audio\Implementation\YSE\Scene">
       <UniqueIdentifier>{1b23930d-5b6b-4d69-8e4e-695258e87849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Output\Scene">
+      <UniqueIdentifier>{cc38fb35-3287-4a87-b1c7-24b6819dfe73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -21,8 +21,9 @@
 #pragma once
 
 #include <Core/Scene/IScene.h>
-#include <Core/Scene/ISceneRenderer.h>
+
 #include <IO/Output/Graphics/Implementation/Ogre3D/OgreGraphics.h>
+#include <IO/Output/Scene/ISceneRenderer.h>
 
 #include "OgreCamera.h"
 #include "OgreSceneNodeRenderer.h"
@@ -37,11 +38,13 @@ namespace uge
     class OgreSceneRenderer : public IGraphicalSceneRenderer
     {
     public:
-        OgreSceneRenderer(IGraphicsSharedPointer pGraphicalRenderer, ResourceCache& resourceCache);
+        OgreSceneRenderer();
         ~OgreSceneRenderer();
 
-        virtual void CreateScene(const IScene* const pScene) override;
-        virtual const IScene* const GetScene() const override;
+        virtual bool vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache) override;
+
+        virtual void vCreateScene(const IScene* const pScene) override;
+        virtual const IScene* const vGetScene() const override;
 
         virtual bool vOnUpdate(const unsigned long timeElapsed) override;
         virtual bool vOnRender() override;
@@ -81,8 +84,8 @@ namespace uge
         void RemoveOgreSceneNode(OgreSceneNodeRenderer* pNodeRenderer);
 
     private:
-        IGraphicsSharedPointer m_pGraphicalRenderer;
-        ResourceCache& m_ResourceCache;
+        OgreGraphicsSharedPointer m_pGraphicalRenderer;
+        ResourceCache* m_pResourceCache;
         
         const IScene* m_pScene;
         std::map<ActorID, OgreSceneNodeRenderer> m_OgreSceneNodes;

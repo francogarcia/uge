@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include <Core/Scene/ISceneRenderer.h>
 #include <IO/Output/Audio/Implementation/YSE/YSEAudio.h>
+#include <IO/Output/Scene/ISceneRenderer.h>
 
 #include "YSECamera.h"
 #include "YSESceneNodeRenderer.h"
@@ -36,11 +36,13 @@ namespace uge
     class YSESceneRenderer : public IAudioSceneRenderer
     {
     public:
-        YSESceneRenderer(IAudioSharedPointer pAudioRenderer, ResourceCache& resourceCache);
+        YSESceneRenderer();
         ~YSESceneRenderer();
 
-        virtual void CreateScene(const IScene* const pScene) override;
-        virtual const IScene* const GetScene() const override;
+        virtual bool vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache) override;
+
+        virtual void vCreateScene(const IScene* const pScene) override;
+        virtual const IScene* const vGetScene() const override;
 
         virtual bool vOnUpdate(const unsigned long timeElapsed) override;
         virtual bool vOnRender() override;
@@ -67,7 +69,7 @@ namespace uge
 
     private:
         std::shared_ptr<YSEAudio> m_pAudioRenderer;
-        ResourceCache& m_ResourceCache;
+        ResourceCache* m_pResourceCache;
 
         const IScene* m_pScene;
         std::map<ActorID, YSESceneNodeRenderer> m_SceneNodes;

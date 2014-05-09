@@ -23,6 +23,7 @@
 #include <Core/Events/DefaultEvents.h>
 #include <Core/Events/IEventManager.h>
 
+#include <Engine/GameSystem/OutputManager.h>
 #include <Engine/GameView/GameView.h>
 
 #include "../Controller/PongGameController.h"

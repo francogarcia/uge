@@ -25,7 +25,6 @@
 #include <Core/EntityComponent/Entity/Actor.h>
 #include <Core/EntityComponent/Component/IRenderableComponent.h>
 
-#include "ISceneRenderer.h"
 #include "Scene.h"
 
 namespace uge

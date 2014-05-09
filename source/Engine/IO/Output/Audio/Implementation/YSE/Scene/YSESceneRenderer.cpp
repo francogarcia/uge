@@ -31,16 +31,12 @@
 namespace uge
 {
 
-    YSESceneRenderer::YSESceneRenderer(IAudioSharedPointer pAudioRenderer,
-                                                     ResourceCache& resourceCache)
-        : IAudioSceneRenderer(pAudioRenderer),
-          m_pAudioRenderer(nullptr),
-          m_ResourceCache(resourceCache),
+    YSESceneRenderer::YSESceneRenderer()
+        : m_pAudioRenderer(nullptr),
+          m_pResourceCache(nullptr),
           m_pScene(nullptr)
     {
-        m_pAudioRenderer = std::dynamic_pointer_cast<YSEAudio>(pAudioRenderer);
 
-        RegisterResourceLoaders();
     }
 
     YSESceneRenderer::~YSESceneRenderer()
@@ -50,7 +46,18 @@ namespace uge
         m_pAudioRenderer = nullptr;
     }
 
-    void YSESceneRenderer::CreateScene(const IScene* const pScene)
+    bool YSESceneRenderer::vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache)
+    {
+        m_pResourceCache = pResourceCache;
+
+        m_pAudioRenderer = std::dynamic_pointer_cast<YSEAudio>(pSystem);
+
+        RegisterResourceLoaders();
+
+        return true;
+    }
+
+    void YSESceneRenderer::vCreateScene(const IScene* const pScene)
     {
         assert(pScene != nullptr && "Invalid scene!");
 
@@ -61,7 +68,7 @@ namespace uge
         AddSceneNodeToScene(pRootNode);
     }
 
-    const IScene* const YSESceneRenderer::GetScene() const
+    const IScene* const YSESceneRenderer::vGetScene() const
     {
         return m_pScene;
     }
@@ -147,9 +154,9 @@ namespace uge
     void YSESceneRenderer::RegisterResourceLoaders()
     {
         // OGG loader.
-        m_ResourceCache.RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW YSEOggResourceLoader));
+        m_pResourceCache->RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW YSEOggResourceLoader));
         // WAVE loader.
-        m_ResourceCache.RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW YSEWaveResourceLoader));
+        m_pResourceCache->RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW YSEWaveResourceLoader));
     }
 
     void YSESceneRenderer::AddSceneNodeToScene(SceneNodeSharedPointer pSceneNode)
@@ -188,7 +195,7 @@ namespace uge
             pActor->GetComponent<Component::YSEAudioComponent>(Component::YSEAudioComponent::g_ComponentName).lock();
 
         Resource resourceFile(pRenderComponent->GetFileName());
-        ResourceHandleSharedPointer pResource = m_ResourceCache.GetHandle(&resourceFile);
+        ResourceHandleSharedPointer pResource = m_pResourceCache->GetHandle(&resourceFile);
         uge::IAudioBuffer* pAudioBuffer = m_pAudioRenderer->vInitAudioBuffer(pResource);        
         pAudioBuffer->vSetVolume(pRenderComponent->GetVolume());
         pAudioBuffer->vSetProgress(pRenderComponent->GetInitialProgress());

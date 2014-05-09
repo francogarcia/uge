@@ -139,11 +139,8 @@
     <ClCompile Include="Core\PlayerProfile\PlayerProfile.cpp" />
     <ClCompile Include="Core\PlayerProfile\PlayerProfileManager.cpp" />
     <ClCompile Include="Core\Scene\CameraNode.cpp" />
-    <ClCompile Include="Core\Scene\ICameraRenderer.cpp" />
     <ClCompile Include="Core\Scene\IScene.cpp" />
     <ClCompile Include="Core\Scene\ISceneNode.cpp" />
-    <ClCompile Include="Core\Scene\ISceneNodeRenderer.cpp" />
-    <ClCompile Include="Core\Scene\ISceneRenderer.cpp" />
     <ClCompile Include="Core\Scene\Scene.cpp" />
     <ClCompile Include="Core\Scene\SceneEvents.cpp" />
     <ClCompile Include="Core\Scene\SceneNode.cpp" />
@@ -212,6 +209,10 @@
     <ClCompile Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.cpp" />
     <ClCompile Include="IO\Output\IOutput.cpp" />
     <ClCompile Include="IO\Output\OutputSystemFactory.cpp" />
+    <ClCompile Include="IO\Output\Scene\ICameraRenderer.cpp" />
+    <ClCompile Include="IO\Output\Scene\ISceneNodeRenderer.cpp" />
+    <ClCompile Include="IO\Output\Scene\ISceneRenderer.cpp" />
+    <ClCompile Include="IO\Output\Scene\SceneRendererFactory.cpp" />
     <ClCompile Include="Utilities\Debug\Logger.cpp" />
     <ClCompile Include="Core\EntityComponent\Entity\Actor.cpp" />
     <ClCompile Include="Core\EntityComponent\Entity\ActorFactory.cpp" />
@@ -335,11 +336,8 @@
     <ClInclude Include="Core\PlayerProfile\PlayerProfile.h" />
     <ClInclude Include="Core\PlayerProfile\PlayerProfileManager.h" />
     <ClInclude Include="Core\Scene\CameraNode.h" />
-    <ClInclude Include="Core\Scene\ICameraRenderer.h" />
     <ClInclude Include="Core\Scene\IScene.h" />
     <ClInclude Include="Core\Scene\ISceneNode.h" />
-    <ClInclude Include="Core\Scene\ISceneNodeRenderer.h" />
-    <ClInclude Include="Core\Scene\ISceneRenderer.h" />
     <ClInclude Include="Core\Scene\Scene.h" />
     <ClInclude Include="Core\Scene\SceneEvents.h" />
     <ClInclude Include="Core\Scene\SceneNode.h" />
@@ -410,6 +408,10 @@
     <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.h" />
     <ClInclude Include="IO\Output\IOutput.h" />
     <ClInclude Include="IO\Output\OutputSystemFactory.h" />
+    <ClInclude Include="IO\Output\Scene\ICameraRenderer.h" />
+    <ClInclude Include="IO\Output\Scene\ISceneNodeRenderer.h" />
+    <ClInclude Include="IO\Output\Scene\ISceneRenderer.h" />
+    <ClInclude Include="IO\Output\Scene\SceneRendererFactory.h" />
     <ClInclude Include="UGE.h" />
     <ClInclude Include="Utilities\Debug\Logger.h" />
     <ClInclude Include="Core\EntityComponent\Entity\Actor.h" />

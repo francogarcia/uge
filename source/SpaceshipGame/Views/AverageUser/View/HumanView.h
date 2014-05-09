@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -30,6 +30,7 @@
 #include <IO/Output/Audio/Implementation/OpenALSoft/Scene/OpenALSoftSceneNodeRenderer.h>
 #include <IO/Output/Audio/Implementation/OpenALSoft/Scene/OpenALSoftSceneRenderer.h>
 
+#include <Engine/GameSystem/OutputManager.h>
 #include <Engine/GameView/GameView.h>
 
 #include "../../EventFeedback/AuralFeedback.h"
@@ -43,15 +44,19 @@ namespace sg
     class HumanView : public uge::HumanGameView
     {
     public:
-        HumanView(uge::IGraphicsSharedPointer pGraphics,
-                  uge::IAudioSharedPointer pAudio,
+        HumanView(uge::OutputManager* pOutputManager,
                   uge::ResourceCache& resourceCache,
                   const uge::PlayerProfile& playerProfile)
-            : m_pGraphics(pGraphics), m_pAudio(pAudio),
-              m_ResourceCache(resourceCache), m_PlayerProfile(playerProfile),
+            : m_pOutputManager(pOutputManager),
+              m_ResourceCache(resourceCache),
+              m_PlayerProfile(playerProfile),
               m_bSetCameraTarget(false)
         {
-
+            // FIXME : change the magic numbers and remove the specific subsystem references.
+            uge::IGraphicsWeakPointer pWeakGraphics = m_pOutputManager->GetOutputSystem<uge::IGraphics>(2);//m_GraphicsID);
+            m_pGraphics = pWeakGraphics.lock();
+            uge::IAudioWeakPointer pWeakAudio = m_pOutputManager->GetOutputSystem<uge::IAudio>(1);//m_AudioID);
+            m_pAudio = pWeakAudio.lock();
         }
 
         ~HumanView()
@@ -77,12 +82,14 @@ namespace sg
             m_bSetCameraTarget = false;
 
             // Rendering subsystems.
-            uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer(m_pGraphics, m_ResourceCache));
+            uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer);
+            pOgreSceneRenderer->vInit(m_pGraphics, &m_ResourceCache);
             pOgreSceneRenderer->Load();
 
             m_GraphicalRendererID = vAddSceneRenderer(pOgreSceneRenderer);
 
-            uge::OpenALSoftSceneRendererSharedPointer pOpenALSoftSceneRenderer(LIB_NEW uge::OpenALSoftSceneRenderer(m_pAudio, m_ResourceCache));
+            uge::OpenALSoftSceneRendererSharedPointer pOpenALSoftSceneRenderer(LIB_NEW uge::OpenALSoftSceneRenderer);
+            pOpenALSoftSceneRenderer->vInit(m_pAudio, &m_ResourceCache);
             m_AuralRendererID = vAddSceneRenderer(pOpenALSoftSceneRenderer);
 
             m_FeedbackFactory.Init();
@@ -177,6 +184,8 @@ namespace sg
         }
 
     protected:
+        uge::OutputManager* m_pOutputManager;
+
         uge::IGraphicsSharedPointer m_pGraphics;
         uge::IAudioSharedPointer m_pAudio;
         uge::ResourceCache& m_ResourceCache;

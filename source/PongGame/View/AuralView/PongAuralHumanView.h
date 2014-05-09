@@ -37,14 +37,16 @@
 class PongAuralHumanView : public PongHumanView
 {
 public:
-    PongAuralHumanView(uge::IGraphicsSharedPointer pGraphics,
-                       uge::IAudioSharedPointer pAudio,
-                       uge::ResourceCache& resourceCache,
-                       const uge::PlayerProfile& playerProfile)
-        : m_pGraphics(pGraphics), m_pAudio(pAudio),
+    PongAuralHumanView(uge::OutputManager* pOutputManager,
+                           uge::ResourceCache& resourceCache,
+                           const uge::PlayerProfile& playerProfile)
+        : m_pOutputManager(pOutputManager), m_pGraphics(nullptr), m_pAudio(nullptr),
           m_ResourceCache(resourceCache), m_PlayerProfile(playerProfile)
     {
-
+        uge::IGraphicsWeakPointer pWeakGraphics = m_pOutputManager->GetOutputSystem<uge::IGraphics>(1);//m_GraphicsID);
+        m_pGraphics = pWeakGraphics.lock();
+        uge::IAudioWeakPointer pWeakAudio = m_pOutputManager->GetOutputSystem<uge::IAudio>(2);//m_AudioID);
+        m_pAudio = pWeakAudio.lock();
     }
 
     ~PongAuralHumanView()
@@ -65,13 +67,14 @@ protected:
             return false;
         }
 
-        uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer(m_pGraphics, m_ResourceCache));
+        uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer);
+        pOgreSceneRenderer->vInit(m_pGraphics, &m_ResourceCache);
         pOgreSceneRenderer->Load();
 
-        // TODO: save the renderer ID.
         m_GraphicalRendererID = vAddSceneRenderer(pOgreSceneRenderer);
 
-        uge::OpenALSoftSceneRendererSharedPointer pOpenALSoftSceneRenderer(LIB_NEW uge::OpenALSoftSceneRenderer(m_pAudio, m_ResourceCache));
+        uge::OpenALSoftSceneRendererSharedPointer pOpenALSoftSceneRenderer(LIB_NEW uge::OpenALSoftSceneRenderer);
+        pOpenALSoftSceneRenderer->vInit(m_pAudio, &m_ResourceCache);
         m_AuralRendererID = vAddSceneRenderer(pOpenALSoftSceneRenderer);
 
         m_FeedbackFactory.Init();
@@ -153,6 +156,8 @@ private:
     }
 
 private:
+    uge::OutputManager* m_pOutputManager;
+
     uge::IGraphicsSharedPointer m_pGraphics;
     uge::IAudioSharedPointer m_pAudio;
     uge::ResourceCache& m_ResourceCache;

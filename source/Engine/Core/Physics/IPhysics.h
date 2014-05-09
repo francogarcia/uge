@@ -33,7 +33,8 @@
 #include <IO/Output/Graphics/Graphics.h>
 #include <Utilities/Math/MathStd.h>
 
-#include <Core/Scene/ISceneRenderer.h>
+// FIXME: this is temporary and should be removed when there is a PhysicsDebugRenderer.
+#include <IO/Output/Scene/ISceneRenderer.h>
 
 #include "PhysicsEvents.h"
 

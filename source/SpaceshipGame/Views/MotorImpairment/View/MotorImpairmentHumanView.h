@@ -42,11 +42,12 @@ namespace sg
     class MotorImpairmentHumanView : public sg::HumanView
     {
     public:
-        MotorImpairmentHumanView(uge::IGraphicsSharedPointer pGraphics,
-                                 uge::IAudioSharedPointer pAudio,
+        MotorImpairmentHumanView(uge::OutputManager* pOutputManager,
                                  uge::ResourceCache& resourceCache,
                                  const uge::PlayerProfile& playerProfile)
-            : sg::HumanView(pGraphics, pAudio, resourceCache, playerProfile)
+            : sg::HumanView(pOutputManager,
+                            resourceCache,
+                            playerProfile)
         {
 
         }

@@ -40,11 +40,11 @@ namespace sg
     class AudioHumanView : public sg::HumanView
     {
     public:
-        AudioHumanView(uge::IGraphicsSharedPointer pGraphics,
-                       uge::IAudioSharedPointer pAudio,
+        AudioHumanView(uge::OutputManager* pOutputManager,
                        uge::ResourceCache& resourceCache,
                        const uge::PlayerProfile& playerProfile)
-            : sg::HumanView(pGraphics, pAudio, resourceCache,
+            : sg::HumanView(pOutputManager,
+                            resourceCache,
                             playerProfile)
         {
 

@@ -21,8 +21,9 @@
 #pragma once
 
 #include <Core/EntityComponent/Component/Implementation/OgreGraphicalComponent.h>
-#include <Core/Scene/ISceneNodeRenderer.h>
 #include <Core/Scene/SceneNode.h>
+
+#include <IO/Output/Scene/ISceneNodeRenderer.h>
 
 namespace uge
 {

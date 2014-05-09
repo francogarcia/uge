@@ -96,7 +96,7 @@ namespace uge
         ++m_TotalSceneRenderers;
         m_SceneRenderers.insert(std::make_pair(m_TotalSceneRenderers, pSceneRenderer));
 
-        pSceneRenderer->CreateScene(m_pScene);
+        pSceneRenderer->vCreateScene(m_pScene);
 
         if (m_pCamera != nullptr)
         {

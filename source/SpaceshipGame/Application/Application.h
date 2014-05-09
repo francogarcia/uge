@@ -149,13 +149,7 @@ namespace sg
             std::string profileName = m_CurrentPlayerProfile.GetProfileName();
             if (profileName == "Average User: Default")
             {
-                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
-                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
-                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
-                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
-
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(pGraphics,
-                                                                            pAudio,
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(&m_OutputManager,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -170,13 +164,7 @@ namespace sg
             }
             else if (profileName == "Motor Impairment")
             {
-                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
-                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
-                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
-                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
-
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(pGraphics,
-                                                                                           pAudio,
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::MotorImpairmentHumanView(&m_OutputManager,
                                                                                            m_Resources.GetResourceCache(),
                                                                                            m_PlayerProfiles.GetActiveProfile()));
 
@@ -191,13 +179,7 @@ namespace sg
             }
             else if (profileName == "Visual Impairment: Low Vision")
             {
-                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
-                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
-                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
-                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
-
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(pGraphics,
-                                                                            pAudio,
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(&m_OutputManager,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -212,13 +194,7 @@ namespace sg
             }
             else if (profileName == "Cognitive Impairment")
             {
-                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
-                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
-                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
-                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
-
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(pGraphics,
-                                                                            pAudio,
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::HumanView(&m_OutputManager,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
 
@@ -233,13 +209,7 @@ namespace sg
             }
             else if (profileName == "Visual Impairment: Blind")
             {
-                uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
-                uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
-                uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
-                uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
-
-                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(pGraphics,
-                                                                                 pAudio,
+                uge::IGameViewSharedPointer pGameView(LIB_NEW sg::AudioHumanView(&m_OutputManager,
                                                                                  m_Resources.GetResourceCache(),
                                                                                  m_PlayerProfiles.GetActiveProfile()));
 

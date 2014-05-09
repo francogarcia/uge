@@ -31,16 +31,12 @@
 namespace uge
 {
 
-    OpenALSoftSceneRenderer::OpenALSoftSceneRenderer(IAudioSharedPointer pAudioRenderer,
-                                                     ResourceCache& resourceCache)
-        : IAudioSceneRenderer(pAudioRenderer),
-          m_pAudioRenderer(nullptr),
-          m_ResourceCache(resourceCache),
+    OpenALSoftSceneRenderer::OpenALSoftSceneRenderer()
+        : m_pAudioRenderer(nullptr),
+          m_pResourceCache(nullptr),
           m_pScene(nullptr)
     {
-        m_pAudioRenderer = std::dynamic_pointer_cast<OpenALSoftAudio>(pAudioRenderer);
 
-        RegisterResourceLoaders();
     }
 
     OpenALSoftSceneRenderer::~OpenALSoftSceneRenderer()
@@ -50,7 +46,18 @@ namespace uge
         m_pAudioRenderer = nullptr;
     }
 
-    void OpenALSoftSceneRenderer::CreateScene(const IScene* const pScene)
+    bool OpenALSoftSceneRenderer::vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache)
+    {
+        m_pResourceCache = pResourceCache;
+
+        m_pAudioRenderer = std::dynamic_pointer_cast<OpenALSoftAudio>(pSystem);
+
+        RegisterResourceLoaders();
+
+        return true;
+    }
+
+    void OpenALSoftSceneRenderer::vCreateScene(const IScene* const pScene)
     {
         assert(pScene != nullptr && "Invalid scene!");
 
@@ -61,7 +68,7 @@ namespace uge
         AddSceneNodeToScene(pRootNode);
     }
 
-    const IScene* const OpenALSoftSceneRenderer::GetScene() const
+    const IScene* const OpenALSoftSceneRenderer::vGetScene() const
     {
         return m_pScene;
     }
@@ -147,9 +154,9 @@ namespace uge
     void OpenALSoftSceneRenderer::RegisterResourceLoaders()
     {
         // OGG loader.
-        m_ResourceCache.RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW OpenALSoftOggResourceLoader));
+        m_pResourceCache->RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW OpenALSoftOggResourceLoader));
         // WAVE loader.
-        m_ResourceCache.RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW OpenALSoftWaveResourceLoader));
+        m_pResourceCache->RegisterLoader(std::shared_ptr<IResourceLoader>(LIB_NEW OpenALSoftWaveResourceLoader));
     }
 
     void OpenALSoftSceneRenderer::AddSceneNodeToScene(SceneNodeSharedPointer pSceneNode)
@@ -188,7 +195,7 @@ namespace uge
             pActor->GetComponent<Component::OpenALSoftAudioComponent>(Component::OpenALSoftAudioComponent::g_ComponentName).lock();
 
         Resource resourceFile(pRenderComponent->GetFileName());
-        ResourceHandleSharedPointer pResource = m_ResourceCache.GetHandle(&resourceFile);
+        ResourceHandleSharedPointer pResource = m_pResourceCache->GetHandle(&resourceFile);
         uge::IAudioBuffer* pAudioBuffer = m_pAudioRenderer->vInitAudioBuffer(pResource);        
         pAudioBuffer->vSetVolume(pRenderComponent->GetVolume());
         pAudioBuffer->vSetProgress(pRenderComponent->GetInitialProgress());

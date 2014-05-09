@@ -20,13 +20,14 @@
 
 #pragma once
 
+#include <Core/Resource/ResourceCache.h>
 #include <Core/Scene/IScene.h>
 
 #include <IO/Output/IOutput.h>
 #include <IO/Output/Audio/Audio.h>
 #include <IO/Output/Graphics/Graphics.h>
 
-#include "ISceneNode.h"
+#include <Core/Scene/ISceneNode.h>
 
 namespace uge
 {
@@ -49,8 +50,10 @@ namespace uge
         ISceneRenderer();
         virtual ~ISceneRenderer();
 
-        virtual void CreateScene(const IScene* const pScene) = 0;
-        virtual const IScene* const GetScene() const = 0;
+        virtual bool vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache) = 0;
+
+        virtual void vCreateScene(const IScene* const pScene) = 0;
+        virtual const IScene* const vGetScene() const = 0;
 
         virtual bool vOnUpdate(const unsigned long timeElapsed) = 0;
         virtual bool vOnRender() = 0;
@@ -67,11 +70,13 @@ namespace uge
     class IAudioSceneRenderer : public ISceneRenderer
     {
     public:
-        IAudioSceneRenderer(IAudioSharedPointer pAudioRenderer);
+        IAudioSceneRenderer();
         virtual ~IAudioSceneRenderer();
 
-        virtual void CreateScene(const IScene* const pScene) = 0;
-        virtual const IScene* const GetScene() const = 0;
+        virtual bool vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache) = 0;;
+
+        virtual void vCreateScene(const IScene* const pScene) = 0;
+        virtual const IScene* const vGetScene() const = 0;
 
         virtual bool vOnUpdate(const unsigned long timeElapsed) = 0;
         virtual bool vOnRender() = 0;
@@ -90,11 +95,13 @@ namespace uge
     class IGraphicalSceneRenderer : public ISceneRenderer
     {
     public:
-        IGraphicalSceneRenderer(IGraphicsSharedPointer pGraphicalRenderer);
+        IGraphicalSceneRenderer();
         virtual ~IGraphicalSceneRenderer();
 
-        virtual void CreateScene(const IScene* const pScene) = 0;
-        virtual const IScene* const GetScene() const = 0;
+        virtual bool vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache) = 0;
+
+        virtual void vCreateScene(const IScene* const pScene) = 0;
+        virtual const IScene* const vGetScene() const = 0;
 
         virtual bool vOnUpdate(const unsigned long timeElapsed) = 0;
         virtual bool vOnRender() = 0;

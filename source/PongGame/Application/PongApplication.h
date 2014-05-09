@@ -116,19 +116,12 @@ public:
 
     uge::IGameViewSharedPointer CreateGameView()
     {
-        uge::IGraphicsWeakPointer pWeakGraphics = m_OutputManager.GetOutputSystem<uge::IGraphics>(m_GraphicsID);
-        uge::IGraphicsSharedPointer pGraphics = pWeakGraphics.lock();
-        uge::IAudioWeakPointer pWeakAudio = m_OutputManager.GetOutputSystem<uge::IAudio>(m_AudioID);
-        uge::IAudioSharedPointer pAudio = pWeakAudio.lock();
-
 #if PONG_GRAPHICAL_PROFILE
-        uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(pGraphics,
-                                                                             pAudio,
+        uge::IGameViewSharedPointer pGameView(LIB_NEW PongGraphicalHumanView(&m_OutputManager,
                                                                              m_Resources.GetResourceCache(),
                                                                              m_PlayerProfiles.GetActiveProfile()));
 #elif PONG_AURAL_PROFILE
-        uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(pGraphics,
-                                                                         pAudio,
+        uge::IGameViewSharedPointer pGameView(LIB_NEW PongAuralHumanView(&m_OutputManager,
                                                                          m_Resources.GetResourceCache(),
                                                                          m_PlayerProfiles.GetActiveProfile()));
 #endif

@@ -54,6 +54,7 @@ namespace uge
     IOutput* OutputSystemFactory::CreateOutputSubsystem(const std::string& systemName, const OutputSettings& outputSettings)
     {
         IOutput* pSystem = m_Factory.Create(systemName);
+        LOG_ASSERT(pSystem != nullptr && "Could not create the output subsystem!");
         if (!pSystem->vInit(outputSettings))
         {
             LOG_ERROR("Error initializing the output system!");

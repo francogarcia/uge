@@ -21,10 +21,10 @@
 #pragma once
 
 #include <Core/EntityComponent/Component/Implementation/YSEAudioComponent.h>
-#include <Core/Scene/ISceneNodeRenderer.h>
 #include <Core/Scene/SceneNode.h>
 
 #include <IO/Output/Audio/Implementation/YSE/YSEAudio.h>
+#include <IO/Output/Scene/ISceneNodeRenderer.h>
 
 namespace uge
 {

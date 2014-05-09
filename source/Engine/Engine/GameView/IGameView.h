@@ -31,6 +31,8 @@
 
 #include <Core/Scene/IScene.h>
 
+#include <IO/Output/Scene/ISceneRenderer.h>
+
 namespace uge
 {
 

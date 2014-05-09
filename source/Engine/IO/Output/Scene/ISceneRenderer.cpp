@@ -34,7 +34,7 @@ namespace uge
 
     }
 
-    IAudioSceneRenderer::IAudioSceneRenderer(IAudioSharedPointer pAudioRenderer)
+    IAudioSceneRenderer::IAudioSceneRenderer()
     {
 
     }
@@ -44,7 +44,7 @@ namespace uge
 
     }
 
-    IGraphicalSceneRenderer::IGraphicalSceneRenderer(IGraphicsSharedPointer pGraphicalRenderer)
+    IGraphicalSceneRenderer::IGraphicalSceneRenderer()
     {
 
     }

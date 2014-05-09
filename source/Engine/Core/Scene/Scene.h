@@ -31,7 +31,6 @@
 
 #include "CameraNode.h"
 #include "IScene.h"
-#include "ISceneRenderer.h"
 #include "SceneNode.h"
 
 namespace uge

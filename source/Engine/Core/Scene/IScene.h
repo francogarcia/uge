@@ -30,7 +30,6 @@
 #pragma once
 
 #include "ISceneNode.h"
-#include "ISceneRenderer.h"
 
 namespace uge
 {

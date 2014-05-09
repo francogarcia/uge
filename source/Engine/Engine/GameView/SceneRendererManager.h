@@ -24,6 +24,8 @@
 #include <Core/Scene/Scene.h>
 #include <Core/Scene/SceneEvents.h>
 
+#include <IO/Output/Scene/ISceneRenderer.h>
+
 namespace uge
 {
     class SceneRendererManager

@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -29,17 +29,13 @@
 
 namespace uge
 {
-    OgreSceneRenderer::OgreSceneRenderer(IGraphicsSharedPointer pGraphicalRenderer, ResourceCache& resourceCache)
-        : IGraphicalSceneRenderer(pGraphicalRenderer),
-          m_pGraphicalRenderer(pGraphicalRenderer),
-          m_ResourceCache(resourceCache),
+    OgreSceneRenderer::OgreSceneRenderer()
+        : m_pGraphicalRenderer(nullptr),
+          m_pResourceCache(nullptr),
           m_pScene(nullptr),
           m_pOgreRoot(nullptr), m_pOgreSceneManager(nullptr)
     {
-        std::shared_ptr<OgreGraphics> pOgreRenderer = std::dynamic_pointer_cast<OgreGraphics>(pGraphicalRenderer);
-        m_pOgreRoot = pOgreRenderer->GetOgreRoot();
-
-        m_pOgreSceneManager = m_pOgreRoot->createSceneManager(Ogre::ST_GENERIC);
+;
     }
 
     OgreSceneRenderer::~OgreSceneRenderer()
@@ -50,7 +46,19 @@ namespace uge
         m_pOgreRoot = nullptr;
     }
 
-    void OgreSceneRenderer::CreateScene(const IScene* const pScene)
+    bool OgreSceneRenderer::vInit(IOutputSharedPointer pSystem, ResourceCache* pResourceCache)
+    {
+        m_pResourceCache = pResourceCache;
+
+        m_pGraphicalRenderer = std::dynamic_pointer_cast<OgreGraphics>(pSystem);
+        m_pOgreRoot = m_pGraphicalRenderer->GetOgreRoot();
+
+        m_pOgreSceneManager = m_pOgreRoot->createSceneManager(Ogre::ST_GENERIC);
+
+        return true;
+    }
+
+    void OgreSceneRenderer::vCreateScene(const IScene* const pScene)
     {
         assert(pScene != nullptr && "Invalid scene!");
 
@@ -61,7 +69,7 @@ namespace uge
         AddSceneNodeToScene(pRootNode, m_pOgreSceneManager->getRootSceneNode());
     }
 
-    const IScene* const OgreSceneRenderer::GetScene() const
+    const IScene* const OgreSceneRenderer::vGetScene() const
     {
         return m_pScene;
     }
@@ -109,7 +117,7 @@ namespace uge
         if (nodeIterator == m_OgreSceneNodes.end())
         {
             // Actor does not have the component.
-             //assert(nodeIterator != m_SceneNodes.end() && "Actor not found!");
+            //assert(nodeIterator != m_SceneNodes.end() && "Actor not found!");
 
             return true;
         }

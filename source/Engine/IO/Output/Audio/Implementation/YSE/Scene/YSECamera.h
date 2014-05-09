@@ -20,8 +20,9 @@
 
 #pragma once
 
-#include <Core/Scene/ICameraRenderer.h>
 #include <Core/Scene/CameraNode.h>
+
+#include <IO/Output/Scene/ICameraRenderer.h>
 
 namespace uge
 {
