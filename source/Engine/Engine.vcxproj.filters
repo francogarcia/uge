@@ -437,8 +437,8 @@
     <ClCompile Include="IO\Output\Scene\ISceneRenderer.cpp">
       <Filter>IO\Output\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="IO\Output\Scene\SceneRendererFactory.cpp">
-      <Filter>IO\Output\Scene</Filter>
+    <ClCompile Include="IO\Output\SceneRendererFactory.cpp">
+      <Filter>IO\Output</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -918,11 +918,11 @@
     <ClInclude Include="IO\Output\Scene\ISceneRenderer.h">
       <Filter>IO\Output\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="IO\Output\Scene\SceneRendererFactory.h">
-      <Filter>IO\Output\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="IO\Output\Graphics\Implementation\Ogre3D\Scene\OgreSceneRenderer.h">
       <Filter>IO\Output\Graphics\Implementation\Ogre3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Output\SceneRendererFactory.h">
+      <Filter>IO\Output</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

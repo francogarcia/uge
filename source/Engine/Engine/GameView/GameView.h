@@ -27,6 +27,8 @@
 #include <Engine/GameLogic/GameState/BaseGameState.h>
 #include <Engine/GameController/GameController.h>
 
+#include <IO/Output/SceneRendererFactory.h>
+
 #include "IGameView.h"
 #include "SceneRendererManager.h"
 
@@ -83,6 +85,7 @@ namespace uge
 
         IGameState* m_pGameState;
 
+        SceneRendererFactory* m_pSceneRendererFactory;
         SceneRendererManager m_SceneRenderManager;
         ICameraNodeSharedPointer m_pCamera;
 

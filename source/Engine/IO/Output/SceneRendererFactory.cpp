@@ -50,9 +50,9 @@ namespace uge
 
     void SceneRendererFactory::Init()
     {
-        m_Factory.Register<OgreSceneRenderer>(StringToLower(OgreGraphics::g_Name));
-        m_Factory.Register<OpenALSoftSceneRenderer>(StringToLower(OpenALSoftAudio::g_Name));
-        m_Factory.Register<YSESceneRenderer>(StringToLower(YSEAudio::g_Name));
+        m_Factory.Register<OgreSceneRenderer>(OgreGraphics::g_Name);
+        m_Factory.Register<OpenALSoftSceneRenderer>(OpenALSoftAudio::g_Name);
+        m_Factory.Register<YSESceneRenderer>(YSEAudio::g_Name);
 
         vInitFactory();
     }

@@ -50,7 +50,7 @@ namespace uge
     bool OutputManager::vDestroy()
     {
         bool bSuccess = true;
-        for (auto system : m_Systems)
+        for (auto& system : m_Systems)
         {
             IOutputSharedPointer pSystem = system.second.pSystem;
             bool bSystemSuccess = pSystem->vDestroy();
@@ -72,7 +72,7 @@ namespace uge
     bool OutputManager::vUpdate(const unsigned long timeElapsed)
     {
         bool bSuccess = true;
-        for (auto system : m_Systems)
+        for (auto& system : m_Systems)
         {
             IOutputSharedPointer pSystem = system.second.pSystem;
             bool bSystemSuccess = pSystem->vUpdate(timeElapsed);
@@ -90,7 +90,7 @@ namespace uge
     bool OutputManager::vPreRender()
     {
         bool bSuccess = true;
-        for (auto system : m_Systems)
+        for (auto& system : m_Systems)
         {
             IOutputSharedPointer pSystem = system.second.pSystem;
             bool bSystemSuccess = pSystem->vPreRender();
@@ -108,7 +108,7 @@ namespace uge
     bool OutputManager::vRender()
     {
         bool bSuccess = true;
-        for (auto system : m_Systems)
+        for (auto& system : m_Systems)
         {
             IOutputSharedPointer pSystem = system.second.pSystem;
             bool bSystemSuccess = pSystem->vRender();
@@ -126,7 +126,7 @@ namespace uge
     bool OutputManager::vPostRender()
     {
         bool bSuccess = true;
-        for (auto system : m_Systems)
+        for (auto& system : m_Systems)
         {
             IOutputSharedPointer pSystem = system.second.pSystem;
             bool bSystemSuccess = pSystem->vPostRender();
@@ -159,7 +159,7 @@ namespace uge
 
     void OutputManager::RemoveOutputSystem(const OutputSystemID systemID)
     {
-        auto system(m_Systems.find(systemID));
+        auto& system(m_Systems.find(systemID));
         if (system == m_Systems.end())
         {
             return;
@@ -171,7 +171,7 @@ namespace uge
 
     IOutputWeakPointer OutputManager::GetRawOutputSystem(const OutputSystemID systemID)
     {
-        auto system(m_Systems.find(systemID));
+        auto& system(m_Systems.find(systemID));
         if (system == m_Systems.end())
         {
             return IOutputWeakPointer();
@@ -181,6 +181,35 @@ namespace uge
         assert(pSystem != nullptr);
 
         return IOutputWeakPointer(pSystem);
+    }
+
+    IOutputWeakPointer OutputManager::GetRawOutputSystem(const OutputType systemType)
+    {
+        for (auto& system : m_Systems)
+        {
+            OutputType outputType = system.second.type;
+            if (systemType == outputType)
+            {
+                IOutputSharedPointer pSystem = system.second.pSystem;
+                assert(pSystem != nullptr);
+
+                return IOutputWeakPointer(pSystem);
+            }
+        }
+
+        LOG_ERROR("No system was found!");
+
+        return IOutputWeakPointer();
+    }
+
+    const OutputManager::OutputSubsystemMap& OutputManager::GetOutputSystems() const
+    {
+        return m_Systems;
+    }
+
+    OutputManager::OutputSubsystemMap& OutputManager::GetOutputSystems()
+    {
+        return m_Systems;
     }
 
     OutputSystemID OutputManager::GetNextSystemID()

@@ -55,6 +55,9 @@ namespace uge
 
         m_pOgreSceneManager = m_pOgreRoot->createSceneManager(Ogre::ST_GENERIC);
 
+        // FIXME : refactor and remove this.
+        Load();
+
         return true;
     }
 

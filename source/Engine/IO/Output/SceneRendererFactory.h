@@ -24,9 +24,9 @@
 
 #include <Utilities/PatternTemplates.h>
 
-#include "../IOutput.h"
+#include "Scene/ISceneRenderer.h"
 
-#include "ISceneRenderer.h"
+#include "IOutput.h"
 
 namespace uge
 {

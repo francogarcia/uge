@@ -25,6 +25,7 @@
 
 namespace uge
 {
+    // TODO : refactor to output stimuli.
     enum class OutputType : unsigned char
     {
         Graphical,

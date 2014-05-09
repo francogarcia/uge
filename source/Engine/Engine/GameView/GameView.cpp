@@ -31,7 +31,7 @@ namespace uge
 
     HumanGameView::HumanGameView() : m_ActorID(Actor::NULL_ACTOR_ID),
         m_pGameState(nullptr), m_GameViewID(IGameView::NULL_GAME_VIEW_ID),
-        m_pTaskManager(nullptr), m_bIsPaused(false)
+        m_pTaskManager(nullptr), m_bIsPaused(false), m_pSceneRendererFactory(nullptr)
     {
 
     }
@@ -50,6 +50,13 @@ namespace uge
         m_pTaskManager = LIB_NEW TaskManager;
 
         RegisterAllDelegates();
+
+        if (m_pSceneRendererFactory == nullptr)
+        {
+            m_pSceneRendererFactory = LIB_NEW SceneRendererFactory;
+        }
+
+        m_pSceneRendererFactory->Init();
 
         if (!m_SceneRenderManager.Init(pScene))
         {

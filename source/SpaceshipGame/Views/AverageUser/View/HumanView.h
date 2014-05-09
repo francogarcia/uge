@@ -52,10 +52,9 @@ namespace sg
               m_PlayerProfile(playerProfile),
               m_bSetCameraTarget(false)
         {
-            // FIXME : change the magic numbers and remove the specific subsystem references.
-            uge::IGraphicsWeakPointer pWeakGraphics = m_pOutputManager->GetOutputSystem<uge::IGraphics>(2);//m_GraphicsID);
+            uge::IGraphicsWeakPointer pWeakGraphics = m_pOutputManager->GetOutputSystem<uge::IGraphics>(uge::OutputType::Graphical);
             m_pGraphics = pWeakGraphics.lock();
-            uge::IAudioWeakPointer pWeakAudio = m_pOutputManager->GetOutputSystem<uge::IAudio>(1);//m_AudioID);
+            uge::IAudioWeakPointer pWeakAudio = m_pOutputManager->GetOutputSystem<uge::IAudio>(uge::OutputType::Aural);
             m_pAudio = pWeakAudio.lock();
         }
 
@@ -66,12 +65,16 @@ namespace sg
 
         uge::ISceneRendererSharedPointer GetPhysicsDebugRenderer()
         {
-            return vGetSceneRenderer(m_GraphicalRendererID);
+            return vGetSceneRenderer(m_SceneRenderers[uge::OutputType::Graphical]);
         }
 
     protected:
         virtual bool vInit(uge::IScene* pScene) override
         {
+            // Create factory before initializing the base class.
+            // Otherwise, it will use the default implementation.
+            m_pSceneRendererFactory = LIB_NEW uge::SceneRendererFactory;
+
             if (!uge::HumanGameView::vInit(pScene))
             {
                 return false;
@@ -82,15 +85,14 @@ namespace sg
             m_bSetCameraTarget = false;
 
             // Rendering subsystems.
-            uge::OgreSceneRendererSharedPointer pOgreSceneRenderer(LIB_NEW uge::OgreSceneRenderer);
-            pOgreSceneRenderer->vInit(m_pGraphics, &m_ResourceCache);
-            pOgreSceneRenderer->Load();
+            for (auto& subsystem : m_pOutputManager->GetOutputSystems())
+            {
+                uge::IOutputSharedPointer pSystem = subsystem.second.pSystem;
+                uge::ISceneRendererSharedPointer pSceneRenderer(m_pSceneRendererFactory->CreateSceneRenderer(pSystem, &m_ResourceCache));
 
-            m_GraphicalRendererID = vAddSceneRenderer(pOgreSceneRenderer);
-
-            uge::OpenALSoftSceneRendererSharedPointer pOpenALSoftSceneRenderer(LIB_NEW uge::OpenALSoftSceneRenderer);
-            pOpenALSoftSceneRenderer->vInit(m_pAudio, &m_ResourceCache);
-            m_AuralRendererID = vAddSceneRenderer(pOpenALSoftSceneRenderer);
+                uge::SceneRendererID sceneRendererID = vAddSceneRenderer(pSceneRenderer);
+                m_SceneRenderers.insert(std::make_pair(pSystem->vGetOutputType(), sceneRendererID));
+            }
 
             m_FeedbackFactory.Init();
 
@@ -185,13 +187,11 @@ namespace sg
 
     protected:
         uge::OutputManager* m_pOutputManager;
+        std::map<uge::OutputType, uge::SceneRendererID> m_SceneRenderers;
 
         uge::IGraphicsSharedPointer m_pGraphics;
         uge::IAudioSharedPointer m_pAudio;
         uge::ResourceCache& m_ResourceCache;
-
-        uge::SceneRendererID m_AuralRendererID;
-        uge::SceneRendererID m_GraphicalRendererID;
 
         uge::PlayerProfile m_PlayerProfile;
 

@@ -33,6 +33,14 @@ namespace uge
     class OutputManager
     {
     public:
+        struct OutputSystem
+        {
+            OutputType type;
+            IOutputSharedPointer pSystem;
+        };
+
+        typedef std::map<OutputSystemID, OutputSystem> OutputSubsystemMap;
+
         OutputManager();
         virtual ~OutputManager();
 
@@ -53,18 +61,19 @@ namespace uge
         template <class OutputSystemType>
         std::weak_ptr<OutputSystemType> GetOutputSystem(const OutputSystemID systemID);
 
+        IOutputWeakPointer GetRawOutputSystem(const OutputType systemType);
+        template <class OutputSystemType>
+        std::weak_ptr<OutputSystemType> GetOutputSystem(const OutputType systemType);
+
+        const OutputSubsystemMap& GetOutputSystems() const;
+        OutputSubsystemMap& GetOutputSystems();
+
     private:
         OutputSystemID GetNextSystemID();
 
-    private:
-        struct OutputSystem
-        {
-            OutputType type;
-            IOutputSharedPointer pSystem;
-        };
-
+    protected:
         // Systems
-        std::map<OutputSystemID, OutputSystem> m_Systems;
+         OutputSubsystemMap m_Systems;
 
         OutputSystemID m_LastSystemID;
     };
@@ -84,4 +93,21 @@ namespace uge
 
         return std::weak_ptr<OutputSystemType>(pSystem);
     }
+
+    template <class OutputSystemType>
+    std::weak_ptr<OutputSystemType> OutputManager::GetOutputSystem(const OutputType systemType)
+    {
+        IOutputWeakPointer pWeakSystem = GetRawOutputSystem(systemType);
+        if (pWeakSystem.expired())
+        {
+            return std::weak_ptr<OutputSystemType>();
+        }
+
+        // There is no way to cast a weak pointer from one type to another.
+        // Convert to shared pointer first then cast it to the template type.
+        std::shared_ptr<OutputSystemType> pSystem = std::static_pointer_cast<OutputSystemType>(pWeakSystem.lock());
+
+        return std::weak_ptr<OutputSystemType>(pSystem);
+    }
+
 }
