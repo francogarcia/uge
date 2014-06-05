@@ -20,31 +20,12 @@
 
 #include "PongGameStd.h"
 
-// #include <vld.h>
+#include "GameEvents.h"
 
-#define SG_UGE_ENABLE_PHYSICS  1
-#define SG_UGE_DEBUG_PHYSICS   1
-
-#define SG_USE_DEVELOPMENT_RESOURCE_FILE 1
-
-// Pong specific headers
-#include "Application/Application.h"
-
-#include <Utilities/Debug/Logger.h>
-
-int main()
+namespace pg
 {
-    uge::debug::log::Init("data/debug/LogConfig.xml");
-    //LOG_INFO("Game started.");
-
-    pg::Application game;
-    game.vInit();
-    game.vRun();
-    game.vDestroy();
-
-    //LOG_INFO("Game finished.");
-    uge::debug::log::Destroy();
-
-    return 0;
+    const uge::EventType AlienDestroyed::sk_EventType(0xe91b0343);
+    const uge::EventType FireProjectile::sk_EventType(0xd8c91a61);
+    const uge::EventType MoveActor::sk_EventType(0x9c4753d0);
+    const uge::EventType StopActor::sk_EventType(0xb35753b9);
 }
-

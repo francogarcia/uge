@@ -18,33 +18,23 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#include "PongGameStd.h"
+#pragma once
 
-// #include <vld.h>
+#include <IO/Input/InputMapping/InputTypes.h>
 
-#define SG_UGE_ENABLE_PHYSICS  1
-#define SG_UGE_DEBUG_PHYSICS   1
-
-#define SG_USE_DEVELOPMENT_RESOURCE_FILE 1
-
-// Pong specific headers
-#include "Application/Application.h"
-
-#include <Utilities/Debug/Logger.h>
-
-int main()
+enum class uge::InputMapping::Action : unsigned int
 {
-    uge::debug::log::Init("data/debug/LogConfig.xml");
-    //LOG_INFO("Game started.");
+    FireBullet,
+    FireBomb,
+};
 
-    pg::Application game;
-    game.vInit();
-    game.vRun();
-    game.vDestroy();
+enum class uge::InputMapping::State : unsigned int
+{
+    PlayerMoveRight,
+    PlayerMoveLeft,
+};
 
-    //LOG_INFO("Game finished.");
-    uge::debug::log::Destroy();
+enum class uge::InputMapping::Range : unsigned int
+{
 
-    return 0;
-}
-
+};

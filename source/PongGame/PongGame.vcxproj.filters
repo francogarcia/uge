@@ -1,124 +1,150 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Logic">
-      <UniqueIdentifier>{be0cd52d-ebd6-47c7-ade5-690dbfe767b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Events">
-      <UniqueIdentifier>{1aec65e6-1553-4122-8b7d-998164e99b43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View">
-      <UniqueIdentifier>{324ac6e9-d41a-4bfb-a4ef-ccad104260b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application">
-      <UniqueIdentifier>{8b133618-8953-4b93-b231-9c421a302e95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controller">
-      <UniqueIdentifier>{5bd4470b-fe0f-4e35-aeae-e8fac49990d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View\AuralView">
-      <UniqueIdentifier>{18e78f9a-0a00-4a45-85e8-0f691596121b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View\GraphicalView">
-      <UniqueIdentifier>{c35884b3-3c17-4612-af7f-7cc747145964}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View\AuralView\Events">
-      <UniqueIdentifier>{7a2f07cf-0a42-469a-b968-4f9f37971eac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View\GraphicalView\Events">
-      <UniqueIdentifier>{270e0e95-afa8-4513-819e-47ca12afadbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="View\EventFeedback">
-      <UniqueIdentifier>{e261fb21-e8c4-4f73-abd9-1491c15619ef}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="PongGameStd.cpp" />
-    <ClCompile Include="Events\PongEvents.cpp">
-      <Filter>Events</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Logic\PongStates.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\PongGameStateFactory.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\PongApplication.cpp">
+    <ClCompile Include="Application\Application.cpp">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="View\PongHumanView.cpp">
-      <Filter>View</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\PongGameLogic.cpp">
+    <ClCompile Include="Logic\GameLogic.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\PongGameController.cpp">
-      <Filter>Controller</Filter>
+    <ClCompile Include="Logic\Events\GameEvents.cpp">
+      <Filter>Logic\Events</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\PongGameInputTypes.cpp">
-      <Filter>Controller</Filter>
+    <ClCompile Include="Logic\Components\ActorFactory.cpp">
+      <Filter>Logic\Components</Filter>
     </ClCompile>
-    <ClCompile Include="View\AuralView\Events\AuralFeedback.cpp">
-      <Filter>View\AuralView\Events</Filter>
+    <ClCompile Include="Interaction\Output\HumanView.cpp">
+      <Filter>Interaction\Output</Filter>
     </ClCompile>
-    <ClCompile Include="View\GraphicalView\Events\GraphicalFeedback.cpp">
-      <Filter>View\GraphicalView\Events</Filter>
+    <ClCompile Include="Interaction\Input\GameController.cpp">
+      <Filter>Interaction\Input</Filter>
     </ClCompile>
-    <ClCompile Include="View\GraphicalView\PongGraphicalHumanView.cpp">
-      <Filter>View\GraphicalView</Filter>
+    <ClCompile Include="Interaction\Input\InputTypes.cpp">
+      <Filter>Interaction\Input</Filter>
     </ClCompile>
-    <ClCompile Include="View\AuralView\PongAuralHumanView.cpp">
-      <Filter>View\AuralView</Filter>
+    <ClCompile Include="Logic\GameStates\GameStateFactory.cpp">
+      <Filter>Logic\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="View\EventFeedback\PongFeedbackFactory.cpp">
-      <Filter>View\EventFeedback</Filter>
+    <ClCompile Include="Logic\GameStates\State\Exiting.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\GameOver.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\Initializing.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\MainMenu.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\NewGame.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\Paused.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\Running.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\GameStates\State\SplashScreen.cpp">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Interaction\Output\EventFeedback\AuralFeedback.cpp">
+      <Filter>Interaction\Output\EventFeedback</Filter>
+    </ClCompile>
+    <ClCompile Include="Interaction\Output\EventFeedback\FeedbackFactory.cpp">
+      <Filter>Interaction\Output\EventFeedback</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="PongGameStd.h" />
-    <ClInclude Include="Events\PongEvents.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\PongStates.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\PongGameStateFactory.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\PongApplication.h">
+    <ClInclude Include="Application\Application.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="View\PongHumanView.h">
-      <Filter>View</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\PongGameLogic.h">
+    <ClInclude Include="Logic\GameLogic.h">
       <Filter>Logic</Filter>
     </ClInclude>
-    <ClInclude Include="Controller\PongGameController.h">
-      <Filter>Controller</Filter>
+    <ClInclude Include="Logic\Events\GameEvents.h">
+      <Filter>Logic\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Controller\PongGameInputTypes.h">
-      <Filter>Controller</Filter>
+    <ClInclude Include="Logic\Components\ActorFactory.h">
+      <Filter>Logic\Components</Filter>
     </ClInclude>
-    <ClInclude Include="View\AuralView\Events\AuralFeedback.h">
-      <Filter>View\AuralView\Events</Filter>
+    <ClInclude Include="Interaction\Output\HumanView.h">
+      <Filter>Interaction\Output</Filter>
     </ClInclude>
-    <ClInclude Include="View\GraphicalView\Events\GraphicalFeedback.h">
-      <Filter>View\GraphicalView\Events</Filter>
+    <ClInclude Include="Interaction\Input\GameController.h">
+      <Filter>Interaction\Input</Filter>
     </ClInclude>
-    <ClInclude Include="View\GraphicalView\PongGraphicalHumanView.h">
-      <Filter>View\GraphicalView</Filter>
+    <ClInclude Include="Interaction\Input\InputTypes.h">
+      <Filter>Interaction\Input</Filter>
     </ClInclude>
-    <ClInclude Include="View\AuralView\PongAuralHumanView.h">
-      <Filter>View\AuralView</Filter>
+    <ClInclude Include="Logic\GameStates\GameStateFactory.h">
+      <Filter>Logic\GameStates</Filter>
     </ClInclude>
-    <ClInclude Include="View\EventFeedback\PongFeedbackFactory.h">
-      <Filter>View\EventFeedback</Filter>
+    <ClInclude Include="Logic\GameStates\State\Exiting.h">
+      <Filter>Logic\GameStates\State</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\GameOver.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\Initializing.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\MainMenu.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\NewGame.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\Paused.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\Running.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\GameStates\State\SplashScreen.h">
+      <Filter>Logic\GameStates\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Interaction\Output\EventFeedback\AuralFeedback.h">
+      <Filter>Interaction\Output\EventFeedback</Filter>
+    </ClInclude>
+    <ClInclude Include="Interaction\Output\EventFeedback\FeedbackFactory.h">
+      <Filter>Interaction\Output\EventFeedback</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{7261320a-f325-40bf-be0d-b266c9276788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interaction">
+      <UniqueIdentifier>{f2424cd0-2d1b-462d-9c17-00e2f2bbe6d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{a710b4dd-e18f-4475-9c24-173c83d6b824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interaction\Input">
+      <UniqueIdentifier>{dbb089f0-577b-4d6f-b705-f208b9c83e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interaction\Output">
+      <UniqueIdentifier>{4af216c7-dad9-45d6-a06a-b8d5430856e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Components">
+      <UniqueIdentifier>{d535333c-c9cd-416a-a80d-9f7ae2e40301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Events">
+      <UniqueIdentifier>{a7a12247-eeab-4498-b9e8-a6d6d1b96c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interaction\Output\EventFeedback">
+      <UniqueIdentifier>{f44de37c-e712-4613-8fc6-31ab48ddbdb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\GameStates">
+      <UniqueIdentifier>{0bdb3ff5-4b71-476f-90bc-26e1e2563262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\GameStates\State">
+      <UniqueIdentifier>{e9fa2733-d309-46d1-b9c3-8c14838b0a68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

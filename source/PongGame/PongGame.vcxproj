@@ -100,19 +100,24 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Application\PongApplication.cpp" />
-    <ClCompile Include="Controller\PongGameController.cpp" />
-    <ClCompile Include="Controller\PongGameInputTypes.cpp" />
-    <ClCompile Include="Events\PongEvents.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Logic\PongGameLogic.cpp" />
-    <ClCompile Include="Logic\PongGameStateFactory.cpp" />
-    <ClCompile Include="Logic\PongStates.cpp" />
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Interaction\Input\GameController.cpp" />
+    <ClCompile Include="Interaction\Input\InputTypes.cpp" />
+    <ClCompile Include="Interaction\Output\EventFeedback\AuralFeedback.cpp" />
+    <ClCompile Include="Interaction\Output\EventFeedback\FeedbackFactory.cpp" />
+    <ClCompile Include="Interaction\Output\HumanView.cpp" />
+    <ClCompile Include="Logic\Components\ActorFactory.cpp" />
+    <ClCompile Include="Logic\Events\GameEvents.cpp" />
+    <ClCompile Include="Logic\GameLogic.cpp" />
+    <ClCompile Include="Logic\GameStates\GameStateFactory.cpp" />
+    <ClCompile Include="Logic\GameStates\State\Exiting.cpp" />
+    <ClCompile Include="Logic\GameStates\State\GameOver.cpp" />
+    <ClCompile Include="Logic\GameStates\State\Initializing.cpp" />
+    <ClCompile Include="Logic\GameStates\State\MainMenu.cpp" />
+    <ClCompile Include="Logic\GameStates\State\NewGame.cpp" />
+    <ClCompile Include="Logic\GameStates\State\Paused.cpp" />
+    <ClCompile Include="Logic\GameStates\State\Running.cpp" />
+    <ClCompile Include="Logic\GameStates\State\SplashScreen.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -121,32 +126,27 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="View\AuralView\Events\AuralFeedback.cpp" />
-    <ClCompile Include="View\AuralView\PongAuralHumanView.cpp" />
-    <ClCompile Include="View\EventFeedback\PongFeedbackFactory.cpp" />
-    <ClCompile Include="View\GraphicalView\Events\GraphicalFeedback.cpp" />
-    <ClCompile Include="View\GraphicalView\PongGraphicalHumanView.cpp" />
-    <ClCompile Include="View\PongHumanView.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application\PongApplication.h" />
-    <ClInclude Include="Controller\PongGameController.h" />
-    <ClInclude Include="Controller\PongGameInputTypes.h" />
-    <ClInclude Include="Events\PongEvents.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Logic\PongGameLogic.h" />
-    <ClInclude Include="Logic\PongGameStateFactory.h" />
-    <ClInclude Include="Logic\PongStates.h" />
+    <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Interaction\Input\GameController.h" />
+    <ClInclude Include="Interaction\Input\InputTypes.h" />
+    <ClInclude Include="Interaction\Output\EventFeedback\AuralFeedback.h" />
+    <ClInclude Include="Interaction\Output\EventFeedback\FeedbackFactory.h" />
+    <ClInclude Include="Interaction\Output\HumanView.h" />
+    <ClInclude Include="Logic\Components\ActorFactory.h" />
+    <ClInclude Include="Logic\Events\GameEvents.h" />
+    <ClInclude Include="Logic\GameLogic.h" />
+    <ClInclude Include="Logic\GameStates\GameStateFactory.h" />
+    <ClInclude Include="Logic\GameStates\State\Exiting.h" />
+    <ClInclude Include="Logic\GameStates\State\GameOver.h" />
+    <ClInclude Include="Logic\GameStates\State\Initializing.h" />
+    <ClInclude Include="Logic\GameStates\State\MainMenu.h" />
+    <ClInclude Include="Logic\GameStates\State\NewGame.h" />
+    <ClInclude Include="Logic\GameStates\State\Paused.h" />
+    <ClInclude Include="Logic\GameStates\State\Running.h" />
+    <ClInclude Include="Logic\GameStates\State\SplashScreen.h" />
     <ClInclude Include="PongGameStd.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="View\AuralView\Events\AuralFeedback.h" />
-    <ClInclude Include="View\AuralView\PongAuralHumanView.h" />
-    <ClInclude Include="View\EventFeedback\PongFeedbackFactory.h" />
-    <ClInclude Include="View\GraphicalView\Events\GraphicalFeedback.h" />
-    <ClInclude Include="View\GraphicalView\PongGraphicalHumanView.h" />
-    <ClInclude Include="View\PongHumanView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

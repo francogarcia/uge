@@ -18,33 +18,31 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#include "PongGameStd.h"
+#pragma once
 
-// #include <vld.h>
+#include <Engine/GameLogic/BaseGameLogic.h>
+#include <Engine/GameLogic/GameState/BaseGameState.h>
 
-#define SG_UGE_ENABLE_PHYSICS  1
-#define SG_UGE_DEBUG_PHYSICS   1
-
-#define SG_USE_DEVELOPMENT_RESOURCE_FILE 1
-
-// Pong specific headers
-#include "Application/Application.h"
-
-#include <Utilities/Debug/Logger.h>
-
-int main()
+namespace pg
 {
-    uge::debug::log::Init("data/debug/LogConfig.xml");
-    //LOG_INFO("Game started.");
 
-    pg::Application game;
-    game.vInit();
-    game.vRun();
-    game.vDestroy();
+    namespace GameState
+    {
 
-    //LOG_INFO("Game finished.");
-    uge::debug::log::Destroy();
+        class Initializing : public uge::GameState::Initializing
+        {
+        public:
+            Initializing();
+            virtual ~Initializing();
 
-    return 0;
+            virtual bool vInit(uge::BaseGameLogic* pGameLogic) override;
+            virtual bool vTailorToProfile(const std::string& xmlResourceFilename) override;
+            virtual bool vDestroy() override;
+
+            virtual bool vOnUpdate(unsigned long timeElapsed) override;
+            virtual bool vOnRender(unsigned long timeElapsed) override;
+        };
+
+    }
+
 }
-

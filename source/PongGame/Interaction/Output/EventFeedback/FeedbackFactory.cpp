@@ -1,5 +1,5 @@
 /*
- * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
+ * (c) Copyright 2014 Franco Eusébio Garcia
  *
  * This file is part of UGE. 
  *
@@ -20,31 +20,26 @@
 
 #include "PongGameStd.h"
 
-// #include <vld.h>
+#include "FeedbackFactory.h"
 
-#define SG_UGE_ENABLE_PHYSICS  1
-#define SG_UGE_DEBUG_PHYSICS   1
+#include "AuralFeedback.h"
 
-#define SG_USE_DEVELOPMENT_RESOURCE_FILE 1
-
-// Pong specific headers
-#include "Application/Application.h"
-
-#include <Utilities/Debug/Logger.h>
-
-int main()
+namespace pg
 {
-    uge::debug::log::Init("data/debug/LogConfig.xml");
-    //LOG_INFO("Game started.");
 
-    pg::Application game;
-    game.vInit();
-    game.vRun();
-    game.vDestroy();
+    FeedbackFactory::FeedbackFactory()
+    {
 
-    //LOG_INFO("Game finished.");
-    uge::debug::log::Destroy();
+    }
 
-    return 0;
+    FeedbackFactory::~FeedbackFactory()
+    {
+
+    }
+
+    void FeedbackFactory::vInitFactory()
+    {
+        m_Factory.Register<pg::AuralFeedback>(pg::AuralFeedback::g_Name);
+    }
+
 }
-

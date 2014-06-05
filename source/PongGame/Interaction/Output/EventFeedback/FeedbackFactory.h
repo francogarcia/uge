@@ -1,5 +1,5 @@
 /*
- * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
+ * (c) Copyright 2014 Franco Eusébio Garcia
  *
  * This file is part of UGE. 
  *
@@ -16,35 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.
- */
+ */ 
 
-#include "PongGameStd.h"
+#pragma once
 
-// #include <vld.h>
+#include <Engine/GameView/ViewFeedback/ViewFeedbackFactory.h>
 
-#define SG_UGE_ENABLE_PHYSICS  1
-#define SG_UGE_DEBUG_PHYSICS   1
-
-#define SG_USE_DEVELOPMENT_RESOURCE_FILE 1
-
-// Pong specific headers
-#include "Application/Application.h"
-
-#include <Utilities/Debug/Logger.h>
-
-int main()
+namespace pg
 {
-    uge::debug::log::Init("data/debug/LogConfig.xml");
-    //LOG_INFO("Game started.");
 
-    pg::Application game;
-    game.vInit();
-    game.vRun();
-    game.vDestroy();
+    class FeedbackFactory : public uge::ViewFeedbackFactory
+    {
+    public:
+        FeedbackFactory();
+        ~FeedbackFactory();
 
-    //LOG_INFO("Game finished.");
-    uge::debug::log::Destroy();
+    protected:
+        virtual void vInitFactory() override;
+    };
 
-    return 0;
 }
-
