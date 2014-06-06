@@ -442,6 +442,9 @@ namespace pg
 
         void Running::StartGame()
         {
+            m_PlayerScore = 0;
+            m_OpponentScore = 0;
+
             uge::Vector3 initialDirection(1.0f, 0.0f, 1.0f);
             if (std::rand() % 2 == 1)
             {
@@ -453,6 +456,7 @@ namespace pg
 
         void Running::StartPointMatch(const uge::Vector3& initialDirection)
         {
+            StopActor(m_pBall);
             SetPosition(m_pBall, uge::Vector3(0.0f, 0.0f, 0.0f));
             ApplyForce(m_pBall, initialDirection, 400.0f);
 
@@ -524,13 +528,13 @@ namespace pg
         {
             if (collisionActorID == m_pLeftWall->GetActorID())
             {
-                ++m_Paddle2Score;
+                ++m_OpponentScore;
 
                 StartPointMatch(uge::Vector3(-1.0f, 0.0f, 1.0f));
             }
             else
             {
-                ++m_Paddle1Score;
+                ++m_PlayerScore;
 
                 StartPointMatch(uge::Vector3(1.0f, 0.0f, 1.0f));
             }
@@ -549,6 +553,8 @@ namespace pg
                                                                                                     info.sumNormalForce,
                                                                                                     info.sumFrictionForce,
                                                                                                     info.collisionPoints));
+            SetMaxVelocity(m_pBall);
+
             uge::IEventManager::Get()->vQueueEvent(pEvent);
         }
 

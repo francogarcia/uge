@@ -127,8 +127,8 @@ namespace pg
             uge::ActorSharedPointer m_pBottomWall;
 
             bool m_bPlaying;
-            unsigned int m_Paddle1Score;
-            unsigned int m_Paddle2Score;
+            unsigned int m_PlayerScore;
+            unsigned int m_OpponentScore;
 
             // Maps an actor's archetype to the resource that specializes it.
             std::map<std::string, std::string> m_ActorSpecializationResource;
