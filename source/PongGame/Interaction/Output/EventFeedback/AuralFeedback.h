@@ -126,29 +126,11 @@ namespace pg
 
         void RegisterDelegates(const AuralFeedback::Options& options)
         {
-            if (options.bEnableOnAlienDestroyed)
-            {
-                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnAlienDestroyed);
-                uge::IEventManager::Get()->vAddListener(functionDelegate, pg::AlienDestroyed::sk_EventType);
-            }
-
-            if (options.bEnableOnFireProjectile)
-            {
-                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnFireProjectile);
-                uge::IEventManager::Get()->vAddListener(functionDelegate, pg::FireProjectile::sk_EventType);
-            }
-
-            if (options.bEnableOnMoveActor)
-            {
-                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnMoveActor);
-                uge::IEventManager::Get()->vAddListener(functionDelegate, pg::MoveActor::sk_EventType);
-            }
-
-            if (options.bEnableOnStopActor)
-            {
-                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnStopActor);
-                uge::IEventManager::Get()->vAddListener(functionDelegate, pg::StopActor::sk_EventType);
-            }
+            //if (options.bEnableOnAlienDestroyed)
+            //{
+            //    uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnAlienDestroyed);
+            //    uge::IEventManager::Get()->vAddListener(functionDelegate, pg::AlienDestroyed::sk_EventType);
+            //}
         }
 
         void InitResourceCache(const std::string& fileName, unsigned int sizeMB)
@@ -182,30 +164,6 @@ namespace pg
             }
 
             return nullptr;
-        }
-
-        void OnAlienDestroyed(uge::IEventDataSharedPointer pEventData)
-        {
-            std::shared_ptr<pg::AlienDestroyed> pData = std::static_pointer_cast<pg::AlienDestroyed>(pEventData);
-
-            PlaySoundEffect("data/audio/effects/aural-feedback/explosion.ogg",
-                            0.1f, false, uge::Vector3(0.0f, 0.0f, 0.0f));
-        }
-
-        void OnFireProjectile(uge::IEventDataSharedPointer pEventData)
-        {
-            std::shared_ptr<pg::FireProjectile> pData = std::static_pointer_cast<pg::FireProjectile>(pEventData);
-
-            if (pData->GetType() == pg::FireProjectile::Type::Bullet)
-            {
-                PlaySoundEffect("data/audio/effects/aural-feedback/science_fiction_laser_007.ogg",
-                                0.1f, false, uge::Vector3(0.0f, 0.0f, 0.0f));
-            }
-            else
-            {
-                PlaySoundEffect("data/audio/effects/aural-feedback/musket_caplock_45_calibre_heavy_cartridge_firing.ogg",
-                                0.1f, false, uge::Vector3(0.0f, 0.0f, 0.0f));
-            }
         }
 
         void OnMoveActor(uge::IEventDataSharedPointer pEventData)

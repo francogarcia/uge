@@ -121,20 +121,6 @@ namespace pg
 
             m_LastPlayerMoveRight = bState;
         }
-
-        if (inputs.IsActionEnabled(uge::InputMapping::Action::FireBullet))
-        {
-            std::shared_ptr<pg::FireProjectile> pEvent(
-                LIB_NEW pg::FireProjectile(m_ActorID, FireProjectile::Type::Bullet));
-            uge::IEventManager::Get()->vQueueEvent(pEvent);
-        }
-
-        if (inputs.IsActionEnabled(uge::InputMapping::Action::FireBomb))
-        {
-            std::shared_ptr<pg::FireProjectile> pEvent(
-                LIB_NEW pg::FireProjectile(m_ActorID, FireProjectile::Type::Bomb));
-            uge::IEventManager::Get()->vQueueEvent(pEvent);
-        }
     }
 
     const std::string GameController::vGetInputContextListFilename()

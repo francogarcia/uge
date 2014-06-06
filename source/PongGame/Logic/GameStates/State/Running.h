@@ -68,6 +68,7 @@ namespace pg
             void LoadProfile(const std::string& xmlResourceFilename);
             void TailorActorToProfile(uge::ActorSharedPointer pActor);
 
+            // Specific game data management.
             void InitGameData();
             void StartGame();
             void StartPointMatch(const uge::Vector3& initialDirection);
@@ -75,9 +76,27 @@ namespace pg
             void RegisterEvents();
             void UnregisterEvents();
 
+            // Collision handling.
             void CollisionStarted(uge::IEventDataSharedPointer pEventData);
             void CollisionEnded(uge::IEventDataSharedPointer pEventData);
 
+            struct CollisionInfo
+            {
+                uge::Vector3 sumNormalForce;
+                uge::Vector3 sumFrictionForce;
+                uge::Vector3List collisionPoints;
+            };
+
+            void HandleCollision(uge::ActorID actorA, uge::ActorID actorB, CollisionInfo& info);
+            void HandleBallCollision(uge::ActorID collisionActorID, const CollisionInfo& info);
+            void HandleBallWallCollision(uge::ActorID collisionActorID, const CollisionInfo& info);
+            void HandleBallPaddleCollision(uge::ActorID collisionActorID, const CollisionInfo& info);
+            void HandlePaddleWallCollision(uge::ActorID actorA, uge::ActorID actorB, const CollisionInfo& info);
+
+            void HandleGoal(uge::ActorID collisionActorID, const CollisionInfo& info);
+            void HandleRebound(uge::ActorID collisionActorID, const CollisionInfo& info);
+
+            // Actor movement.
             void OnMoveActor(uge::IEventDataSharedPointer pEventData);
             void OnStopActor(uge::IEventDataSharedPointer pEventData);
 
@@ -102,7 +121,14 @@ namespace pg
 
             uge::ActorSharedPointer m_pBall;
 
+            uge::ActorSharedPointer m_pLeftWall;
+            uge::ActorSharedPointer m_pRightWall;
+            uge::ActorSharedPointer m_pTopWall;
+            uge::ActorSharedPointer m_pBottomWall;
+
             bool m_bPlaying;
+            unsigned int m_Paddle1Score;
+            unsigned int m_Paddle2Score;
 
             // Maps an actor's archetype to the resource that specializes it.
             std::map<std::string, std::string> m_ActorSpecializationResource;

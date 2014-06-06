@@ -140,6 +140,30 @@ namespace pg
                 return false;
             }
 
+            m_pTopWall = CreateAndRegisterActor("data/game/actors/wall-top.xml");
+            if (m_pTopWall == uge::ActorSharedPointer())
+            {
+                return false;
+            }
+
+            m_pBottomWall = CreateAndRegisterActor("data/game/actors/wall-bottom.xml");
+            if (m_pBottomWall == uge::ActorSharedPointer())
+            {
+                return false;
+            }
+
+            m_pRightWall = CreateAndRegisterActor("data/game/actors/wall-right.xml");
+            if (m_pRightWall == uge::ActorSharedPointer())
+            {
+                return false;
+            }
+
+            m_pLeftWall = CreateAndRegisterActor("data/game/actors/wall-left.xml");
+            if (m_pLeftWall == uge::ActorSharedPointer())
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -272,15 +296,14 @@ namespace pg
             if (m_pGameLogic->vGetActor(actorA).expired() ||
                 m_pGameLogic->vGetActor(actorB).expired())
             {
-                // Projectile hit more than an enemy. Destroy only the first.
                 return;
             }
 
-            uge::ActorSharedPointer pActorA = m_pGameLogic->vGetActor(actorA).lock();
-            uge::ActorSharedPointer pActorB = m_pGameLogic->vGetActor(actorB).lock();
-
-            const std::string actorTypeA = pActorA->GetActorType();
-            const std::string actorTypeB = pActorB->GetActorType();
+            CollisionInfo info;
+            info.collisionPoints = pData->GetCollisionPoints();
+            info.sumFrictionForce = pData->GetSumFrictionForce();
+            info.sumNormalForce = pData->GetSumNormalForce();
+            HandleCollision(actorA, actorB, info);
         }
 
         void Running::CollisionEnded(uge::IEventDataSharedPointer pEventData)
@@ -419,7 +442,7 @@ namespace pg
 
         void Running::StartGame()
         {
-            uge::Vector3 initialDirection(1.0f, 0.0f, 0.0f);
+            uge::Vector3 initialDirection(1.0f, 0.0f, 1.0f);
             if (std::rand() % 2 == 1)
             {
                 initialDirection.x = -1.0f;
@@ -434,6 +457,154 @@ namespace pg
             ApplyForce(m_pBall, initialDirection, 400.0f);
 
             m_bPlaying = true;
+        }
+
+        void Running::HandleCollision(uge::ActorID actorA, uge::ActorID actorB, CollisionInfo& info)
+        {
+            // Check if one of the actors is the ball.
+            if (actorA == m_pBall->GetActorID())
+            {
+                // Bullet does not always insert a contact point, so we add the ball's position.
+                if (info.collisionPoints.size() == 0)
+                {
+                    info.collisionPoints.push_back(GetPosition(m_pBall));
+                }
+
+                HandleBallCollision(actorB, info);
+            }
+            else if (actorB == m_pBall->GetActorID())
+            {
+                // Bullet does not always insert a contact point, so we add the ball's position.
+                if (info.collisionPoints.size() == 0)
+                {
+                    info.collisionPoints.push_back(GetPosition(m_pBall));
+                }
+
+                HandleBallCollision(actorA, info);
+            }
+            else
+            {
+                // The collision happened between a paddle and a wall.
+
+                // Bullet does not always insert a contact point, so we add the ball's position.
+                if (info.collisionPoints.size() == 0)
+                {
+                    info.collisionPoints.push_back(GetPosition(actorA));
+                }
+
+                HandlePaddleWallCollision(actorA, actorB, info);
+            }
+        }
+
+        void Running::HandleBallCollision(uge::ActorID collisionActorID, const CollisionInfo& info)
+        {
+            if (collisionActorID == m_pPlayer->GetActorID() || collisionActorID == m_pOpponent->GetActorID())
+            {
+                HandleBallPaddleCollision(collisionActorID, info);
+            }
+            else
+            {
+                HandleBallWallCollision(collisionActorID, info);
+            }
+        }
+
+        void Running::HandleBallWallCollision(uge::ActorID collisionActorID, const CollisionInfo& info)
+        {
+            if (collisionActorID == m_pLeftWall->GetActorID() || collisionActorID == m_pRightWall->GetActorID())
+            {
+                HandleGoal(collisionActorID, info);
+            }
+            else
+            {
+                HandleRebound(collisionActorID, info);
+            }
+        }
+
+        void Running::HandleGoal(uge::ActorID collisionActorID, const CollisionInfo& info)
+        {
+            if (collisionActorID == m_pLeftWall->GetActorID())
+            {
+                ++m_Paddle2Score;
+
+                StartPointMatch(uge::Vector3(-1.0f, 0.0f, 1.0f));
+            }
+            else
+            {
+                ++m_Paddle1Score;
+
+                StartPointMatch(uge::Vector3(1.0f, 0.0f, 1.0f));
+            }
+
+            std::shared_ptr<EvtData_Player_Scored> pScoredEvent(LIB_NEW EvtData_Player_Scored(collisionActorID));
+            uge::IEventManager::Get()->vQueueEvent(pScoredEvent);
+
+            std::shared_ptr<EvtData_Restart_Game> pRestartEvent(LIB_NEW EvtData_Restart_Game);
+            uge::IEventManager::Get()->vQueueEvent(pRestartEvent);
+        }
+
+        void Running::HandleRebound(uge::ActorID collisionActorID, const CollisionInfo& info)
+        {
+            std::shared_ptr<EvtData_Ball_Wall_Collision> pEvent(LIB_NEW EvtData_Ball_Wall_Collision(m_pBall->GetActorID(),
+                                                                                                    collisionActorID,
+                                                                                                    info.sumNormalForce,
+                                                                                                    info.sumFrictionForce,
+                                                                                                    info.collisionPoints));
+            uge::IEventManager::Get()->vQueueEvent(pEvent);
+        }
+
+        void Running::HandlePaddleWallCollision(uge::ActorID actorA, uge::ActorID actorB, const CollisionInfo& info)
+        {
+            uge::ActorID paddleID;
+            uge::ActorID wallID;
+            if (actorA == m_pPlayer->GetActorID())
+            {
+                paddleID = m_pPlayer->GetActorID();
+                wallID = actorB;
+            }
+            else if (actorB == m_pPlayer->GetActorID())
+            {
+                paddleID = m_pPlayer->GetActorID();
+                wallID = actorA;
+            }
+            else if (actorA == m_pOpponent->GetActorID())
+            {
+                paddleID = m_pOpponent->GetActorID();
+                wallID = actorB;
+            }
+            else if (actorB == m_pOpponent->GetActorID())
+            {
+                paddleID = m_pOpponent->GetActorID();
+                wallID = actorA;
+            }
+
+            StopActor(paddleID);
+
+            std::shared_ptr<EvtData_Paddle_Wall_Collision> pEvent(LIB_NEW EvtData_Paddle_Wall_Collision(paddleID,
+                                                                                                        wallID,
+                                                                                                        info.sumNormalForce,
+                                                                                                        info.sumFrictionForce,
+                                                                                                        info.collisionPoints));
+            uge::IEventManager::Get()->vQueueEvent(pEvent);
+        }
+
+        void Running::HandleBallPaddleCollision(uge::ActorID collisionActorID, const CollisionInfo& info)
+        {
+            // Dispatch paddle collision event
+            if (collisionActorID == m_pPlayer->GetActorID())
+            {
+                //ApplyForce(m_pBall, uge::Vector3(1.0f, 0.0f, 1.0f), 1000.0f);
+            }
+            else
+            {
+                //ApplyForce(m_pBall, uge::Vector3(-1.0f, 0.0f, -1.0f), 1000.0f);
+            }
+
+            std::shared_ptr<EvtData_Ball_Paddle_Collision> pEvent(LIB_NEW EvtData_Ball_Paddle_Collision(m_pBall->GetActorID(),
+                                                                                                        collisionActorID,
+                                                                                                        info.sumNormalForce,
+                                                                                                        info.sumFrictionForce,
+                                                                                                        info.collisionPoints));
+            uge::IEventManager::Get()->vQueueEvent(pEvent);
         }
 
     }
