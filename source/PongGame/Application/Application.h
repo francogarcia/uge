@@ -153,7 +153,7 @@ namespace pg
 
                 vAddGameView(pGameView);
 
-#ifdef UGE_DEBUG_PHYSICS
+#ifdef SG_UGE_DEBUG_PHYSICS
                 std::shared_ptr<pg::HumanView> pCastGameView = std::dynamic_pointer_cast<pg::HumanView>(pGameView);
                 m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
 #endif

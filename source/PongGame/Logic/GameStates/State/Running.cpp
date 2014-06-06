@@ -1,22 +1,22 @@
 /*
- * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
- *
- * This file is part of UGE. 
- *
- * UGE is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser GPL v3
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
- * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
- *
- * You should have received a copy of the GNU Lesser GPL v3
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA  02110-1301, USA.
- */
+* (c) Copyright 2013 - 2014 Franco Eusébio Garcia
+*
+* This file is part of UGE.
+*
+* UGE is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser GPL v3
+* as published by the Free Software Foundation.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+* http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
+*
+* You should have received a copy of the GNU Lesser GPL v3
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA  02110-1301, USA.
+*/
 
 #include "PongGameStd.h"
 
@@ -54,6 +54,8 @@ namespace pg
             {
                 return false;
             }
+
+            InitGameData();
 
             return true;
         }
@@ -97,6 +99,11 @@ namespace pg
         {
             bool bSuccess = uge::GameState::Running::vOnUpdate(timeElapsed);
 
+            if (!m_bPlaying)
+            {
+                StartGame();
+            }
+
             return bSuccess;
         }
 
@@ -115,8 +122,20 @@ namespace pg
 
         bool Running::CreateGameActors()
         {
-            m_pPlayer = CreateAndRegisterActor("data/game/actors/ball.xml");
+            m_pPlayer = CreateAndRegisterActor("data/game/actors/paddle-player1.xml");
             if (m_pPlayer == uge::ActorSharedPointer())
+            {
+                return false;
+            }
+
+            m_pOpponent = CreateAndRegisterActor("data/game/actors/paddle-player2.xml");
+            if (m_pOpponent == uge::ActorSharedPointer())
+            {
+                return false;
+            }
+
+            m_pBall = CreateAndRegisterActor("data/game/actors/ball.xml");
+            if (m_pBall == uge::ActorSharedPointer())
             {
                 return false;
             }
@@ -191,6 +210,8 @@ namespace pg
             if (entityResourceFileName == "")
             {
                 LOG_WARNING("Actor type " + pActor->GetActorType() + " is missing a specialization.");
+
+                return;
             }
 
             uge::XMLFile entityResource;
@@ -216,10 +237,10 @@ namespace pg
             functionDelegate = fastdelegate::MakeDelegate(this, &Running::CollisionEnded);
             uge::IEventManager::Get()->vAddListener(functionDelegate, uge::EvtData_PhysSeparation::sk_EventType);
 
-            functionDelegate = fastdelegate::MakeDelegate(this, &Running::MoveActor);
+            functionDelegate = fastdelegate::MakeDelegate(this, &Running::OnMoveActor);
             uge::IEventManager::Get()->vAddListener(functionDelegate, pg::MoveActor::sk_EventType);
 
-            functionDelegate = fastdelegate::MakeDelegate(this, &Running::StopActor);
+            functionDelegate = fastdelegate::MakeDelegate(this, &Running::OnStopActor);
             uge::IEventManager::Get()->vAddListener(functionDelegate, pg::StopActor::sk_EventType);
         }
 
@@ -232,10 +253,10 @@ namespace pg
             functionDelegate = fastdelegate::MakeDelegate(this, &Running::CollisionEnded);
             uge::IEventManager::Get()->vRemoveListener(functionDelegate, uge::EvtData_PhysSeparation::sk_EventType);
 
-            functionDelegate = fastdelegate::MakeDelegate(this, &Running::MoveActor);
+            functionDelegate = fastdelegate::MakeDelegate(this, &Running::OnMoveActor);
             uge::IEventManager::Get()->vRemoveListener(functionDelegate, pg::MoveActor::sk_EventType);
 
-            functionDelegate = fastdelegate::MakeDelegate(this, &Running::StopActor);
+            functionDelegate = fastdelegate::MakeDelegate(this, &Running::OnStopActor);
             uge::IEventManager::Get()->vRemoveListener(functionDelegate, pg::StopActor::sk_EventType);
         }
 
@@ -269,23 +290,116 @@ namespace pg
             printf("Actors %u and %u stopped colliding!\n", pData->GetActorA(), pData->GetActorB());
         }
 
-        void Running::MoveActor(uge::IEventDataSharedPointer pEventData)
+        void Running::OnMoveActor(uge::IEventDataSharedPointer pEventData)
         {
             std::shared_ptr<pg::MoveActor> pData = std::static_pointer_cast<pg::MoveActor>(pEventData);
 
             uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
 
             MoveActor::Direction direction = pData->GetDirection();
+            const float kfMagnitude = 100.0f;
             if (direction == MoveActor::Direction::Left)
             {
-                pPhysics->vApplyForce(pData->GetActorID(), uge::Vector3(1.0f, 0.0f, 0.0f), 1.0f);
+                pPhysics->vApplyForce(pData->GetActorID(), uge::Vector3(0.0f, 0.0f, -1.0f), kfMagnitude);
             }
             else
             {
-                pPhysics->vApplyForce(pData->GetActorID(), uge::Vector3(-1.0f, 0.0f, 0.0f), 1.0f);
+                pPhysics->vApplyForce(pData->GetActorID(), uge::Vector3(0.0f, 0.0f, 1.0f), kfMagnitude);
             }
 
             uge::ActorSharedPointer pActor = m_pGameLogic->vGetActor(pData->GetActorID()).lock();
+            uge::Component::BulletPhysicsComponentSharedPointer pActorPhysicsComponent =
+                pActor->GetComponent<uge::Component::BulletPhysicsComponent>(uge::Component::BulletPhysicsComponent::g_ComponentName).lock();
+
+            uge::Vector3 velocity = pActorPhysicsComponent->vGetVelocity();
+            float fCurrentVelocityMagnitude = velocity.Length();
+            if (fCurrentVelocityMagnitude != 0.0f)
+            {
+                float fMaxVelocityMagnitude = pActorPhysicsComponent->vGetMaxVelocity();
+                velocity *= (fMaxVelocityMagnitude / fCurrentVelocityMagnitude);
+
+                pActorPhysicsComponent->vSetVelocity(velocity);
+            }
+        }
+
+        void Running::OnStopActor(uge::IEventDataSharedPointer pEventData)
+        {
+            std::shared_ptr<pg::StopActor> pData = std::static_pointer_cast<pg::StopActor>(pEventData);
+
+            uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
+            pPhysics->vStopActor(pData->GetActorID());
+        }
+
+        uge::Vector3 Running::GetPosition(uge::ActorID actorID)
+        {
+            return GetPosition(m_pGameLogic->vGetActor(actorID).lock());
+        }
+
+        void Running::SetPosition(uge::ActorID actorID, const uge::Vector3& newPosition)
+        {
+            SetPosition(m_pGameLogic->vGetActor(actorID).lock(), newPosition);
+        }
+
+        void Running::ApplyForce(uge::ActorID actorID, const uge::Vector3& direction, float fNewtons)
+        {
+            return ApplyForce(m_pGameLogic->vGetActor(actorID).lock(), direction, fNewtons);
+        }
+
+        void Running::ApplyImpulse(uge::ActorID actorID, const uge::Vector3& direction, float fNewtons)
+        {
+            return ApplyImpulse(m_pGameLogic->vGetActor(actorID).lock(), direction, fNewtons);
+        }
+
+        void Running::StopActor(uge::ActorID actorID)
+        {
+            StopActor(m_pGameLogic->vGetActor(actorID).lock());
+        }
+
+        void Running::SetMaxVelocity(uge::ActorID actorID)
+        {
+            SetMaxVelocity(m_pGameLogic->vGetActor(actorID).lock());
+        }
+
+        uge::Vector3 Running::GetPosition(uge::ActorSharedPointer pActor)
+        {
+            uge::Component::TransformableComponentSharedPointer pActorTransformComponent =
+                pActor->GetComponent<uge::Component::TransformableComponent>(uge::Component::TransformableComponent::g_ComponentName).lock();
+
+            return pActorTransformComponent->GetPosition();
+        }
+
+        void Running::SetPosition(uge::ActorSharedPointer pActor, const uge::Vector3& newPosition)
+        {
+            uge::Component::TransformableComponentSharedPointer pActorTransformComponent =
+                pActor->GetComponent<uge::Component::TransformableComponent>(uge::Component::TransformableComponent::g_ComponentName).lock();
+            pActorTransformComponent->SetPosition(uge::Vector3(0.0f, 0.0f, 0.0f));
+
+            m_pGameLogic->vMoveActor(pActor->GetActorID(), pActorTransformComponent->GetTransform());
+        }
+
+        void Running::ApplyForce(uge::ActorSharedPointer pActor, const uge::Vector3& direction, float fNewtons)
+        {
+            uge::Component::BulletPhysicsComponentSharedPointer pActorPhysicsComponent =
+                pActor->GetComponent<uge::Component::BulletPhysicsComponent>(uge::Component::BulletPhysicsComponent::g_ComponentName).lock();
+            pActorPhysicsComponent->vApplyForce(direction, fNewtons);
+        }
+
+        void Running::ApplyImpulse(uge::ActorSharedPointer pActor, const uge::Vector3& direction, float fNewtons)
+        {
+            uge::Component::BulletPhysicsComponentSharedPointer pActorPhysicsComponent =
+                pActor->GetComponent<uge::Component::BulletPhysicsComponent>(uge::Component::BulletPhysicsComponent::g_ComponentName).lock();
+            pActorPhysicsComponent->vApplyTorque(direction, fNewtons);
+        }
+
+        void Running::StopActor(uge::ActorSharedPointer pActor)
+        {
+            uge::Component::BulletPhysicsComponentSharedPointer pActorPhysicsComponent =
+                pActor->GetComponent<uge::Component::BulletPhysicsComponent>(uge::Component::BulletPhysicsComponent::g_ComponentName).lock();
+            pActorPhysicsComponent->vStop();
+        }
+
+        void Running::SetMaxVelocity(uge::ActorSharedPointer pActor)
+        {
             uge::Component::BulletPhysicsComponentSharedPointer pActorPhysicsComponent =
                 pActor->GetComponent<uge::Component::BulletPhysicsComponent>(uge::Component::BulletPhysicsComponent::g_ComponentName).lock();
 
@@ -298,12 +412,28 @@ namespace pg
             pActorPhysicsComponent->vSetVelocity(velocity);
         }
 
-        void Running::StopActor(uge::IEventDataSharedPointer pEventData)
+        void Running::InitGameData()
         {
-            std::shared_ptr<pg::StopActor> pData = std::static_pointer_cast<pg::StopActor>(pEventData);
+            m_bPlaying = false;
+        }
 
-            uge::IPhysicsSharedPointer pPhysics = m_pGameLogic->vGetPhysics();
-            pPhysics->vStopActor(pData->GetActorID());
+        void Running::StartGame()
+        {
+            uge::Vector3 initialDirection(1.0f, 0.0f, 0.0f);
+            if (std::rand() % 2 == 1)
+            {
+                initialDirection.x = -1.0f;
+            }
+
+            StartPointMatch(initialDirection);
+        }
+
+        void Running::StartPointMatch(const uge::Vector3& initialDirection)
+        {
+            SetPosition(m_pBall, uge::Vector3(0.0f, 0.0f, 0.0f));
+            ApplyForce(m_pBall, initialDirection, 400.0f);
+
+            m_bPlaying = true;
         }
 
     }
