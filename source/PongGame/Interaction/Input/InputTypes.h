@@ -24,14 +24,15 @@
 
 enum class uge::InputMapping::Action : unsigned int
 {
-    FireBullet,
-    FireBomb,
+
 };
 
 enum class uge::InputMapping::State : unsigned int
 {
     PlayerMoveRight,
     PlayerMoveLeft,
+    OpponentMoveRight,
+    OpponentMoveLeft
 };
 
 enum class uge::InputMapping::Range : unsigned int

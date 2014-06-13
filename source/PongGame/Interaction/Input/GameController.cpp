@@ -63,6 +63,9 @@ namespace pg
         m_LastPlayerMoveLeft = false;
         m_LastPlayerMoveRight = false;
 
+        m_LastOpponentMoveLeft = false;
+        m_LastOpponentMoveRight = false;
+
         return true;
     }
 
@@ -120,6 +123,40 @@ namespace pg
             }
 
             m_LastPlayerMoveRight = bState;
+        }
+
+        bState = inputs.IsStateEnabled(uge::InputMapping::State::OpponentMoveLeft);
+        if (bState != m_LastOpponentMoveLeft)
+        {
+            if (bState)
+            {
+                std::shared_ptr<pg::MoveActor> pEvent(LIB_NEW pg::MoveActor(m_ActorID + 1, pg::MoveActor::Direction::Left));
+                uge::IEventManager::Get()->vQueueEvent(pEvent);
+            }
+            else
+            {
+                std::shared_ptr<pg::StopActor> pEvent(LIB_NEW pg::StopActor(m_ActorID + 1));
+                uge::IEventManager::Get()->vQueueEvent(pEvent);
+            }
+
+            m_LastOpponentMoveLeft = bState;
+        }
+
+        bState = inputs.IsStateEnabled(uge::InputMapping::State::OpponentMoveRight);
+        if (bState != m_LastOpponentMoveRight)
+        {
+            if (bState)
+            {
+                std::shared_ptr<pg::MoveActor> pEvent(LIB_NEW pg::MoveActor(m_ActorID + 1, pg::MoveActor::Direction::Right));
+                uge::IEventManager::Get()->vQueueEvent(pEvent);
+            }
+            else
+            {
+                std::shared_ptr<pg::StopActor> pEvent(LIB_NEW pg::StopActor(m_ActorID + 1));
+                uge::IEventManager::Get()->vQueueEvent(pEvent);
+            }
+
+            m_LastOpponentMoveRight = bState;
         }
     }
 

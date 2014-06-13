@@ -60,6 +60,9 @@ namespace pg
         bool m_LastPlayerMoveLeft;
         bool m_LastPlayerMoveRight;
 
+        bool m_LastOpponentMoveLeft;
+        bool m_LastOpponentMoveRight;
+
         uge::InputDevice::OISKeyboard m_Keyboard;
         uge::InputDevice::OISMouse m_Mouse;
     };
