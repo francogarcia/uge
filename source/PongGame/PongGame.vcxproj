@@ -105,6 +105,7 @@
     <ClCompile Include="Interaction\Input\InputTypes.cpp" />
     <ClCompile Include="Interaction\Output\EventFeedback\AuralFeedback.cpp" />
     <ClCompile Include="Interaction\Output\EventFeedback\FeedbackFactory.cpp" />
+    <ClCompile Include="Interaction\Output\FirstPersonHumanView.cpp" />
     <ClCompile Include="Interaction\Output\HumanView.cpp" />
     <ClCompile Include="Logic\Components\ActorFactory.cpp" />
     <ClCompile Include="Logic\Events\GameEvents.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Interaction\Input\InputTypes.h" />
     <ClInclude Include="Interaction\Output\EventFeedback\AuralFeedback.h" />
     <ClInclude Include="Interaction\Output\EventFeedback\FeedbackFactory.h" />
+    <ClInclude Include="Interaction\Output\FirstPersonHumanView.h" />
     <ClInclude Include="Interaction\Output\HumanView.h" />
     <ClInclude Include="Logic\Components\ActorFactory.h" />
     <ClInclude Include="Logic\Events\GameEvents.h" />

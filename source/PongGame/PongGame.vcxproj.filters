@@ -57,6 +57,9 @@
     <ClCompile Include="Interaction\Output\EventFeedback\FeedbackFactory.cpp">
       <Filter>Interaction\Output\EventFeedback</Filter>
     </ClCompile>
+    <ClCompile Include="Interaction\Output\FirstPersonHumanView.cpp">
+      <Filter>Interaction\Output</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PongGameStd.h" />
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="Interaction\Output\EventFeedback\FeedbackFactory.h">
       <Filter>Interaction\Output\EventFeedback</Filter>
+    </ClInclude>
+    <ClInclude Include="Interaction\Output\FirstPersonHumanView.h">
+      <Filter>Interaction\Output</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

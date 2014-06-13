@@ -115,6 +115,9 @@ namespace pg
         virtual uge::ICameraNodeSharedPointer vCreateCamera() override
         {
             const uge::WindowSettings::WindowSettingsData& windowSettings = m_PlayerProfile.GetOutputSettings().GetOutputSettingsData().window.GetWindowSettingsData();
+            const uge::GameplaySettings::GameplaySettingsData gameplaySettings = m_PlayerProfile.GetGameplaySettings().GetGameplaySettingsData();
+            // TODO: abstract the projection into a struct.
+            std::string projectionFileName = gameplaySettings.projectionSpecializationResource;
 
             uge::Frustum viewFrustum;
             float fAspectRatio = windowSettings.width / windowSettings.height;

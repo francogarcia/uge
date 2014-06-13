@@ -25,6 +25,7 @@
 #include <IO/Output/Audio/Implementation/OpenALSoft/OpenALSoftAudio.h>
 #include <IO/Output/Graphics/Implementation/Ogre3D/OgreGraphics.h>
 
+#include "../Interaction/Output/FirstPersonHumanView.h"
 #include "../Interaction/Output/HumanView.h"
 
 #include "../Logic/GameLogic.h"
@@ -150,6 +151,21 @@ namespace pg
                 uge::IGameViewSharedPointer pGameView(LIB_NEW pg::HumanView(&m_OutputManager,
                                                                             m_Resources.GetResourceCache(),
                                                                             m_PlayerProfiles.GetActiveProfile()));
+
+                vAddGameView(pGameView);
+
+#ifdef SG_UGE_DEBUG_PHYSICS
+                std::shared_ptr<pg::HumanView> pCastGameView = std::dynamic_pointer_cast<pg::HumanView>(pGameView);
+                m_pGameLogic->vEnablePhysicsDebug(pCastGameView->GetPhysicsDebugRenderer());
+#endif
+
+                return pGameView;
+            }
+            else if (profileName == "Blind")
+            {
+                uge::IGameViewSharedPointer pGameView(LIB_NEW pg::FirstPersonHumanView(&m_OutputManager,
+                                                                                       m_Resources.GetResourceCache(),
+                                                                                       m_PlayerProfiles.GetActiveProfile()));
 
                 vAddGameView(pGameView);
 

@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2013 - 2014 Franco Eusébio Garcia
  *
- * This file is part of UGE. 
+ * This file is part of UGE.
  *
  * UGE is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser GPL v3
@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
  * http://www.gnu.org/licenses/lgpl-3.0.txt for more details.
  *
  * You should have received a copy of the GNU Lesser GPL v3
@@ -45,18 +45,24 @@ namespace pg
         struct Options
         {
             Options()
-                : bEnableOnAlienDestroyed(false),
-                  bEnableOnFireProjectile(false),
-                  bEnableOnMoveActor(false),
-                  bEnableOnStopActor(false)
+                : bEnableOnRestartGame(false),
+                  bEnableOnPlayerScored(false),
+                  bEnableOnBallWallCollision(false),
+                  bEnableOnBallPaddleCollision(false),
+                  bEnableOnPaddleWallCollision(false),
+                  bEnableOnMovePaddle(false),
+                  bEnableOnStopPaddle(false)
             {
 
             }
 
-            bool bEnableOnAlienDestroyed;
-            bool bEnableOnFireProjectile;
-            bool bEnableOnMoveActor;
-            bool bEnableOnStopActor;
+            bool bEnableOnRestartGame;
+            bool bEnableOnPlayerScored;
+            bool bEnableOnBallWallCollision;
+            bool bEnableOnBallPaddleCollision;
+            bool bEnableOnPaddleWallCollision;
+            bool bEnableOnMovePaddle;
+            bool bEnableOnStopPaddle;
         };
 
         AuralFeedback()
@@ -90,21 +96,33 @@ namespace pg
 
                 bool bEventEnabled;
                 xmlElement.GetBoolAttribute("enabled", &bEventEnabled);
-                if (eventName == "OnAlienDestroyed")
+                if (eventName == "OnRestartGame")
                 {
-                    afOptions.bEnableOnAlienDestroyed = bEventEnabled;
+                    afOptions.bEnableOnRestartGame = bEventEnabled;
                 }
-                else if (eventName == "OnFireProjectile")
+                else if (eventName == "OnPlayerScored")
                 {
-                    afOptions.bEnableOnFireProjectile = bEventEnabled;
+                    afOptions.bEnableOnPlayerScored = bEventEnabled;
                 }
-                else if (eventName == "OnMoveActor")
+                else if (eventName == "OnBallWallCollision")
                 {
-                    afOptions.bEnableOnMoveActor = bEventEnabled;
+                    afOptions.bEnableOnBallWallCollision = bEventEnabled;
                 }
-                else if (eventName == "OnStopActor")
+                else if (eventName == "OnBallPaddleCollision")
                 {
-                    afOptions.bEnableOnStopActor = bEventEnabled;
+                    afOptions.bEnableOnBallPaddleCollision = bEventEnabled;
+                }
+                else if (eventName == "OnPaddleWallCollision")
+                {
+                    afOptions.bEnableOnPaddleWallCollision = bEventEnabled;
+                }
+                else if (eventName == "OnMovePaddle")
+                {
+                    afOptions.bEnableOnMovePaddle = bEventEnabled;
+                }
+                else if (eventName == "OnStopPaddle")
+                {
+                    afOptions.bEnableOnStopPaddle = bEventEnabled;
                 }
             }
 
@@ -112,7 +130,7 @@ namespace pg
 
             RegisterDelegates(afOptions);
 
-            InitResourceCache("data/", 20);
+            InitResourceCache("data/", 50);
 
             return true;
         }
@@ -126,11 +144,11 @@ namespace pg
 
         void RegisterDelegates(const AuralFeedback::Options& options)
         {
-            //if (options.bEnableOnAlienDestroyed)
-            //{
-            //    uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnAlienDestroyed);
-            //    uge::IEventManager::Get()->vAddListener(functionDelegate, pg::AlienDestroyed::sk_EventType);
-            //}
+            if (options.bEnableOnPlayerScored)
+            {
+                uge::EventListenerDelegate functionDelegate = fastdelegate::MakeDelegate(this, &AuralFeedback::OnPlayerScored);
+                uge::IEventManager::Get()->vAddListener(functionDelegate, EvtData_Player_Scored::sk_EventType);
+            }
         }
 
         void InitResourceCache(const std::string& fileName, unsigned int sizeMB)
@@ -168,12 +186,21 @@ namespace pg
 
         void OnMoveActor(uge::IEventDataSharedPointer pEventData)
         {
-            std::shared_ptr<pg::MoveActor> pData = std::static_pointer_cast<pg::MoveActor>(pEventData);            
+            std::shared_ptr<pg::MoveActor> pData = std::static_pointer_cast<pg::MoveActor>(pEventData);
         }
 
         void OnStopActor(uge::IEventDataSharedPointer pEventData)
         {
             std::shared_ptr<pg::StopActor> pData = std::static_pointer_cast<pg::StopActor>(pEventData);
+        }
+
+        void OnPlayerScored(uge::IEventDataSharedPointer pEventData)
+        {
+            std::shared_ptr<pg::EvtData_Player_Scored> pData = std::static_pointer_cast<pg::EvtData_Player_Scored>(pEventData);
+
+            printf("[AuralFeedback] Player %d scored!\n", pData->GetActorID());
+
+            PlaySoundEffect("data/audio/effects/aural-feedback/113698__huubjeroen__goalloop.wav", 0.1f, false);
         }
 
     private:
